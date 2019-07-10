@@ -7,7 +7,7 @@ using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Backend.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("sauna/sessions")]
     [ApiController]
     public class SessionsController : ApiController<ISessionLogic>
     {

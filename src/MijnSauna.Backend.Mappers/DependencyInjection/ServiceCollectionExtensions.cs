@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using MijnSauna.Backend.Mappers.Interfaces;
 using MijnSauna.Backend.Model;
@@ -7,6 +8,7 @@ using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Backend.Mappers.DependencyInjection
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
         public static void ConfigureMappers(this IServiceCollection serviceCollection)

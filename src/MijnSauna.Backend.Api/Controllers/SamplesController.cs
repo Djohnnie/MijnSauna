@@ -7,19 +7,19 @@ using MijnSauna.Common.DataTransferObjects.Samples;
 
 namespace MijnSauna.Backend.Api.Controllers
 {
-    [Route("api")]
+    [Route("sauna/sessions")]
     [ApiController]
     public class SamplesController : ApiController<ISampleLogic>
     {
         public SamplesController(ISampleLogic sampleLogic) : base(sampleLogic) { }
 
-        [HttpGet("sessions/{sessionId}/samples")]
+        [HttpGet("{sessionId}/samples")]
         public Task<IActionResult> GetSamplesForSession(Guid sessionId)
         {
             return Execute(x => x.GetSamplesForSession(sessionId));
         }
 
-        [HttpPost("sessions/{sessionId}/samples")]
+        [HttpPost("{sessionId}/samples")]
         public Task<IActionResult> CreateSampleForSession(Guid sessionId, [FromBody] CreateSampleForSessionRequest request)
         {
             return Execute(x => x.CreateSampleForSession(sessionId, request));
