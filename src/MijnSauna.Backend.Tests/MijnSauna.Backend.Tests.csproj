@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.11.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.6.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="FluentAssertions" Version="5.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Moq" Version="4.12.0" />
@@ -28,7 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MijnSauna.Backend.Common\MijnSauna.Backend.Common.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.DataAccess\MijnSauna.Backend.DataAccess.csproj" />
-    <ProjectReference Include="..\MijnSauna.Backend.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Logic\MijnSauna.Backend.Logic.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Mappers\MijnSauna.Backend.Mappers.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Model\MijnSauna.Backend.Model.csproj" />

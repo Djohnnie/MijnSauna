@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MijnSauna.Backend.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Logic\MijnSauna.Backend.Logic.csproj" />
     <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
   </ItemGroup>
