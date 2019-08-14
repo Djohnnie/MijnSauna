@@ -7,7 +7,6 @@ WORKDIR /app
 COPY bin/Release/publish /app
 
 EXPOSE 5000
-EXPOSE 5001
 
 ENV TZ=Europe/Brussels
 ENV CONNECTIONSTRING=...

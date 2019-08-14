@@ -21,8 +21,7 @@ namespace MijnSauna.Backend.Api
                     .UseKestrel()
                     .ConfigureKestrel((context, options) =>
                     {
-                        options.Listen(IPAddress.Any, 5000);
-                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+                        options.Listen(IPAddress.Any, 5000, listenOptions =>
                         {
                             listenOptions.UseHttps(certificateFileName, certificatePassword);
                         });
