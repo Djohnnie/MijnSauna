@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MijnSauna.Backend.Api.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
 using static System.Environment;
 
 namespace MijnSauna.Backend.Api
@@ -31,7 +31,7 @@ namespace MijnSauna.Backend.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
         }
 
