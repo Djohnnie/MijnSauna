@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace MijnSauna.Backend.Api
 {
@@ -13,19 +13,20 @@ namespace MijnSauna.Backend.Api
         {
             var certificateFileName = Environment.GetEnvironmentVariable("CERTIFICATE_FILENAME");
             var certificatePassword = Environment.GetEnvironmentVariable("CERTIFICATE_PASSWORD");
-            CreateWebHostBuilder(args, certificateFileName, certificatePassword).Build().Run();
+            CreateHostBuilder(args, certificateFileName, certificatePassword).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(String[] args, String certificateFileName, String certificatePassword) =>
-                WebHost.CreateDefaultBuilder(args)
-                    .UseKestrel()
-                    .ConfigureKestrel((context, options) =>
+        public static IHostBuilder CreateHostBuilder(string[] args, String certificateFileName, String certificatePassword) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseKestrel();
+                    webBuilder.ConfigureKestrel((context, options) =>
                     {
-                        options.Listen(IPAddress.Any, 5000, listenOptions =>
-                        {
-                            listenOptions.UseHttps(certificateFileName, certificatePassword);
-                        });
-                    })
-                    .UseStartup<Startup>();
+                        options.Listen(IPAddress.Any, 5000,
+                            listenOptions => { listenOptions.UseHttps(certificateFileName, certificatePassword); });
+                    });
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

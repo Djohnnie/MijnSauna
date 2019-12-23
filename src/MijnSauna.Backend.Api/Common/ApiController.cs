@@ -77,7 +77,7 @@ namespace MijnSauna.Backend.Api.Common
             {
                 return BadRequest(ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return ActionResult(500, 0);
             }

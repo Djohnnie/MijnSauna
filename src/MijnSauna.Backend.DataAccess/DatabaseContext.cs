@@ -36,16 +36,16 @@ namespace MijnSauna.Backend.DataAccess
         {
             modelBuilder.Entity<Session>(e =>
             {
-                e.ToTable("SESSIONS").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
-                e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.ToTable("SESSIONS").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
             });
 
             modelBuilder.Entity<Sample>(e =>
             {
-                e.ToTable("SAMPLES").HasKey(x => x.Id).ForSqlServerIsClustered(false);
-                e.Property<Int32>("SysId").UseSqlServerIdentityColumn();
-                e.HasIndex("SysId").ForSqlServerIsClustered();
+                e.ToTable("SAMPLES").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
             });
         }
     }
