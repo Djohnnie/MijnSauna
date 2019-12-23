@@ -16,10 +16,12 @@ variables:
 
 steps:
 
-- task: DotNetCoreInstaller@0
-  displayName: Install latest version of .NET Core SDK (3.1)
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK (3.1)'
   inputs:
-    version: '3.1.100'
+    packageType: sdk
+    version: 3.1.100
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
   displayName: Restore NuGet packages
@@ -57,7 +59,7 @@ steps:
     codecoverageTool: cobertura
 
 - script: |
-    dotnet publish ./src/MijnSauna.Backend.Api --configuration "Release" --output bin/Release/publish
+    dotnet publish ./src/MijnSauna.Backend.Api --configuration "Release" --output ./src/MijnSauna.Backend.Api/bin/Release/publish
 
 - script: |
     cd ./src/MijnSauna.Backend.Api
