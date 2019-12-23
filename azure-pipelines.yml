@@ -17,9 +17,9 @@ variables:
 steps:
 
 - task: DotNetCoreInstaller@0
-  displayName: Install latest version of .NET Core (2.2.6)
+  displayName: Install latest version of .NET Core SDK (3.1)
   inputs:
-    version: '2.2.301'
+    version: '3.1.100'
 
 - task: DotNetCoreCLI@2
   displayName: Restore NuGet packages
@@ -41,7 +41,7 @@ steps:
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*'
 
 - script: |
-    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.2.5
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.3.9
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/MijnSauna.Backend.Tests/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/src/MijnSauna.Backend.Tests/results" "-reporttypes:HTMLInline;HTMLChart"
 - task: PublishTestResults@2
   displayName: Publish test results
