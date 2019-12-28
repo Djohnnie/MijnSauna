@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MijnSauna.Middleware.Processor.DependencyInjection;
+using MijnSauna.Middleware.Processor.Workers;
 
 namespace MijnSauna.Middleware.Processor
 {
@@ -17,7 +18,8 @@ namespace MijnSauna.Middleware.Processor
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.ConfigureProcessor();
-                    services.AddHostedService<Worker>();
+                    services.AddHostedService<SessionWorker>();
+                    services.AddHostedService<SampleWorker>();
                 });
     }
 }
