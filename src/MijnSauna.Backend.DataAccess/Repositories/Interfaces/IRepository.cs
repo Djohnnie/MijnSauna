@@ -22,5 +22,9 @@ namespace MijnSauna.Backend.DataAccess.Repositories.Interfaces
         Task Update(TModel toUpdate);
 
         Task Update(IList<TModel> toUpdate);
+
+        Task Remove(TModel toRemove);
+
+        Task Remove(IList<TModel> toRemove);
     }
 }

@@ -64,6 +64,21 @@ namespace MijnSauna.Backend.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task Remove(TModel toRemove)
+        {
+            InternalRemove(toRemove);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Remove(IList<TModel> toRemove)
+        {
+            foreach (var entity in toRemove)
+            {
+                InternalRemove(entity);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         private void InternalUpdate(TModel toUpdate)
         {
             var trackedEntity = _dbContext.ChangeTracker.Entries<TModel>().SingleOrDefault(x => x.Entity.Id == toUpdate.Id);
@@ -72,6 +87,16 @@ namespace MijnSauna.Backend.DataAccess.Repositories
                 trackedEntity.State = EntityState.Detached;
             }
             _dbContext.Entry(toUpdate).State = EntityState.Modified;
+        }
+
+        private void InternalRemove(TModel toRemove)
+        {
+            var trackedEntity = _dbContext.ChangeTracker.Entries<TModel>().SingleOrDefault(x => x.Entity.Id == toRemove.Id);
+            if (trackedEntity != null)
+            {
+                trackedEntity.State = EntityState.Detached;
+            }
+            _dbContext.Entry(toRemove).State = EntityState.Deleted;
         }
     }
 }

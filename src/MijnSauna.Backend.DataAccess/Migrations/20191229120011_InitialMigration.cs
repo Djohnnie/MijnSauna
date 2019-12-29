@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MijnSauna.Backend.DataAccess.Migrations
@@ -11,12 +10,28 @@ namespace MijnSauna.Backend.DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CONFIGURATION",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    SysId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CONFIGURATION", x => x.Id)
+                        .Annotation("SqlServer:Clustered", false);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SESSIONS",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     SysId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Start = table.Column<DateTime>(nullable: false),
                     End = table.Column<DateTime>(nullable: false),
                     ActualEnd = table.Column<DateTime>(nullable: true),
@@ -38,7 +53,7 @@ namespace MijnSauna.Backend.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     SysId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TimeStamp = table.Column<DateTime>(nullable: false),
                     Temperature = table.Column<decimal>(nullable: false),
                     IsSaunaPowered = table.Column<bool>(nullable: false),
@@ -56,6 +71,18 @@ namespace MijnSauna.Backend.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CONFIGURATION_Name",
+                table: "CONFIGURATION",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CONFIGURATION_SysId",
+                table: "CONFIGURATION",
+                column: "SysId")
+                .Annotation("SqlServer:Clustered", true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SAMPLES_SessionId",
@@ -77,6 +104,9 @@ namespace MijnSauna.Backend.DataAccess.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CONFIGURATION");
+
             migrationBuilder.DropTable(
                 name: "SAMPLES");
 

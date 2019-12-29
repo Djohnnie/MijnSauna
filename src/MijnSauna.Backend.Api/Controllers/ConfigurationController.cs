@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MijnSauna.Backend.Api.Common;
 using MijnSauna.Backend.Logic.Interfaces;
+using MijnSauna.Common.DataTransferObjects.Configuration;
 
 namespace MijnSauna.Backend.Api.Controllers
 {
@@ -12,16 +12,28 @@ namespace MijnSauna.Backend.Api.Controllers
     {
         public ConfigurationController(IConfigurationLogic configurationLogic) : base(configurationLogic) { }
 
-        //[HttpGet]
-        //public Task<IActionResult> GetConfigurationValues()
-        //{
-        //    return Execute(x => x.GetConfigurationValues());
-        //}
+        [HttpGet]
+        public Task<IActionResult> GetConfigurationValues()
+        {
+            return Execute(x => x.GetConfigurationValues());
+        }
 
-        //[HttpPost]
-        //public Task<IActionResult> CreateConfigurationValue([FromBody] CreateSampleForSessionRequest request)
-        //{
-        //    return Execute(x => x.CreateSampleForSession(sessionId, request));
-        //}
+        [HttpPost]
+        public Task<IActionResult> CreateConfigurationValue([FromBody] CreateConfigurationValueRequest request)
+        {
+            return Execute(x => x.CreateConfigurationValue(request));
+        }
+
+        [HttpPut("{name}")]
+        public Task<IActionResult> UpdateConfigurationValue(string name, [FromBody] UpdateConfigurationValueRequest request)
+        {
+            return Execute(x => x.UpdateConfigurationValue(name, request));
+        }
+
+        [HttpDelete("{name}")]
+        public Task<IActionResult> RemoveConfigurationValue(string name)
+        {
+            return Execute(x => x.RemoveConfigurationValue(name));
+        }
     }
 }

@@ -16,7 +16,9 @@ namespace MijnSauna.Backend.Logic.DependencyInjection
         {
             serviceCollection.ConfigureDataAccess();
             serviceCollection.ConfigureMappers();
+            serviceCollection.AddTransient<IConfigurationLogic, ConfigurationLogic>();
             serviceCollection.AddTransient<ISessionLogic, SessionLogic>();
+            serviceCollection.AddTransient<ISampleLogic, SampleLogic>();
             serviceCollection.AddSingleton<IValidator<CreateSessionRequest>, CreateSessionRequestValidator>();
         }
     }

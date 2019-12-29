@@ -49,6 +49,16 @@ namespace MijnSauna.Backend.Api.Common
             });
         }
 
+        protected async Task<IActionResult> Execute(Func<TLogic, Task> logicCall)
+        {
+            return await Try(async () =>
+            {
+                var stopwatch = Stopwatch.StartNew();
+                await logicCall(_logic);
+                return ActionResult(200, stopwatch.ElapsedMilliseconds);
+            });
+        }
+
         protected async Task<IActionResult> Ok(Func<TLogic, Task> logicCall)
         {
             return await Try(async () =>
