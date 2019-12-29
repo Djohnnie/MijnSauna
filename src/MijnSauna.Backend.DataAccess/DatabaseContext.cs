@@ -11,8 +11,8 @@ namespace MijnSauna.Backend.DataAccess
     {
         private readonly IConfigurationHelper _configurationHelper;
 
+        public DbSet<ConfigurationValue> ConfigurationValues { get; set; }
         public DbSet<Session> Sessions { get; set; }
-
         public DbSet<Sample> Samples { get; set; }
 
         public DatabaseContext(IConfigurationHelper configurationHelper)
@@ -34,6 +34,16 @@ namespace MijnSauna.Backend.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ConfigurationValue>(e =>
+            {
+                e.ToTable("CONFIGURATION").HasKey(x => x.Id).IsClustered(false);
+                e.Property<Int32>("SysId").UseIdentityColumn();
+                e.HasIndex("SysId").IsClustered();
+                e.Property(p => p.Name).IsRequired();
+                e.HasIndex(x => x.Name).IsUnique();
+                e.Property(p => p.Value).IsRequired();
+            });
+
             modelBuilder.Entity<Session>(e =>
             {
                 e.ToTable("SESSIONS").HasKey(x => x.Id).IsClustered(false);

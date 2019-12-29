@@ -11,6 +11,7 @@ namespace MijnSauna.Backend.DataAccess.DependencyInjection
     {
         public static void ConfigureDataAccess(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddTransient<IRepository<ConfigurationValue>, ConfigurationValueRepository>();
             serviceCollection.AddTransient<IRepository<Session>, SessionRepository>();
             serviceCollection.AddTransient<IRepository<Sample>, SampleRepository>();
             serviceCollection.AddDbContext<DatabaseContext>();
