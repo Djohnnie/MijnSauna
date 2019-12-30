@@ -30,14 +30,19 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+
                 var activeSession = await _backendService.GetActiveSession();
-                if (activeSession == null)
+                if (activeSession != null)
                 {
-                    
+                    _sessionService.UpdateSession(activeSession);
+                }
+                else
+                {
+                    _sessionService.KillSession();
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation($"Active session polled at {DateTimeOffset.UtcNow}");
             }
         }
     }

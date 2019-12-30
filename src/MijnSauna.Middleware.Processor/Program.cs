@@ -18,6 +18,7 @@ namespace MijnSauna.Middleware.Processor
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.ConfigureProcessor();
+                    services.AddHostedService<ConfigurationWorker>();
                     services.AddHostedService<SessionWorker>();
                     services.AddHostedService<SampleWorker>();
                 });

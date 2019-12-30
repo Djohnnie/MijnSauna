@@ -1,9 +1,16 @@
 ﻿using System;
+using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Middleware.Processor.Services.Interfaces
 {
     public interface ISessionService
     {
-        Boolean IsActive();
+        bool IsActive();
+
+        Guid GetSessionId();
+        
+        void UpdateSession(GetActiveSessionResponse activeSession);
+        
+        void KillSession();
     }
 }

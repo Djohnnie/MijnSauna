@@ -29,23 +29,27 @@ namespace MijnSauna.Middleware.Processor.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
             while (!stoppingToken.IsCancellationRequested)
             {
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
                 if (_sessionService.IsActive())
                 {
+                    var sessionId = _sessionService.GetSessionId();
                     var sampleRequest = new CreateSampleForSessionRequest
                     {
-                        //IsInfraredPowered = _sessionService.IsInfraredPowered(),
-                        //IsSaunaPowered = _sessionService.IsSaunaPowered(),
-                        //Temperature = _gpioService.GetTemperature(),
+                        IsSaunaPowered = _gpioService.IsSaunaOn(),
+                        IsInfraredPowered = _gpioService.IsInfraredOn(),
+                        Temperature = await _gpioService.ReadTemperature(),
                         TimeStamp = DateTime.UtcNow
                     };
 
-                    //await _backendService.CreateSampleForSession(_sessionService.SessionId, sampleRequest);
+                    await _backendService.CreateSampleForSession(sessionId, sampleRequest);
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation($"Configuration updated at {DateTimeOffset.UtcNow}");
             }
         }
     }
