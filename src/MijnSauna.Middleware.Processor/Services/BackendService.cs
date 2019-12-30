@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using MijnSauna.Common.DataTransferObjects;
 using MijnSauna.Common.DataTransferObjects.Configuration;
 using MijnSauna.Common.DataTransferObjects.Samples;
 using MijnSauna.Common.DataTransferObjects.Sessions;
@@ -10,29 +12,31 @@ namespace MijnSauna.Middleware.Processor.Services
 {
     public class BackendService : IBackendService
     {
+        private readonly IConfiguration _configuration;
         private readonly RestClient _client;
 
-        public BackendService()
+        public BackendService(IConfiguration configuration)
         {
-            _client = new RestClient("https://localhost:5000");
+            _configuration = configuration;
+            _client = new RestClient(_configuration["BackendUrl"]);
         }
 
         public async Task<GetConfigurationValuesResponse> GetConfigurationValues()
         {
             var request = new RestRequest("configuration");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
-            var response = await _client.ExecuteGetTaskAsync<GetConfigurationValuesResponse>(request);
+            var response = await _client.ExecuteGetTaskAsync<ApiResult<GetConfigurationValuesResponse>>(request);
 
-            return response.IsSuccessful ? response.Data : null;
+            return response.IsSuccessful ? response.Data.Content : null;
         }
 
         public async Task<GetActiveSessionResponse> GetActiveSession()
         {
             var request = new RestRequest("sauna/sessions/active");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
-            var response = await _client.ExecuteGetTaskAsync<GetActiveSessionResponse>(request);
+            var response = await _client.ExecuteGetTaskAsync<ApiResult<GetActiveSessionResponse>>(request);
 
-            return response.IsSuccessful ? response.Data : null;
+            return response.IsSuccessful ? response.Data.Content : null;
         }
 
         public async Task CreateSampleForSession(Guid sessionId, CreateSampleForSessionRequest createSampleForSessionRequest)
@@ -40,7 +44,7 @@ namespace MijnSauna.Middleware.Processor.Services
             var request = new RestRequest($"sauna/sessions/{sessionId}/samples");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
             request.AddJsonBody(createSampleForSessionRequest);
-            var response = await _client.ExecuteGetTaskAsync<CreateSampleForSessionResponse>(request);
+            var response = await _client.ExecutePostTaskAsync<CreateSampleForSessionResponse>(request);
         }
     }
 }

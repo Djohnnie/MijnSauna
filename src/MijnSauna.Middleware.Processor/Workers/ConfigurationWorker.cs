@@ -25,13 +25,32 @@ namespace MijnSauna.Middleware.Processor.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            try
             {
-                var configuration = await _backendService.GetConfigurationValues();
-                _configurationService.UpdateConfiguration(configuration);
+                _logger.LogInformation($"{nameof(ConfigurationWorker)} started at {DateTimeOffset.UtcNow}");
 
-                _logger.LogInformation($"Configuration updated at {DateTimeOffset.UtcNow}");
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    var configuration = await _backendService.GetConfigurationValues();
+
+                    if (configuration != null)
+                    {
+                        _configurationService.UpdateConfiguration(configuration);
+                        _logger.LogInformation($"Configuration updated at {DateTimeOffset.UtcNow}");
+                    }
+                    else
+                    {
+                        _logger.LogError($"Configuration error {DateTimeOffset.UtcNow}");
+                    }
+
+                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                }
+
+                _logger.LogInformation($"{nameof(ConfigurationWorker)} stopped at {DateTimeOffset.UtcNow}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{nameof(ConfigurationWorker)} throws Exception {ex.Message} at {DateTimeOffset.UtcNow}");
             }
         }
     }

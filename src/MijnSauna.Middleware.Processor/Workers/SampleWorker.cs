@@ -29,6 +29,10 @@ namespace MijnSauna.Middleware.Processor.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            try 
+            { 
+            _logger.LogInformation($"{nameof(SampleWorker)} started at {DateTimeOffset.UtcNow}");
+
             await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
 
             while (!stoppingToken.IsCancellationRequested)
@@ -47,9 +51,20 @@ namespace MijnSauna.Middleware.Processor.Workers
                     };
 
                     await _backendService.CreateSampleForSession(sessionId, sampleRequest);
-                }
 
-                _logger.LogInformation($"Configuration updated at {DateTimeOffset.UtcNow}");
+                    _logger.LogInformation($"Sample for active session sent at {DateTimeOffset.UtcNow}");
+                }
+                else
+                {
+                    _logger.LogInformation($"No active session at {DateTimeOffset.UtcNow}");
+                }
+            }
+
+            _logger.LogInformation($"{nameof(SampleWorker)} stopped at {DateTimeOffset.UtcNow}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{nameof(SampleWorker)} throws Exception {ex.Message} at {DateTimeOffset.UtcNow}");
             }
         }
     }

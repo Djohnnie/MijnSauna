@@ -33,10 +33,7 @@ namespace MijnSauna.Middleware.Processor.Services
                 _gpioController.Write(_configurationService.InfraredOutputGpioPin, PinValue.High);
 
                 _gpioController.OpenPin(_configurationService.SaunaInputGpioPin, PinMode.Input);
-                _gpioController.Write(_configurationService.SaunaInputGpioPin, PinValue.High);
-
                 _gpioController.OpenPin(_configurationService.InfraredInputGpioPin, PinMode.Input);
-                _gpioController.Write(_configurationService.InfraredInputGpioPin, PinValue.High);
 
                 _initialized = true;
             }

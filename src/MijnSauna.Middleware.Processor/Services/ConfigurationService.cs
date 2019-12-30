@@ -16,7 +16,7 @@ namespace MijnSauna.Middleware.Processor.Services
         private const string SAUNA_HYSTERESIS = "SAUNA_HYSTERESIS";
         private const string INFRARED_HYSTERESIS = "INFRARED_HYSTERESIS";
         private const string SAUNA_DEFAULT_DURATION = "SAUNA_DEFAULT_DURATION";
-        private const string INFRARED_DEFAULT_DURATION = "SAUNA_DEFAULT_DURATION";
+        private const string INFRARED_DEFAULT_DURATION = "INFRARED_DEFAULT_DURATION";
         private const string SAUNA_DEFAULT_TEMPERATURE = "SAUNA_DEFAULT_TEMPERATURE";
         private const string INFRARED_DEFAULT_TEMPERATURE = "INFRARED_DEFAULT_TEMPERATURE";
 
