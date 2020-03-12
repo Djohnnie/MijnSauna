@@ -33,19 +33,25 @@ steps:
   displayName: Restore NuGet packages
   inputs:
     command: 'restore'
-    projects: '**/src/**/*.csproj'
+    projects: | 
+      **/src/MijnSauna.Common.*/*.csproj
+      **/src/MijnSauna.Backend.*/*.csproj
 
 - task: DotNetCoreCLI@2
   displayName: Build Solution
   inputs:
     command: 'build'
-    projects: '**/src/**/*.csproj'
+    projects: | 
+      **/src/MijnSauna.Common.*/*.csproj
+      **/src/MijnSauna.Backend.*/*.csproj
 
 - task: DotNetCoreCLI@2
   displayName: Run UnitTests
   inputs:
     command: 'test'
-    projects: '**/src/**/*.csproj'
+    projects: | 
+      **/src/MijnSauna.Common.*/*.csproj
+      **/src/MijnSauna.Backend.*/*.csproj
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*'
 
 - script: |
