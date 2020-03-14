@@ -25,10 +25,15 @@ steps:
 - task: XamarinAndroid@1
   inputs:
     projectFile: '**/MijnSauna.Frontend.Phone.Android.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
+    outputDirectory: $(outputDirectory)
+    configuration: Release
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(outputDirectory)'
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
     ArtifactName: 'MyApp'
