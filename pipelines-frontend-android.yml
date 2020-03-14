@@ -20,7 +20,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '**/*.sln'
+    restoreSolution: '**/MijnSauna.Frontend.sln'
 
 - task: XamarinAndroid@1
   inputs:

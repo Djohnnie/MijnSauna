@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MijnSauna.Backend.DataAccess\MijnSauna.Backend.DataAccess.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Mappers\MijnSauna.Backend.Mappers.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Model\MijnSauna.Backend.Model.csproj" />
     <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />

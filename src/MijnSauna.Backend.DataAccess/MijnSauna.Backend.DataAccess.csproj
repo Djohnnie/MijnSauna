@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MijnSauna.Backend.Common\MijnSauna.Backend.Common.csproj" />
     <ProjectReference Include="..\MijnSauna.Backend.Model\MijnSauna.Backend.Model.csproj" />
   </ItemGroup>
 
