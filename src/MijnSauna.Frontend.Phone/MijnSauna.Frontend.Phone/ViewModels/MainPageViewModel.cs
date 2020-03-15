@@ -1,11 +1,28 @@
-﻿using MijnSauna.Frontend.Phone.Services.Interfaces;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using MijnSauna.Frontend.Phone.Services.Interfaces;
 using System.Threading.Tasks;
+using MijnSauna.Frontend.Phone.Enums;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : INotifyPropertyChanged
     {
         private readonly IStatusBarService _statusBarService;
+
+
+        private SessionState _sessionState;
+
+        public SessionState SessionState
+        {
+            get => _sessionState;
+            set
+            {
+                _sessionState = value;
+                OnPropertyChanged(nameof(SessionState));
+            }
+        }
+
 
         public MainPageViewModel(IStatusBarService statusBarService)
         {
@@ -16,13 +33,18 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                 while (true)
                 {
                     await Task.Delay(2500);
-                    _statusBarService.SetStatusBarColorFromArgb(255, 255, 0, 0);
+                    SessionState = SessionState.Active;
                     await Task.Delay(2500);
-                    _statusBarService.SetStatusBarColorFromArgb(255, 0, 255, 0);
-                    await Task.Delay(2500);
-                    _statusBarService.SetStatusBarColorFromArgb(255, 0, 0, 255);
+                    SessionState = SessionState.None;
                 }
             });
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

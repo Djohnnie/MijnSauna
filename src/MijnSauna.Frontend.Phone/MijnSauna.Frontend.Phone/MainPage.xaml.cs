@@ -1,10 +1,7 @@
 ﻿using MijnSauna.Frontend.Phone.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using MijnSauna.Frontend.Phone.Services.Interfaces;
 using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone
@@ -14,11 +11,23 @@ namespace MijnSauna.Frontend.Phone
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageViewModel vm)
+        public MainPage(MainPageViewModel vm, IStatusBarService statusBarService)
         {
             InitializeComponent();
-
             BindingContext = vm;
+            
+            vm.PropertyChanged += async (o, args) =>
+            {
+                if (args.PropertyName == nameof(vm.SessionState))
+                {
+                    await Task.Delay(10);
+                    statusBarService.SetStatusBarColorFromArgb(
+                        (int)(BackgroundColor.A * 255),
+                        (int)(BackgroundColor.R * 255),
+                        (int)(BackgroundColor.G * 255),
+                        (int)(BackgroundColor.B * 255));
+                }
+            };
         }
     }
 }
