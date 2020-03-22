@@ -25,7 +25,7 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             var request = new RestRequest("configuration");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
-            var response = await _client.ExecuteGetTaskAsync<ApiResult<GetConfigurationValuesResponse>>(request);
+            var response = await _client.ExecuteGetAsync<ApiResult<GetConfigurationValuesResponse>>(request);
 
             return response.IsSuccessful ? response.Data.Content : null;
         }
@@ -34,7 +34,7 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             var request = new RestRequest("sauna/sessions/active");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
-            var response = await _client.ExecuteGetTaskAsync<ApiResult<GetActiveSessionResponse>>(request);
+            var response = await _client.ExecuteGetAsync<ApiResult<GetActiveSessionResponse>>(request);
 
             return response.IsSuccessful ? response.Data.Content : null;
         }
@@ -44,7 +44,7 @@ namespace MijnSauna.Middleware.Processor.Services
             var request = new RestRequest($"sauna/sessions/{sessionId}/samples");
             request.AddHeader("mijn-sauna", "97795bd8-e606-4085-9950-72fa35896dca");
             request.AddJsonBody(createSampleForSessionRequest);
-            var response = await _client.ExecutePostTaskAsync<CreateSampleForSessionResponse>(request);
+            var response = await _client.ExecutePostAsync<CreateSampleForSessionResponse>(request);
         }
     }
 }

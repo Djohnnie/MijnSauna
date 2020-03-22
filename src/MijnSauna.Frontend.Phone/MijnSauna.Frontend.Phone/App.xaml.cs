@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone
 {

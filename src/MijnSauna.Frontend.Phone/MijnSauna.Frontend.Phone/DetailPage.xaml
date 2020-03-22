@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
+             mc:Ignorable="d"
+             x:Class="MijnSauna.Frontend.Phone.DetailPage"
+             Title="Detail">
+    <d:ContentPage.BindingContext>
+        <design:DetailPageDesignViewModel />
+    </d:ContentPage.BindingContext>
+    <StackLayout Padding="10">
+    <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
+  </StackLayout>
+</ContentPage>

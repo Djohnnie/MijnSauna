@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design"
+             xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters;assembly=MijnSauna.Frontend.Phone"
+             mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.MainPageOld"
+             Appearing="MainPage_OnAppearing"
+             BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
+    <ContentPage.BindingContext>
+        <design:MainPageDesignViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
+                                                     NoneColor="#068DCD"
+                                                     ActiveColor="#F6462E" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Text="Mijn Sauna" TextColor="White"
+               FontFamily="Consolas" FontSize="49"
+               VerticalTextAlignment="Center"
+               HorizontalTextAlignment="Center"
+               Padding="10" />
+        <Grid Grid.Row="1" BackgroundColor="#FFFFFF" Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="Current temperature"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center" />
+            <Label Grid.Column="1" Text="Current power consumption"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center" />
+        </Grid>
+        <StackLayout Grid.Row="2" BackgroundColor="#55FFFFFF">
+            <!-- Place new controls here -->
+            <Label Text="Welcome to Xamarin.Forms dfgh gf hfdgh dfgh fdgh!" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

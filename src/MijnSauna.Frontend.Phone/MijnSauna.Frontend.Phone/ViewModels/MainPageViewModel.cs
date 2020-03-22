@@ -1,14 +1,18 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using MijnSauna.Frontend.Phone.Services.Interfaces;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Frontend.Phone.Enums;
+using MijnSauna.Frontend.Phone.Factories.Interfaces;
+using MijnSauna.Frontend.Phone.ViewModels.Base;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : ViewModelBase
     {
-        private readonly IStatusBarService _statusBarService;
+        private readonly IViewModelFactory _viewModelFactory;
+        private readonly ISessionClient _sessionClient;
+
+        public MainPageMasterViewModel MainPageMasterViewModel { get; }
+        public DetailPageViewModel DetailPageViewModel { get; }
 
 
         private SessionState _sessionState;
@@ -24,27 +28,20 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         }
 
 
-        public MainPageViewModel(IStatusBarService statusBarService)
+        public MainPageViewModel(
+            IViewModelFactory viewModelFactory,
+            ISessionClient sessionClient)
         {
-            _statusBarService = statusBarService;
+            _viewModelFactory = viewModelFactory;
+            _sessionClient = sessionClient;
 
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    await Task.Delay(2500);
-                    SessionState = SessionState.Active;
-                    await Task.Delay(2500);
-                    SessionState = SessionState.None;
-                }
-            });
+            MainPageMasterViewModel = _viewModelFactory.Get<MainPageMasterViewModel>();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public async Task OnAppearing()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var activeSession = await _sessionClient.GetActiveSession();
+            SessionState = activeSession == null ? SessionState.None : SessionState.Active;
         }
     }
 }
