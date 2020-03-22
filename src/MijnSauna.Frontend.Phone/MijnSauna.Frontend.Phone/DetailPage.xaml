@@ -6,11 +6,12 @@
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
              mc:Ignorable="d"
              x:Class="MijnSauna.Frontend.Phone.DetailPage"
-             Title="Detail">
+             Title="{Binding Title}">
     <d:ContentPage.BindingContext>
         <design:DetailPageDesignViewModel />
     </d:ContentPage.BindingContext>
     <StackLayout Padding="10">
-    <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
-  </StackLayout>
+        <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
+        <Label Text="{Binding Title}" />
+    </StackLayout>
 </ContentPage>

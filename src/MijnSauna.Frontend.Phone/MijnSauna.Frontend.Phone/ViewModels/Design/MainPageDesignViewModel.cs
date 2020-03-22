@@ -3,7 +3,7 @@
     public class MainPageDesignViewModel : MainPageViewModel
     {
         public MainPageDesignViewModel()
-            : base(null, null)
+            : base(null, null, null)
         {
 
         }

@@ -2,5 +2,9 @@
 {
     public class MainPageMasterDesignViewModel : MainPageMasterViewModel
     {
+        public MainPageMasterDesignViewModel() : base(null)
+        {
+
+        }
     }
 }

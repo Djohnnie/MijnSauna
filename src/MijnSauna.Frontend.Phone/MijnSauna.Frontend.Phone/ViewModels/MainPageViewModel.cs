@@ -1,18 +1,44 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Frontend.Phone.Enums;
 using MijnSauna.Frontend.Phone.Factories.Interfaces;
 using MijnSauna.Frontend.Phone.ViewModels.Base;
+using MijnSauna.Frontend.Phone.ViewModels.Events;
+using MijnSauna.Frontend.Phone.ViewModels.Helpers;
+using Reactive.EventAggregator;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private readonly IViewModelFactory _viewModelFactory;
         private readonly ISessionClient _sessionClient;
 
         public MainPageMasterViewModel MainPageMasterViewModel { get; }
-        public DetailPageViewModel DetailPageViewModel { get; }
+
+        private DetailPageViewModel _detailPageViewModel;
+
+        public DetailPageViewModel DetailPageViewModel
+        {
+            get => _detailPageViewModel;
+            set
+            {
+                _detailPageViewModel = value;
+                OnPropertyChanged(nameof(DetailPageViewModel));
+            }
+        }
+
+        private bool _isPresented;
+
+        public bool IsPresented
+        {
+            get => _isPresented;
+            set
+            {
+                _isPresented = value;
+                OnPropertyChanged(nameof(IsPresented));
+            }
+        }
 
 
         private SessionState _sessionState;
@@ -30,12 +56,30 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         public MainPageViewModel(
             IViewModelFactory viewModelFactory,
-            ISessionClient sessionClient)
+            ISessionClient sessionClient,
+            IEventAggregator eventAggregator)
         {
-            _viewModelFactory = viewModelFactory;
             _sessionClient = sessionClient;
 
-            MainPageMasterViewModel = _viewModelFactory.Get<MainPageMasterViewModel>();
+            MainPageMasterViewModel = viewModelFactory.Get<MainPageMasterViewModel>();
+            DetailPageViewModel = viewModelFactory.Get<DetailPageViewModel>();
+
+            eventAggregator.GetEvent<NavigationItemSelected>().Subscribe(e =>
+            {
+                switch (e.Type)
+                {
+                    case NavigationType.Home:
+                        DetailPageViewModel = viewModelFactory.Get<HomeViewModel>();
+                        break;
+                    case NavigationType.Settings:
+                        DetailPageViewModel = viewModelFactory.Get<SettingsViewModel>();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                IsPresented = false;
+            });
         }
 
         public async Task OnAppearing()

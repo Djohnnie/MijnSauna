@@ -6,12 +6,13 @@
              mc:Ignorable="d"
              x:Class="MijnSauna.Frontend.Phone.MainPage"
              xmlns:pages="clr-namespace:MijnSauna.Frontend.Phone"
-             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone">
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
+             IsPresented="{Binding IsPresented}">
     <d:MasterDetailPage.BindingContext>
         <design:MainPageDesignViewModel />
     </d:MasterDetailPage.BindingContext>
     <MasterDetailPage.Master>
-        <pages:MainPageMaster x:Name="MasterPage" BindingContext="{Binding MainPageMasterViewModel}" />
+        <pages:MainPageMaster BindingContext="{Binding MainPageMasterViewModel}" />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>
