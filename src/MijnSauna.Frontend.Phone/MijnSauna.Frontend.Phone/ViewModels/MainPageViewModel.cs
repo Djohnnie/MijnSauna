@@ -62,7 +62,18 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             _sessionClient = sessionClient;
 
             MainPageMasterViewModel = viewModelFactory.Get<MainPageMasterViewModel>();
-            DetailPageViewModel = viewModelFactory.Get<DetailPageViewModel>();
+            DetailPageViewModel = viewModelFactory.Get<HomeViewModel>();
+
+            _ = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    SessionState = SessionState.None;
+                    await Task.Delay(2000);
+                    SessionState = SessionState.Active;
+                    await Task.Delay(2000);
+                }
+            });
 
             eventAggregator.GetEvent<NavigationItemSelected>().Subscribe(e =>
             {

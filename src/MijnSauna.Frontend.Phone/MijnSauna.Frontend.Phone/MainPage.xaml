@@ -7,15 +7,31 @@
              x:Class="MijnSauna.Frontend.Phone.MainPage"
              xmlns:pages="clr-namespace:MijnSauna.Frontend.Phone"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
-             IsPresented="{Binding IsPresented}">
+                  xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters"
+                  IsPresented="{Binding IsPresented}" Appearing="MainPage_OnAppearing"                
+                  BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
     <d:MasterDetailPage.BindingContext>
         <design:MainPageDesignViewModel />
     </d:MasterDetailPage.BindingContext>
+
+    <MasterDetailPage.Resources>
+        <ResourceDictionary>
+            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
+                                                     NoneColor="#068DCD"
+                                                     ActiveColor="#F6462E" />
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"/>
+                <Setter Property="BarTextColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </MasterDetailPage.Resources>
+
     <MasterDetailPage.Master>
-        <pages:MainPageMaster BindingContext="{Binding MainPageMasterViewModel}" />
+        <pages:MainPageMaster BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
+                              BindingContext="{Binding MainPageMasterViewModel}" />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <NavigationPage>
+        <NavigationPage BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
             <x:Arguments>
                 <pages:DetailPage BindingContext="{Binding DetailPageViewModel}" />
             </x:Arguments>
