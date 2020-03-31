@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MijnSauna.Backend.Api.DependencyInjection;
+using MijnSauna.Backend.Api.Middleware;
+using MijnSauna.Backend.Api.Swagger;
 using static System.Environment;
 
 namespace MijnSauna.Backend.Api
@@ -27,11 +29,13 @@ namespace MijnSauna.Backend.Api
             services.ConfigureApi(c =>
             {
                 c.ConnectionString = GetEnvironmentVariable("CONNECTIONSTRING");
+                c.ClientId = GetEnvironmentVariable("CLIENT_ID");
             });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MijnSauna API", Version = "v1" });
+                c.OperationFilter<ClientIdHeaderParameterOperationFilter>();
             });
         }
 
@@ -41,6 +45,8 @@ namespace MijnSauna.Backend.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseHttpsRedirection();
 

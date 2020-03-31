@@ -5,6 +5,7 @@ namespace MijnSauna.Backend.Common.Interfaces
     public interface IConfigurationHelper
     {
         Guid Id { get; set; }
-        String ConnectionString { get; set; }
+        string ConnectionString { get; set; }
+        string ClientId { get; set; }
     }
 }

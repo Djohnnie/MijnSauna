@@ -12,6 +12,7 @@
         public const string OPENWEATHERMAP_HOST_BASE = "OPENWEATHERMAP_HOST_BASE";
         public const string OPENWEATHERMAP_CLIENT_ID = "OPENWEATHERMAP_CLIENT_ID";
         public const string OPENWEATHERMAP_CITY_ID = "OPENWEATHERMAP_CITY_ID";
+        public const string OPENWEATHERMAP_REGEX = "OPENWEATHERMAP_REGEX";
 
     }
 }
