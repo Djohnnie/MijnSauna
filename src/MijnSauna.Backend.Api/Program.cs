@@ -20,6 +20,7 @@ namespace MijnSauna.Backend.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    //webBuilder.UseIISIntegration();
                     webBuilder.UseKestrel();
                     webBuilder.ConfigureKestrel((context, options) =>
                     {

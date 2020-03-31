@@ -26,9 +26,6 @@
     <Compile Update="DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="MainPageOld.xaml.cs">
-      <DependentUpon>MainPageOld.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>

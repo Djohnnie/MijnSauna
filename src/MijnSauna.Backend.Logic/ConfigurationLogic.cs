@@ -13,13 +13,22 @@ namespace MijnSauna.Backend.Logic
     {
         private readonly IRepository<ConfigurationValue> _configurationRepository;
         private readonly IMapper<IList<ConfigurationValue>, GetConfigurationValuesResponse> _getConfigurationValuesResponseMapper;
+        private readonly IMapper<ConfigurationValue, GetConfigurationValueResponse> _getConfigurationValueResponseMapper;
+        private readonly IMapper<CreateConfigurationValueRequest, ConfigurationValue> _createConfigurationValueRequestMapper;
+        private readonly IMapper<ConfigurationValue, CreateConfigurationValueResponse> _createConfigurationValueResponseMapper;
 
         public ConfigurationLogic(
             IRepository<ConfigurationValue> configurationRepository,
-            IMapper<IList<ConfigurationValue>, GetConfigurationValuesResponse> getConfigurationValuesResponseMapper)
+            IMapper<IList<ConfigurationValue>, GetConfigurationValuesResponse> getConfigurationValuesResponseMapper,
+            IMapper<ConfigurationValue, GetConfigurationValueResponse> getConfigurationValueResponseMapper,
+            IMapper<CreateConfigurationValueRequest, ConfigurationValue> createConfigurationValueRequestMapper,
+            IMapper<ConfigurationValue, CreateConfigurationValueResponse> createConfigurationValueResponseMapper)
         {
             _configurationRepository = configurationRepository;
             _getConfigurationValuesResponseMapper = getConfigurationValuesResponseMapper;
+            _getConfigurationValueResponseMapper = getConfigurationValueResponseMapper;
+            _createConfigurationValueRequestMapper = createConfigurationValueRequestMapper;
+            _createConfigurationValueResponseMapper = createConfigurationValueResponseMapper;
         }
 
         public async Task<GetConfigurationValuesResponse> GetConfigurationValues()
@@ -29,9 +38,19 @@ namespace MijnSauna.Backend.Logic
             return response;
         }
 
-        public Task<CreateConfigurationValueResponse> CreateConfigurationValue(CreateConfigurationValueRequest request)
+        public async Task<GetConfigurationValueResponse> GetConfigurationValue(string name)
         {
-            throw new NotImplementedException();
+            var configurationValue = await _configurationRepository.Single(x => x.Name == name);
+            var response = _getConfigurationValueResponseMapper.Map(configurationValue);
+            return response;
+        }
+
+        public async Task<CreateConfigurationValueResponse> CreateConfigurationValue(CreateConfigurationValueRequest request)
+        {
+            var configurationValue = _createConfigurationValueRequestMapper.Map(request);
+            configurationValue = await _configurationRepository.Create(configurationValue);
+            var response = _createConfigurationValueResponseMapper.Map(configurationValue);
+            return response;
         }
 
         public Task<UpdateConfigurationValueResponse> UpdateConfigurationValue(string name, UpdateConfigurationValueRequest request)

@@ -7,6 +7,8 @@ namespace MijnSauna.Backend.Logic.Interfaces
     {
         Task<GetConfigurationValuesResponse> GetConfigurationValues();
 
+        Task<GetConfigurationValueResponse> GetConfigurationValue(string name);
+
         Task<CreateConfigurationValueResponse> CreateConfigurationValue(CreateConfigurationValueRequest request);
         
         Task<UpdateConfigurationValueResponse> UpdateConfigurationValue(string name, UpdateConfigurationValueRequest request);

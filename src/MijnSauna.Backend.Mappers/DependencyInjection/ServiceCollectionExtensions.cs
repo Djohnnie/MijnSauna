@@ -16,8 +16,11 @@ namespace MijnSauna.Backend.Mappers.DependencyInjection
         public static void ConfigureMappers(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IMapper<IList<ConfigurationValue>, GetConfigurationValuesResponse>, GetConfigurationValuesResponseMapper>();
+            serviceCollection.AddSingleton<IMapper<ConfigurationValue, GetConfigurationValueResponse>, GetConfigurationValueResponseMapper>();
+            serviceCollection.AddSingleton<IMapper<CreateConfigurationValueRequest, ConfigurationValue>, CreateConfigurationValueRequestMapper>();
+            serviceCollection.AddSingleton<IMapper<ConfigurationValue, CreateConfigurationValueResponse>, CreateConfigurationValueResponseMapper>();
 
-            serviceCollection.AddSingleton<IMapper<Session, GetActiveSessionResponse>, GetActiveSessionResponseMapper>();
+               serviceCollection.AddSingleton<IMapper<Session, GetActiveSessionResponse>, GetActiveSessionResponseMapper>();
 
             serviceCollection.AddSingleton<IMapper<Session, CreateSessionRequest>, CreateSessionRequestMapper>();
             serviceCollection.AddSingleton<IMapper<Session, CreateSessionResponse>, CreateSessionResponseMapper>();

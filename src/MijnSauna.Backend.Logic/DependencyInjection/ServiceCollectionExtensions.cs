@@ -5,6 +5,8 @@ using MijnSauna.Backend.Logic.Interfaces;
 using MijnSauna.Backend.Logic.Validation;
 using MijnSauna.Backend.Logic.Validation.Interfaces;
 using MijnSauna.Backend.Mappers.DependencyInjection;
+using MijnSauna.Backend.Sensors.Configuration;
+using MijnSauna.Backend.Sensors.DependencyInjection;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Backend.Logic.DependencyInjection
@@ -15,11 +17,15 @@ namespace MijnSauna.Backend.Logic.DependencyInjection
         public static void ConfigureLogic(this IServiceCollection serviceCollection)
         {
             serviceCollection.ConfigureDataAccess();
+            serviceCollection.ConfigureSensors();
             serviceCollection.ConfigureMappers();
             serviceCollection.AddTransient<IConfigurationLogic, ConfigurationLogic>();
             serviceCollection.AddTransient<ISessionLogic, SessionLogic>();
             serviceCollection.AddTransient<ISampleLogic, SampleLogic>();
+            serviceCollection.AddTransient<ISensorLogic, SensorLogic>();
             serviceCollection.AddSingleton<IValidator<CreateSessionRequest>, CreateSessionRequestValidator>();
+
+            serviceCollection.AddTransient<IConfigurationProxy, ConfigurationProxy>();
         }
     }
 }
