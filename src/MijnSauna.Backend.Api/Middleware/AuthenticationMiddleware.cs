@@ -19,6 +19,12 @@ namespace MijnSauna.Backend.Api.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            if(context.Request.Path.HasValue && context.Request.Path.Value.Contains("swagger"))
+            {
+                await _next.Invoke(context);
+                return;
+            }
+
             string authHeader = context.Request.Headers["ClientId"];
             if (authHeader != null)
             {
