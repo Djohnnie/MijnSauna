@@ -20,5 +20,18 @@ namespace MijnSauna.Frontend.Phone.Configuration
         }
 
         #endregion
+
+        #region <| ClientId |>
+
+        private const string IdClientId = "client_id";
+        private static readonly string DefaultClientId = string.Empty;
+
+        public string ClientId
+        {
+            get => AppSettings.GetValueOrDefault(IdClientId, DefaultClientId);
+            set => AppSettings.AddOrUpdateValue(IdClientId, value);
+        }
+
+        #endregion
     }
 }

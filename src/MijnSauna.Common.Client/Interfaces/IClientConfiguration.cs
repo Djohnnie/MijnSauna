@@ -3,5 +3,7 @@
     public interface IClientConfiguration
     {
         string ServiceBaseUrl { get; set; }
+
+        string ClientId { get; set; }
     }
 }

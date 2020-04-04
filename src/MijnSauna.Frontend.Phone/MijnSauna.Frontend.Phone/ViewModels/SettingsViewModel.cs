@@ -6,11 +6,16 @@ namespace MijnSauna.Frontend.Phone.ViewModels
     {
         private readonly IClientConfiguration _clientConfiguration;
 
-
         public string ServiceBaseUrl
         {
             get => _clientConfiguration.ServiceBaseUrl ?? string.Empty;
             set => _clientConfiguration.ServiceBaseUrl = value;
+        }
+
+        public string ClientId
+        {
+            get => _clientConfiguration.ClientId ?? string.Empty;
+            set => _clientConfiguration.ClientId = value;
         }
 
         public SettingsViewModel(IClientConfiguration clientConfiguration)

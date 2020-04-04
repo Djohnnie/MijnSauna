@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MijnSauna.Common.Client.Interfaces;
+using MijnSauna.Common.DataTransferObjects;
 using RestSharp;
 
 namespace MijnSauna.Common.Client
@@ -18,8 +19,9 @@ namespace MijnSauna.Common.Client
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
             var request = new RestRequest(resource, Method.GET);
-            var response = await client.ExecuteAsync<TResponse>(request);
-            return response.Data;
+            request.AddHeader("ClientId", _clientConfiguration.ClientId);
+            var response = await client.ExecuteAsync<ApiResult<TResponse>>(request);
+            return response.Data.Content;
         }
     }
 }

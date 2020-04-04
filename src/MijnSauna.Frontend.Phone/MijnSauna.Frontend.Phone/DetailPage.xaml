@@ -24,9 +24,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout Padding="10">
-        <Label Text="This is a detail page. To get the 'triple' line icon on each platform add a icon to each platform and update the 'Master' page with an Icon that references it."/>
-        <Label Text="{Binding Title}" />
-
         <TemplatedView BindingContext="{Binding}">
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">

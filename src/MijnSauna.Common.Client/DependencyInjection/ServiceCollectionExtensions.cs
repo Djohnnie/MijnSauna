@@ -12,6 +12,7 @@ namespace MijnSauna.Common.Client.DependencyInjection
             serviceCollection.AddTransient<IConfigurationClient, ConfigurationClient>();
             serviceCollection.AddTransient<ISessionClient, SessionClient>();
             serviceCollection.AddTransient<ISampleClient, SampleClient>();
+            serviceCollection.AddTransient<ISensorClient, SensorClient>();
 
             serviceCollection.AddSingleton<IServiceClient, ServiceClient>();
         }

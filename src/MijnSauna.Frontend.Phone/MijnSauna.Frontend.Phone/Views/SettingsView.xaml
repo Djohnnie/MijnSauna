@@ -12,8 +12,12 @@
     <ContentView.Content>
         <Grid>
             <StackLayout>
-                <Label Text="{Binding Title}" />
-                <Editor Text="{Binding ServiceBaseUrl}" />
+                <Label Text="Service URL" />
+                <Editor Text="{Binding ServiceBaseUrl}"
+                        Margin="0,0,0,20" />
+                <Label Text="ClientId" />
+                <Editor Text="{Binding ClientId}"
+                        Margin="0,0,0,20" />
             </StackLayout>
         </Grid>
     </ContentView.Content>

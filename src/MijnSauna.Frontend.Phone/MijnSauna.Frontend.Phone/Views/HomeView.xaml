@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
              mc:Ignorable="d"
              x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
+    <d:ContentView.BindingContext>
+        <design:HomeDesignViewModel />
+    </d:ContentView.BindingContext>
     <ContentView.Content>
-        <Grid BackgroundColor="Green">
-            <Label Text="{Binding Title}" />
+        <Grid>
+            <StackLayout>
+                <Label Text="{Binding PowerUsage}" FontSize="36" TextColor="White" />
+                <Label Text="{Binding OutsideTemperature}" FontSize="36" TextColor="White" />
+            </StackLayout>
         </Grid>
     </ContentView.Content>
 </ContentView>
