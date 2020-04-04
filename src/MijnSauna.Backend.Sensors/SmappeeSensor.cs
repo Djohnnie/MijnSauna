@@ -1,4 +1,5 @@
-﻿using MijnSauna.Backend.Sensors.Configuration;
+﻿using MijnSauna.Backend.Common.Constants;
+using MijnSauna.Backend.Sensors.Configuration;
 using MijnSauna.Backend.Sensors.Interfaces;
 using RestSharp;
 using System;
@@ -13,9 +14,11 @@ namespace MijnSauna.Backend.Sensors
     {
         private readonly IConfigurationProxy _configurationProxy;
 
-        private readonly string _loginUrl = "";
-        private readonly string _reportUrl = "";
-        private readonly string _logoutUrl = "";
+        private string _loginUrl;
+        private string _reportUrl;
+        private string _logoutUrl;
+        private string _admin;
+        private string _regex;
 
         public SmappeeSensor(
             IConfigurationProxy configurationProxy)
@@ -25,6 +28,7 @@ namespace MijnSauna.Backend.Sensors
 
         public async Task<int> GetPowerUsage()
         {
+            await ReadConfiguration();
             await Login();
             var result = await Report();
             await Logout();
@@ -36,7 +40,7 @@ namespace MijnSauna.Backend.Sensors
         {
             var client = new RestClient(_loginUrl);
             var request = new RestRequest(Method.POST);
-            request.Body = new RequestBody("application/json", "", "");
+            request.Body = new RequestBody("application/json", "", _admin);
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
@@ -53,7 +57,7 @@ namespace MijnSauna.Backend.Sensors
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
-                foreach (Match m in Regex.Matches(response.Content, @"activePower=(\d*\.?\d+) W"))
+                foreach (Match m in Regex.Matches(response.Content, _regex))
                 {
                     result = (int)Math.Round(Convert.ToDecimal(m.Groups[1].Value, CultureInfo.InvariantCulture));
                 }
@@ -66,12 +70,25 @@ namespace MijnSauna.Backend.Sensors
         {
             var client = new RestClient(_logoutUrl);
             var request = new RestRequest(Method.POST);
-            request.Body = new RequestBody("application/json", "", "");
+            request.Body = new RequestBody("application/json", "", _admin);
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
                 return;
             }
+        }
+
+        private async Task ReadConfiguration()
+        {
+            var hostBase = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_HOST_BASE);
+            var loginUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_LOGON_RESOURCE);
+            _loginUrl = $"{hostBase}/{loginUrl}";
+            var reportUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_REPORT_RESOURCE);
+            _reportUrl = $"{hostBase}/{reportUrl}";
+            var logoffUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_LOGOFF_RESOURCE);
+            _logoutUrl = $"{hostBase}/{logoffUrl}";
+            _admin = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_ADMIN);
+            _regex = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_REGEX);
         }
     }
 }

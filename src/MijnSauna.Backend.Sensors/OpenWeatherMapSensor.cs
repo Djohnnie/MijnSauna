@@ -1,4 +1,5 @@
-﻿using MijnSauna.Backend.Sensors.Configuration;
+﻿using MijnSauna.Backend.Common.Constants;
+using MijnSauna.Backend.Sensors.Configuration;
 using MijnSauna.Backend.Sensors.Interfaces;
 using RestSharp;
 using System;
@@ -13,7 +14,8 @@ namespace MijnSauna.Backend.Sensors
     {
         private readonly IConfigurationProxy _configurationProxy;
 
-        private string _url = "";
+        private string _url;
+        private string _regex;
 
         public OpenWeatherMapSensor(
             IConfigurationProxy configurationProxy)
@@ -23,6 +25,8 @@ namespace MijnSauna.Backend.Sensors
 
         public async Task<int> GetOutsideTemperature()
         {
+            await ReadConfiguration();
+
             var result = 0;
 
             var client = new RestClient(_url);
@@ -30,13 +34,22 @@ namespace MijnSauna.Backend.Sensors
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
-                foreach (Match m in Regex.Matches(response.Content, @"""temp"":(\d*\.?\d+),"))
+                foreach (Match m in Regex.Matches(response.Content, _regex))
                 {
                     result = (int)Math.Round(Convert.ToDecimal(m.Groups[1].Value, CultureInfo.InvariantCulture));
                 }
             }
 
             return result;
+        }
+
+        private async Task ReadConfiguration()
+        {
+            var hostBase = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_HOST_BASE);
+            var cityId = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_CITY_ID);
+            var appId = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_CLIENT_ID);
+            _regex = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_REGEX);
+            _url = $"{hostBase}?id={cityId}&appid={appId}&units=metric";
         }
     }
 }
