@@ -14,5 +14,6 @@
         public const string OPENWEATHERMAP_CITY_ID = "OPENWEATHERMAP_CITY_ID";
         public const string OPENWEATHERMAP_REGEX = "OPENWEATHERMAP_REGEX";
 
+        public const string SAUNASERVICE_HOST = "SAUNASERVICE_HOST";
     }
 }

@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\MijnSauna.Common.Protobuf\MijnSauna.Common.Protobuf.csproj" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ namespace MijnSauna.Backend.Sensors.DependencyInjection
         {
             serviceCollection.AddTransient<ISmappeeSensor, SmappeeSensor>();
             serviceCollection.AddTransient<IOpenWeatherMapSensor, OpenWeatherMapSensor>();
+            serviceCollection.AddTransient<ISaunaSensor, SaunaSensor>();
         }
     }
 }

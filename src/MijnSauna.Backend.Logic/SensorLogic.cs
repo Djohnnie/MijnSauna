@@ -1,24 +1,23 @@
 ﻿using MijnSauna.Backend.Logic.Interfaces;
 using MijnSauna.Backend.Sensors.Interfaces;
 using MijnSauna.Common.DataTransferObjects.Sensor;
-using System;
 using System.Threading.Tasks;
 
 namespace MijnSauna.Backend.Logic
 {
     public class SensorLogic : ISensorLogic
     {
-        private readonly IConfigurationLogic _configurationLogic;
         private readonly ISmappeeSensor _smappeeSensor;
+        private readonly ISaunaSensor _saunaSensor;
         private readonly IOpenWeatherMapSensor _openWeatherMapSensor;
 
         public SensorLogic(
-            IConfigurationLogic configurationLogic,
             ISmappeeSensor smappeeSensor,
+            ISaunaSensor saunaSensor,
             IOpenWeatherMapSensor openWeatherMapSensor)
         {
-            _configurationLogic = configurationLogic;
             _smappeeSensor = smappeeSensor;
+            _saunaSensor = saunaSensor;
             _openWeatherMapSensor = openWeatherMapSensor;
         }
 
@@ -33,7 +32,11 @@ namespace MijnSauna.Backend.Logic
 
         public async Task<GetSaunaTemperatureResponse> GetSaunaTemperature()
         {
-            throw new NotImplementedException();
+            var result = await _saunaSensor.GetTemperature();
+            return new GetSaunaTemperatureResponse
+            {
+                Temperature = result
+            };
         }
 
         public async Task<GetOutsideTemperatureResponse> GetOutsideTemperature()

@@ -6,7 +6,6 @@ namespace MijnSauna.Middleware.Processor.Controllers
     public class GpioController : IGpioController
     {
         private readonly System.Device.Gpio.GpioController _gpioController = new System.Device.Gpio.GpioController();
-        //private readonly System.Device.Gpio.GpioController _gpioController;
 
         public void OpenPin(int pinNumber, PinMode mode)
         {

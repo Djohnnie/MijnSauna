@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "MijnSauna.Common.Protobuf";
+
+package greet;
+
+service SaunaService {
+	rpc GetTemperature (GetTemperatureRequest) returns (GetTemperatureResponse);
+}
+
+message GetTemperatureRequest {
+}
+
+message GetTemperatureResponse {
+	int32 temperature = 1;
+}

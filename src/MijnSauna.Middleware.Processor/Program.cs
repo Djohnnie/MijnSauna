@@ -1,10 +1,12 @@
-using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
+using System.Net;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
-using MijnSauna.Middleware.Processor.DependencyInjection;
-using MijnSauna.Middleware.Processor.Workers;
 
 namespace MijnSauna.Middleware.Processor
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         public static void Main(string[] args)
@@ -15,12 +17,15 @@ namespace MijnSauna.Middleware.Processor
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSystemd()
-                .ConfigureServices((hostContext, services) =>
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    services.ConfigureProcessor();
-                    services.AddHostedService<ConfigurationWorker>();
-                    services.AddHostedService<SessionWorker>();
-                    services.AddHostedService<SampleWorker>();
+                    webBuilder.UseKestrel();
+                    webBuilder.ConfigureKestrel((context, options) =>
+                    {
+                        options.Listen(IPAddress.Any, 5050,
+                            configure => configure.Protocols = HttpProtocols.Http2);
+                    });
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }
