@@ -49,6 +49,12 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             set
             {
                 _sessionState = value;
+
+                if (DetailPageViewModel is HomeViewModel homeViewModel)
+                {
+                    homeViewModel.SessionState = value;
+                }
+
                 OnPropertyChanged(nameof(SessionState));
             }
         }

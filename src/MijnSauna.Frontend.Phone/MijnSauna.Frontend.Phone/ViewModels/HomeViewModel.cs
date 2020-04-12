@@ -1,5 +1,6 @@
 ﻿using MijnSauna.Common.Client.Interfaces;
 using System.Threading.Tasks;
+using MijnSauna.Frontend.Phone.Enums;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
@@ -26,6 +27,18 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             {
                 _outsideTemperature = value;
                 OnPropertyChanged(nameof(OutsideTemperature));
+            }
+        }
+
+        private SessionState _sessionState;
+
+        public SessionState SessionState
+        {
+            get => _sessionState;
+            set
+            {
+                _sessionState = value;
+                OnPropertyChanged(nameof(SessionState));
             }
         }
 

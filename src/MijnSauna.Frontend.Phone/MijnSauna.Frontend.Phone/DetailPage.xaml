@@ -23,7 +23,7 @@
             </ControlTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Padding="10">
+    <StackLayout Padding="0">
         <TemplatedView BindingContext="{Binding}">
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">
