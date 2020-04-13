@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MagicGradients" Version="1.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
     <PackageReference Include="Reactive.EventAggregator" Version="4.0.0" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1.1" />

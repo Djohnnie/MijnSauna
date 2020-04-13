@@ -21,7 +21,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         public SettingsViewModel(IClientConfiguration clientConfiguration)
         {
             _clientConfiguration = clientConfiguration;
-            Title = "Instellingen!!!";
+            Title = "Instellingen";
         }
     }
 }

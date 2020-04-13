@@ -4,21 +4,22 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
-             mc:Ignorable="d"
-             x:Class="MijnSauna.Frontend.Phone.Views.SettingsView">
+             mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.Views.SettingsView">
+
     <d:ContentView.BindingContext>
         <design:SettingsDesignViewModel />
     </d:ContentView.BindingContext>
+
     <ContentView.Content>
-        <Grid>
-            <StackLayout>
-                <Label Text="Service URL" />
-                <Editor Text="{Binding ServiceBaseUrl}"
+
+        <StackLayout Grid.Row="3" Padding="15">
+            <Label Text="Service URL" />
+            <Editor Text="{Binding ServiceBaseUrl}"
                         Margin="0,0,0,20" />
-                <Label Text="ClientId" />
-                <Editor Text="{Binding ClientId}"
+            <Label Text="ClientId" />
+            <Editor Text="{Binding ClientId}"
                         Margin="0,0,0,20" />
-            </StackLayout>
-        </Grid>
+        </StackLayout>
+
     </ContentView.Content>
 </ContentView>

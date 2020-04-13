@@ -6,14 +6,20 @@
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
              xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters;assembly=MijnSauna.Frontend.Phone"
              xmlns:views="clr-namespace:MijnSauna.Frontend.Phone.Views;assembly=MijnSauna.Frontend.Phone"
+             xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
              mc:Ignorable="d" x:Name="DetailPageParent"
-             x:Class="MijnSauna.Frontend.Phone.DetailPage"
-             Title="{Binding Title}">
+             x:Class="MijnSauna.Frontend.Phone.DetailPage">
+
     <d:ContentPage.BindingContext>
         <design:DetailPageDesignViewModel />
     </d:ContentPage.BindingContext>
+
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
+                                                     NoneColor="#068DCD"
+                                                     ActiveColor="#F6462E" />
+
             <converters:TypeNameConverter x:Key="TypeNameConverter" />
             <ControlTemplate x:Key="HomeTemplate">
                 <views:HomeView BindingContext="{Binding BindingContext, Source={x:Reference DetailPageParent}}" />
@@ -23,8 +29,30 @@
             </ControlTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Padding="0">
-        <TemplatedView BindingContext="{Binding}">
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="10" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <controls:SwirlControl Grid.Row="1" Margin="0"
+                               Color1="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
+                               Color2="White" />
+
+        <Grid Grid.Row="2" BackgroundColor="White" Margin="0" Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="0,-30,10,10" VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
+                   Text="{Binding Title}" TextColor="Gray" FontSize="18" FontAttributes="Bold" />
+        </Grid>
+
+        <TemplatedView Grid.Row="3" BindingContext="{Binding}" BackgroundColor="White">
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">
                     <Setter Property="ControlTemplate" Value="{StaticResource HomeTemplate}" />
@@ -34,5 +62,5 @@
                 </DataTrigger>
             </TemplatedView.Triggers>
         </TemplatedView>
-    </StackLayout>
+    </Grid>
 </ContentPage>

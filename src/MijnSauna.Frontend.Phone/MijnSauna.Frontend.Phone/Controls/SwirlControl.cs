@@ -1,6 +1,5 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
-using System;
 using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone.Controls
@@ -13,20 +12,12 @@ namespace MijnSauna.Frontend.Phone.Controls
             propertyName: nameof(Color1),
             returnType: typeof(Color),
             declaringType: typeof(SwirlControl),
-            defaultValue: Color.White,
-            defaultBindingMode: BindingMode.OneWay,
-            propertyChanged: Color1PropertyChanged);
-
-        private static void Color1PropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            
-        }
+            defaultValue: Color.White);
 
         public Color Color2 { get; set; }
 
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
-
             var paint = new SKPaint
             {
                 Color = Color2.ToSKColor(),
@@ -38,12 +29,6 @@ namespace MijnSauna.Frontend.Phone.Controls
             var canvas = e.Surface.Canvas;
 
             canvas.Clear(Color1.ToSKColor());
-
-            //var point1 = new SKPoint(bounds.Left, bounds.Top);
-            //var point2 = new SKPoint(bounds.Left + bounds.Width / 2, bounds.Top);
-            //var point3 = new SKPoint(bounds.Left + bounds.Width / 2, bounds.Top + bounds.Height);
-            //var point4 = new SKPoint(bounds.Left + bounds.Width, bounds.Top + bounds.Height);
-            //var point5 = new SKPoint(bounds.Left, bounds.Top + bounds.Height);
 
             var point1 = new SKPoint(0, bounds.Height);
             var point2 = new SKPoint(bounds.Width / 2, bounds.Height);

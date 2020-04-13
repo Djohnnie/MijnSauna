@@ -4,49 +4,18 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
-             xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
-             xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters;assembly=MijnSauna.Frontend.Phone"
-             mc:Ignorable="d"
-             x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
+             mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
 
     <d:ContentView.BindingContext>
         <design:HomeDesignViewModel />
     </d:ContentView.BindingContext>
 
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
-                                                     NoneColor="#068DCD"
-                                                     ActiveColor="#F6462E" />
-        </ResourceDictionary>
-    </ContentView.Resources>
-
     <ContentView.Content>
-        <Grid ColumnSpacing="0" RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="500" />
-            </Grid.RowDefinitions>
 
-            <StackLayout Grid.Row="0" Margin="0" Padding="0">
-                <Label Text="{Binding PowerUsage}" FontSize="36" TextColor="White" />
-                <Label Text="{Binding OutsideTemperature}" FontSize="36" TextColor="White" />
-            </StackLayout>
+        <StackLayout Margin="0" Padding="0">
+            <Label Text="{Binding PowerUsage}" FontSize="36" TextColor="Black" />
+            <Label Text="{Binding OutsideTemperature}" FontSize="36" TextColor="Black" />
+        </StackLayout>
 
-            <controls:SwirlControl Grid.Row="1" Margin="0"
-                                   Color1="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
-                                   Color2="White" />
-
-            <Grid Grid.Row="2" BackgroundColor="White" Margin="0" Padding="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Margin="0,-30,10,10" VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
-                       Text="Instellingen" TextColor="Gray" FontSize="18" FontAttributes="Bold" />
-            </Grid>
-        </Grid>
     </ContentView.Content>
 </ContentView>

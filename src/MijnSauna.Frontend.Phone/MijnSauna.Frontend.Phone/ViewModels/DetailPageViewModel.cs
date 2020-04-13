@@ -1,4 +1,5 @@
-﻿using MijnSauna.Frontend.Phone.ViewModels.Base;
+﻿using MijnSauna.Frontend.Phone.Enums;
+using MijnSauna.Frontend.Phone.ViewModels.Base;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
@@ -13,6 +14,18 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             {
                 _title = value;
                 OnPropertyChanged(nameof(Title));
+            }
+        }
+
+        private SessionState _sessionState;
+
+        public SessionState SessionState
+        {
+            get => _sessionState;
+            set
+            {
+                _sessionState = value;
+                OnPropertyChanged(nameof(SessionState));
             }
         }
     }
