@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Common.DataTransferObjects;
 using RestSharp;
@@ -15,13 +16,18 @@ namespace MijnSauna.Common.Client
             _clientConfiguration = clientConfiguration;
         }
 
-        public async Task<TResponse> Get<TResponse>(string resource)
+        public async Task<TResponse> Get<TResponse>(string resource) where TResponse : new()
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
             var request = new RestRequest(resource, Method.GET);
             request.AddHeader("ClientId", _clientConfiguration.ClientId);
             var response = await client.ExecuteAsync<ApiResult<TResponse>>(request);
-            return response.Data.Content;
+            if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
+            {
+                return response.Data.Content;
+            }
+
+            return new TResponse();
         }
     }
 }

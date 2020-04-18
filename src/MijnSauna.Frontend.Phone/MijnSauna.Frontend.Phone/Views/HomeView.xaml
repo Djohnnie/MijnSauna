@@ -10,12 +10,61 @@
         <design:HomeDesignViewModel />
     </d:ContentView.BindingContext>
 
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="mijnsauna.ttf#fontello" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
     <ContentView.Content>
 
-        <StackLayout Margin="0" Padding="0">
-            <Label Text="{Binding PowerUsage}" FontSize="36" TextColor="Black" />
-            <Label Text="{Binding OutsideTemperature}" FontSize="36" TextColor="Black" />
-        </StackLayout>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Frame Grid.Row="0" CornerRadius="15" HasShadow="True" Margin="20,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalTextAlignment="Center" 
+                               Text="&#xe802;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="Black" />
+                        <Label Grid.Column="1" VerticalTextAlignment="Center"
+                               Text="{Binding PowerUsage}" FontSize="36" TextColor="Black" />
+                    </Grid>
+                </Frame>
+
+                <Frame Grid.Row="1" CornerRadius="15" HasShadow="True" Margin="20,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="&#xe800;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" />
+                        <Label Text="{Binding SaunaTemperature}" FontSize="36" TextColor="Black" />
+                    </StackLayout>
+                </Frame>
+
+                <Frame Grid.Row="2" CornerRadius="15" HasShadow="True" Margin="20,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="&#xe801;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" />
+                        <Label Text="{Binding OutsideTemperature}" FontSize="36" TextColor="Black" />
+                    </StackLayout>
+                </Frame>
+
+                <Frame Grid.Row="3" CornerRadius="15" HasShadow="True" Margin="20,10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="&#xe800;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" />
+                        <Label Text="{Binding CurrentTime}" FontSize="36" TextColor="Black" />
+                    </StackLayout>
+                </Frame>
+
+            </Grid>
+        </ScrollView>
 
     </ContentView.Content>
 </ContentView>

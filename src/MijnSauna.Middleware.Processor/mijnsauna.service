@@ -1,4 +1,4 @@
-[ "Unit" ]
+[Unit]
 Description=MijnSauna.Middleware.Processor
 
 [Service]

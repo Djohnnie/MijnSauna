@@ -4,6 +4,6 @@ namespace MijnSauna.Common.Client.Interfaces
 {
     public interface IServiceClient
     {
-        Task<TResponse> Get<TResponse>(string resource);
+        Task<TResponse> Get<TResponse>(string resource) where TResponse : new();
     }
 }

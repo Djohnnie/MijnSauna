@@ -35,13 +35,11 @@ namespace MijnSauna.Backend.Api.Middleware
                 else
                 {
                     context.Response.StatusCode = 401;
-                    return;
                 }
             }
             else
             {
                 context.Response.StatusCode = 401;
-                return;
             }
         }
     }

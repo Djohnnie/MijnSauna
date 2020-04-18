@@ -27,6 +27,10 @@
             <ControlTemplate x:Key="SettingsTemplate">
                 <views:SettingsView BindingContext="{Binding BindingContext, Source={x:Reference DetailPageParent}}" />
             </ControlTemplate>
+
+            <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="mijnsauna.ttf#fontello" />
+            </OnPlatform>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -38,11 +42,22 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Margin="10,5,10,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
+                   Text="&#xe800;" FontSize="90" TextColor="DarkOrange" FontFamily="{StaticResource MijnSaunaFont}" />
+            <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
+                   Text="mijn sauna" FontSize="40" TextColor="DarkOrange" />
+        </Grid>
+
         <controls:SwirlControl Grid.Row="1" Margin="0"
                                Color1="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
-                               Color2="White" />
+                               Color2="#DDDDDD" />
 
-        <Grid Grid.Row="2" BackgroundColor="White" Margin="0" Padding="0">
+        <Grid Grid.Row="2" BackgroundColor="#DDDDDD" Margin="0" Padding="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
                 <RowDefinition />
@@ -52,7 +67,7 @@
                    Text="{Binding Title}" TextColor="Gray" FontSize="18" FontAttributes="Bold" />
         </Grid>
 
-        <TemplatedView Grid.Row="3" BindingContext="{Binding}" BackgroundColor="White">
+        <TemplatedView Grid.Row="3" BindingContext="{Binding}" BackgroundColor="#DDDDDD">
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">
                     <Setter Property="ControlTemplate" Value="{StaticResource HomeTemplate}" />

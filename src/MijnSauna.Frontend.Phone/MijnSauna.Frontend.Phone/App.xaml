@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="MijnSauna.Frontend.Phone.App">
     <Application.Resources>
+        
 
     </Application.Resources>
 </Application>
