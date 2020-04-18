@@ -4,6 +4,8 @@ using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Frontend.Phone.Configuration;
 using MijnSauna.Frontend.Phone.Factories;
 using MijnSauna.Frontend.Phone.Factories.Interfaces;
+using MijnSauna.Frontend.Phone.Helpers;
+using MijnSauna.Frontend.Phone.Helpers.Interfaces;
 using MijnSauna.Frontend.Phone.ViewModels;
 using Reactive.EventAggregator;
 
@@ -27,6 +29,8 @@ namespace MijnSauna.Frontend.Phone.DependencyInjection
             serviceCollection.AddSingleton<IClientConfiguration, ClientConfiguration>();
 
             serviceCollection.AddSingleton<IViewModelFactory, ViewModelFactory>();
+
+            serviceCollection.AddTransient<ITimerHelper, TimerHelper>();
         }
     }
 }

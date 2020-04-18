@@ -1,11 +1,17 @@
 ﻿using System;
 using MijnSauna.Common.Client.Interfaces;
 using System.Threading.Tasks;
+using MijnSauna.Frontend.Phone.Helpers.Interfaces;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
     public class HomeViewModel : DetailPageViewModel
     {
+        private readonly ITimerHelper _timerHelper;
+        private readonly ISensorClient _sensorClient;
+
+        #region <| PowerUsage |>
+
         private string _powerUsage;
 
         public string PowerUsage
@@ -17,6 +23,10 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                 OnPropertyChanged(nameof(PowerUsage));
             }
         }
+
+        #endregion
+
+        #region <| SaunaTemperature |>
 
         private string _saunaTemperature;
 
@@ -30,6 +40,10 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
         }
 
+        #endregion
+
+        #region <| OutsideTemperature |>
+
         private string _outsideTemperature;
 
         public string OutsideTemperature
@@ -41,6 +55,10 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                 OnPropertyChanged(nameof(OutsideTemperature));
             }
         }
+
+        #endregion
+
+        #region <| CurrentTime |>
 
         private string _currentTime;
 
@@ -54,32 +72,29 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
         }
 
-        public HomeViewModel(ISensorClient sensorClient)
+        #endregion
+
+        public HomeViewModel(
+            ITimerHelper timerHelper,
+            ISensorClient sensorClient)
         {
-            Title = "Mijn Sauna";
+            _timerHelper = timerHelper;
+            _sensorClient = sensorClient;
 
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    var powerUsage = await sensorClient.GetPowerUsage();
-                    PowerUsage = $"{powerUsage.PowerUsage} W";
-                    var saunaTemperature = await sensorClient.GetSaunaTemperature();
-                    SaunaTemperature = $"{saunaTemperature.Temperature} °C";
-                    var outsideTemperature = await sensorClient.GetOutsideTemperature();
-                    OutsideTemperature = $"{outsideTemperature.Temperature} °C";
-                    await Task.Delay(10000);
-                }
-            });
+            Title = "Overzicht";
 
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    CurrentTime = $"{DateTime.Now:HH:mm}";
-                    await Task.Delay(10000);
-                }
-            });
+            _timerHelper.Start(RefreshData, 10000);
+        }
+
+        private async Task RefreshData()
+        {
+            var powerUsage = await _sensorClient.GetPowerUsage();
+            PowerUsage = $"{powerUsage.PowerUsage} W";
+            var saunaTemperature = await _sensorClient.GetSaunaTemperature();
+            SaunaTemperature = $"{saunaTemperature.Temperature} °C";
+            var outsideTemperature = await _sensorClient.GetOutsideTemperature();
+            OutsideTemperature = $"{outsideTemperature.Temperature} °C";
+            CurrentTime = $"{DateTime.Now:HH:mm}";
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class HomeDesignViewModel : HomeViewModel
     {
-        public HomeDesignViewModel() : base(null)
+        public HomeDesignViewModel() : base(null, null)
         {
 
         }
