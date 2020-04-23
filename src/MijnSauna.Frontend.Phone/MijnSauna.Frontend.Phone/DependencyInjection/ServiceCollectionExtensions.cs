@@ -22,6 +22,7 @@ namespace MijnSauna.Frontend.Phone.DependencyInjection
             serviceCollection.AddTransient<MainPageMasterViewModel>();
             serviceCollection.AddTransient<DetailPageViewModel>();
             serviceCollection.AddTransient<HomeViewModel>();
+            serviceCollection.AddTransient<CreateSessionViewModel>();
             serviceCollection.AddTransient<SettingsViewModel>();
 
             serviceCollection.AddSingleton<IEventAggregator, EventAggregator>();

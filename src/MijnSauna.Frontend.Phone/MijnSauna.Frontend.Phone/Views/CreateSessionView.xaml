@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
+             xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
+             mc:Ignorable="d"
+             x:Class="MijnSauna.Frontend.Phone.Views.CreateSessionView">
+
+    <d:ContentView.BindingContext>
+        <design:CreateSessionDesignViewModel />
+    </d:ContentView.BindingContext>
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="mijnsauna.ttf#fontello" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+
+                <controls:Toggle Grid.Row="0" 
+                                 Option1Command="{Binding SelectSaunaCommand}"
+                                 Option2Command="{Binding SelectInfraredCommand}" />
+
+                <TimePicker Grid.Row="1" x:Name="TimePicker12" >
+                    <TimePicker.Style></TimePicker.Style>
+                    <TimePicker.Format>HH:mm</TimePicker.Format>
+                </TimePicker>
+
+                <StackLayout Grid.Row="2" Padding="15">
+                    <Label Text="Doeltemperatuur" />
+                    <Editor Text="10"
+                            Margin="0,0,0,20" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" Padding="15">
+                    <Label Text="Minuten" />
+                    <Editor Text="20"
+                            Margin="0,0,0,20" />
+                </StackLayout>
+
+                <Grid Grid.Row="4">
+                    <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
+                    <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
+                           HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
+                        <Button Text="+" BackgroundColor="#F6462E" Margin="-20"
+                                FontSize="25" TextColor="White" />
+                    </Frame>
+                </Grid>
+
+            </Grid>
+        </ScrollView>
+
+    </ContentView.Content>
+</ContentView>

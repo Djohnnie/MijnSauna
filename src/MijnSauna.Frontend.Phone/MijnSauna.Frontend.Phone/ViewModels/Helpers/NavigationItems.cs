@@ -14,6 +14,12 @@ namespace MijnSauna.Frontend.Phone.ViewModels.Helpers
 
             Add(new NavigationItem
             {
+                Title = "Nieuwe sessie",
+                Type = NavigationType.CreateSession
+            });
+
+            Add(new NavigationItem
+            {
                 Title = "Instellingen",
                 Type = NavigationType.Settings
             });

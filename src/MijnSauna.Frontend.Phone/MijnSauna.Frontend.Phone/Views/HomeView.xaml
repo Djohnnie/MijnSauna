@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
+             xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
              mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
 
     <d:ContentView.BindingContext>
@@ -22,15 +23,17 @@
 
         <ScrollView>
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Row="0" CornerRadius="15" HasShadow="True" Margin="20,10">
+                <Frame Grid.Row="0" Grid.Column="0" CornerRadius="15" HasShadow="True" Margin="10,10,5,5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -43,7 +46,7 @@
                     </Grid>
                 </Frame>
 
-                <Frame Grid.Row="1" CornerRadius="15" HasShadow="True" Margin="20,10">
+                <Frame Grid.Row="0" Grid.Column="1" CornerRadius="15" HasShadow="True" Margin="5,10,10,5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -56,7 +59,7 @@
                     </Grid>
                 </Frame>
 
-                <Frame Grid.Row="2" CornerRadius="15" HasShadow="True" Margin="20,10">
+                <Frame Grid.Row="1" Grid.Column="0" CornerRadius="15" HasShadow="True" Margin="10,5,5,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -69,7 +72,7 @@
                     </Grid>
                 </Frame>
 
-                <Frame Grid.Row="3" CornerRadius="15" HasShadow="True" Margin="20,10">
+                <Frame Grid.Row="1" Grid.Column="1" CornerRadius="15" HasShadow="True" Margin="5,5,10,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -82,7 +85,14 @@
                     </Grid>
                 </Frame>
 
-                <Button Grid.Row="4" Text="Sauna sessie starten" CornerRadius="40" Margin="25,15" BackgroundColor="White" />
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
+                    <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
+                           HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
+                        <Button Text="+" BackgroundColor="#F6462E" Margin="-20" Command="{Binding CreateSessionCommand}"
+                                FontSize="25" TextColor="White" />
+                    </Frame>
+                </Grid>
                 
             </Grid>
         </ScrollView>

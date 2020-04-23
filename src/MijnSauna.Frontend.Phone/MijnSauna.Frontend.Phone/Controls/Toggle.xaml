@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MijnSauna.Frontend.Phone.Controls.Toggle">
+
+    <Grid HorizontalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame Grid.Row="0" BackgroundColor="White"  Padding="0" Margin="0" HasShadow="False" VerticalOptions="Center" HeightRequest="50" WidthRequest="300" HorizontalOptions="Center">
+            <Frame.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Single">
+                    <On Platform="Android" Value="25"></On>
+                </OnPlatform>
+            </Frame.CornerRadius>
+        </Frame>
+
+        <!-- Running Frame -->
+        <Frame x:Name="runningFrame" HeightRequest="50" WidthRequest="150" BackgroundColor="Green" HasShadow="False" Margin="0" Padding="0"  HorizontalOptions="Start" VerticalOptions="Center">
+            <Frame.CornerRadius>
+                <OnPlatform x:TypeArguments="x:Single">
+                    <On Platform="Android" Value="25"></On>
+                </OnPlatform>
+            </Frame.CornerRadius>
+        </Frame>
+
+        <!-- Selection text1-->
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="150" HeightRequest="50" BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"></PanGestureRecognizer>
+                <TapGestureRecognizer Tapped="OnText1Tapped"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+            <Label x:Name="text1" Text="Sauna" TextColor="White" WidthRequest="150" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
+        </StackLayout>
+
+        <!-- Selection text2-->
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End" WidthRequest="150" HeightRequest="50" BackgroundColor="Transparent">
+            <StackLayout.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"></PanGestureRecognizer>
+                <TapGestureRecognizer Tapped="OnText2Tapped"></TapGestureRecognizer>
+            </StackLayout.GestureRecognizers>
+            <Label x:Name="text2" Text="Infrarood" TextColor="Black" WidthRequest="150" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
+        </StackLayout>
+    </Grid>
+
+</Grid>

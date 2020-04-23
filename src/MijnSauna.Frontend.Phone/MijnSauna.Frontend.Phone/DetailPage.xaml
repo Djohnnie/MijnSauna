@@ -21,8 +21,12 @@
                                                      ActiveColor="#F6462E" />
 
             <converters:TypeNameConverter x:Key="TypeNameConverter" />
+
             <ControlTemplate x:Key="HomeTemplate">
                 <views:HomeView BindingContext="{Binding BindingContext, Source={x:Reference DetailPageParent}}" />
+            </ControlTemplate>
+            <ControlTemplate x:Key="CreateSessionTemplate">
+                <views:CreateSessionView BindingContext="{Binding BindingContext, Source={x:Reference DetailPageParent}}" />
             </ControlTemplate>
             <ControlTemplate x:Key="SettingsTemplate">
                 <views:SettingsView BindingContext="{Binding BindingContext, Source={x:Reference DetailPageParent}}" />
@@ -71,6 +75,9 @@
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">
                     <Setter Property="ControlTemplate" Value="{StaticResource HomeTemplate}" />
+                </DataTrigger>
+                <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="CreateSessionViewModel">
+                    <Setter Property="ControlTemplate" Value="{StaticResource CreateSessionTemplate}" />
                 </DataTrigger>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="SettingsViewModel">
                     <Setter Property="ControlTemplate" Value="{StaticResource SettingsTemplate}" />

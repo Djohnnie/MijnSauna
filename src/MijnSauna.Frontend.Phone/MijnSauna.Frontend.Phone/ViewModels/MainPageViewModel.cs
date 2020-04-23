@@ -63,12 +63,22 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         public MainPageViewModel(
             IViewModelFactory viewModelFactory,
             ISessionClient sessionClient,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            IClientConfiguration clientConfiguration)
         {
             _sessionClient = sessionClient;
 
             MainPageMasterViewModel = viewModelFactory.Get<MainPageMasterViewModel>();
-            DetailPageViewModel = viewModelFactory.Get<HomeViewModel>();
+
+            if (!string.IsNullOrEmpty(clientConfiguration.ServiceBaseUrl) &&
+                !string.IsNullOrEmpty(clientConfiguration.ClientId))
+            {
+                DetailPageViewModel = viewModelFactory.Get<HomeViewModel>();
+            }
+            else
+            {
+                DetailPageViewModel = viewModelFactory.Get<SettingsViewModel>();
+            }
 
             _ = Task.Run(async () =>
             {
@@ -88,6 +98,9 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                     case NavigationType.Home:
                         DetailPageViewModel = viewModelFactory.Get<HomeViewModel>();
                         break;
+                    case NavigationType.CreateSession:
+                        DetailPageViewModel = viewModelFactory.Get<CreateSessionViewModel>();
+                        break;
                     case NavigationType.Settings:
                         DetailPageViewModel = viewModelFactory.Get<SettingsViewModel>();
                         break;
@@ -101,8 +114,15 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         public async Task OnAppearing()
         {
-            var activeSession = await _sessionClient.GetActiveSession();
-            SessionState = activeSession == null ? SessionState.None : SessionState.Active;
+            try
+            {
+                var activeSession = await _sessionClient.GetActiveSession();
+                SessionState = activeSession == null ? SessionState.None : SessionState.Active;
+            }
+            catch
+            {
+
+            }
         }
     }
 }

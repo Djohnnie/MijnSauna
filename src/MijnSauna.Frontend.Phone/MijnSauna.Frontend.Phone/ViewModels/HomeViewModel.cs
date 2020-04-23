@@ -1,12 +1,18 @@
 ﻿using System;
 using MijnSauna.Common.Client.Interfaces;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MijnSauna.Frontend.Phone.Helpers.Interfaces;
+using MijnSauna.Frontend.Phone.ViewModels.Events;
+using MijnSauna.Frontend.Phone.ViewModels.Helpers;
+using Reactive.EventAggregator;
+using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
 {
     public class HomeViewModel : DetailPageViewModel
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly ITimerHelper _timerHelper;
         private readonly ISensorClient _sensorClient;
 
@@ -74,14 +80,20 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
+        public ICommand CreateSessionCommand { get; }
+
         public HomeViewModel(
+            IEventAggregator eventAggregator,
             ITimerHelper timerHelper,
             ISensorClient sensorClient)
         {
+            _eventAggregator = eventAggregator;
             _timerHelper = timerHelper;
             _sensorClient = sensorClient;
 
             Title = "Overzicht";
+
+            CreateSessionCommand = new Command(OnCreateSession);
 
             _timerHelper.Start(RefreshData, 10000);
         }
@@ -95,6 +107,14 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             var outsideTemperature = await _sensorClient.GetOutsideTemperature();
             OutsideTemperature = $"{outsideTemperature.Temperature} °C";
             CurrentTime = $"{DateTime.Now:HH:mm}";
+        }
+
+        private void OnCreateSession()
+        {
+            _eventAggregator.Publish(new NavigationItemSelected
+            {
+                Type = NavigationType.CreateSession
+            });
         }
     }
 }

@@ -3,6 +3,7 @@
     public enum NavigationType
     {
         Home,
+        CreateSession,
         Settings
     }
 }
