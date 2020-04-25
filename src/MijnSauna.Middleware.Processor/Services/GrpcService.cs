@@ -25,5 +25,18 @@ namespace MijnSauna.Middleware.Processor.Services
                 Temperature = temperature
             };
         }
+
+        public override Task<GetStateResponse> GetState(GetStateRequest request, ServerCallContext context)
+        {
+            _gpioService.Initialize();
+            var isSaunaOn  = _gpioService.IsSaunaOn();
+            var isInfraredOn = _gpioService.IsSaunaOn();
+
+            return Task.FromResult(new GetStateResponse
+            {
+                IsSaunaOn = isSaunaOn,
+                IsInfraredOn = isInfraredOn
+            });
+        }
     }
 }

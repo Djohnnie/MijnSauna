@@ -47,5 +47,15 @@ namespace MijnSauna.Backend.Logic
                 Temperature = result
             };
         }
+
+        public async Task<GetSaunaStateResponse> GetSaunaState()
+        {
+            var (isSaunaOn, isInfraredOn) = await _saunaSensor.GetState();
+            return new GetSaunaStateResponse
+            {
+                IsSaunaOn = isSaunaOn,
+                IsInfraredOn = isInfraredOn
+            };
+        }
     }
 }

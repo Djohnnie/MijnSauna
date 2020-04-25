@@ -31,5 +31,11 @@ namespace MijnSauna.Backend.Api.Controllers
         {
             return Execute(l => l.GetOutsideTemperature());
         }
+
+        [HttpGet("state")]
+        public Task<IActionResult> GetSaunaState()
+        {
+            return Execute(l => l.GetSaunaState());
+        }
     }
 }

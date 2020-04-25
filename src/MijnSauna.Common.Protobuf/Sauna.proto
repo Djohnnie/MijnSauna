@@ -5,7 +5,11 @@ option csharp_namespace = "MijnSauna.Common.Protobuf";
 package greet;
 
 service SaunaService {
+
 	rpc GetTemperature (GetTemperatureRequest) returns (GetTemperatureResponse);
+
+	rpc GetState (GetStateRequest) returns (GetStateResponse);
+
 }
 
 message GetTemperatureRequest {
@@ -13,4 +17,12 @@ message GetTemperatureRequest {
 
 message GetTemperatureResponse {
 	int32 temperature = 1;
+}
+
+message GetStateRequest {
+}
+
+message GetStateResponse {
+	bool isSaunaOn = 1;
+	bool isInfraredOn = 2;
 }

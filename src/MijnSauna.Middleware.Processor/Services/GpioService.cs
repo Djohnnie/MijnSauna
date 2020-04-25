@@ -84,7 +84,8 @@ namespace MijnSauna.Middleware.Processor.Services
                     {
                         var sensorData = await File.ReadAllLinesAsync(sensorFile);
                         var temperatureData = sensorData[1].Substring(29, sensorData[1].Length - 29);
-                        temperature = Convert.ToInt32(temperatureData);
+                        var rawTemperature = Convert.ToInt32(temperatureData);
+                        temperature = (int)Math.Round((double)rawTemperature / 1000f);
                     }
                 }
             }

@@ -10,5 +10,7 @@ namespace MijnSauna.Backend.Logic.Interfaces
         Task<GetSaunaTemperatureResponse> GetSaunaTemperature();
 
         Task<GetOutsideTemperatureResponse> GetOutsideTemperature();
+
+        Task<GetSaunaStateResponse> GetSaunaState();
     }
 }
