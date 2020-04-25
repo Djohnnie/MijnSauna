@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Common.DataTransferObjects.Samples;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
@@ -11,18 +12,18 @@ namespace MijnSauna.Middleware.Processor.Workers
     public class SampleWorker : BackgroundService
     {
         private readonly ISessionService _sessionService;
-        private readonly IBackendService _backendService;
+        private readonly ISampleClient _sampleClient;
         private readonly IGpioService _gpioService;
         private readonly ILogger<SampleWorker> _logger;
 
         public SampleWorker(
             ISessionService sessionService,
-            IBackendService backendService,
+            ISampleClient sampleClient,
             IGpioService gpioService,
             ILogger<SampleWorker> logger)
         {
             _sessionService = sessionService;
-            _backendService = backendService;
+            _sampleClient = sampleClient;
             _gpioService = gpioService;
             _logger = logger;
         }
@@ -50,7 +51,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                         TimeStamp = DateTime.UtcNow
                     };
 
-                    await _backendService.CreateSampleForSession(sessionId, sampleRequest);
+                    await _sampleClient.CreateSampleForSession(sessionId, sampleRequest);
 
                     _logger.LogInformation($"Sample for active session sent at {DateTimeOffset.UtcNow}");
                 }

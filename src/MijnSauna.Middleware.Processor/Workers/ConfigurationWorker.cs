@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
 namespace MijnSauna.Middleware.Processor.Workers
@@ -10,16 +11,16 @@ namespace MijnSauna.Middleware.Processor.Workers
     public class ConfigurationWorker : BackgroundService
     {
         private readonly IConfigurationService _configurationService;
-        private readonly IBackendService _backendService;
+        private readonly IConfigurationClient _configurationClient;
         private readonly ILogger<ConfigurationWorker> _logger;
 
         public ConfigurationWorker(
             IConfigurationService configurationService,
-            IBackendService backendService,
+            IConfigurationClient configurationClient,
             ILogger<ConfigurationWorker> logger)
         {
             _configurationService = configurationService;
-            _backendService = backendService;
+            _configurationClient = configurationClient;
             _logger = logger;
         }
 
@@ -31,7 +32,7 @@ namespace MijnSauna.Middleware.Processor.Workers
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    var configuration = await _backendService.GetConfigurationValues();
+                    var configuration = await _configurationClient.GetConfigurationValues();
 
                     if (configuration != null)
                     {

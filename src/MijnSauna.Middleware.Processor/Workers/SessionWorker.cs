@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
 namespace MijnSauna.Middleware.Processor.Workers
@@ -10,18 +11,18 @@ namespace MijnSauna.Middleware.Processor.Workers
     public class SessionWorker : BackgroundService
     {
         private readonly ISessionService _sessionService;
-        private readonly IBackendService _backendService;
+        private readonly ISessionClient _sessionClient;
         private readonly IGpioService _gpioService;
         private readonly ILogger<SessionWorker> _logger;
 
         public SessionWorker(
             ISessionService sessionService,
-            IBackendService backendService,
+            ISessionClient sessionClient,
             IGpioService gpioService,
             ILogger<SessionWorker> logger)
         {
             _sessionService = sessionService;
-            _backendService = backendService;
+            _sessionClient = sessionClient;
             _gpioService = gpioService;
             _logger = logger;
         }
@@ -41,7 +42,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                 {
                     await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
-                    var activeSession = await _backendService.GetActiveSession();
+                    var activeSession = await _sessionClient.GetActiveSession();
                     if (activeSession != null)
                     {
                         _sessionService.UpdateSession(activeSession);

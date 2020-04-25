@@ -22,15 +22,22 @@ namespace MijnSauna.Backend.Sensors
 
         public async Task<int> GetTemperature()
         {
-            await ReadConfiguration();
+            try
+            {
+                await ReadConfiguration();
 
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            var channel = GrpcChannel.ForAddress(_url);
-            var client = new SaunaService.SaunaServiceClient(channel);
-            var request = new GetTemperatureRequest();
-            var response = await client.GetTemperatureAsync(request);
+                AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                var channel = GrpcChannel.ForAddress(_url);
+                var client = new SaunaService.SaunaServiceClient(channel);
+                var request = new GetTemperatureRequest();
+                var response = await client.GetTemperatureAsync(request);
 
-            return response.Temperature;
+                return response.Temperature;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private async Task ReadConfiguration()

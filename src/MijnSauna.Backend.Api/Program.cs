@@ -20,13 +20,13 @@ namespace MijnSauna.Backend.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    //webBuilder.UseIISIntegration();
-                    webBuilder.UseKestrel();
-                    webBuilder.ConfigureKestrel((context, options) =>
-                    {
-                        options.Listen(IPAddress.Any, 5000,
-                            listenOptions => { listenOptions.UseHttps(certificateFileName, certificatePassword); });
-                    });
+                    webBuilder.UseIISIntegration();
+                    //webBuilder.UseKestrel();
+                    //webBuilder.ConfigureKestrel((context, options) =>
+                    //{
+                    //    options.Listen(IPAddress.Any, 5000,
+                    //        listenOptions => { listenOptions.UseHttps(certificateFileName, certificatePassword); });
+                    //});
                     webBuilder.UseStartup<Startup>();
                 });
     }
