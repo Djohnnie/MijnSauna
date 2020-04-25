@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MijnSauna.Backend.Api.Common;
 using MijnSauna.Backend.Logic.Interfaces;
 using MijnSauna.Common.DataTransferObjects.Configuration;
@@ -10,7 +11,9 @@ namespace MijnSauna.Backend.Api.Controllers
     [ApiController]
     public class ConfigurationController : ApiController<IConfigurationLogic>
     {
-        public ConfigurationController(IConfigurationLogic configurationLogic) : base(configurationLogic) { }
+        public ConfigurationController(
+            IConfigurationLogic configurationLogic,
+            ILogger<IConfigurationLogic> logger) : base(configurationLogic, logger) { }
 
         [HttpGet]
         public Task<IActionResult> GetConfigurationValues()

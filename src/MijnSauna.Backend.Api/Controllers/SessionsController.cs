@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MijnSauna.Backend.Api.Common;
 using MijnSauna.Backend.Logic.Interfaces;
 using MijnSauna.Common.DataTransferObjects.Sessions;
@@ -11,7 +12,9 @@ namespace MijnSauna.Backend.Api.Controllers
     [ApiController]
     public class SessionsController : ApiController<ISessionLogic>
     {
-        public SessionsController(ISessionLogic sessionLogic) : base(sessionLogic) { }
+        public SessionsController(
+            ISessionLogic sessionLogic,
+            ILogger<ISessionLogic> logger) : base(sessionLogic, logger) { }
 
         [HttpGet("active")]
         public Task<IActionResult> GetActiveSession()

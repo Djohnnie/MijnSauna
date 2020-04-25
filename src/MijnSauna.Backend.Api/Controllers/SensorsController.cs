@@ -2,6 +2,7 @@
 using MijnSauna.Backend.Api.Common;
 using MijnSauna.Backend.Logic.Interfaces;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace MijnSauna.Backend.Api.Controllers
 {
@@ -9,7 +10,9 @@ namespace MijnSauna.Backend.Api.Controllers
     [ApiController]
     public class SensorsController : ApiController<ISensorLogic>
     {
-        public SensorsController(ISensorLogic sensorLogic) : base(sensorLogic) { }
+        public SensorsController(
+            ISensorLogic sensorLogic,
+            ILogger<ISensorLogic> logger) : base(sensorLogic, logger) { }
 
         [HttpGet("power")]
         public Task<IActionResult> GetPowerUsage()
