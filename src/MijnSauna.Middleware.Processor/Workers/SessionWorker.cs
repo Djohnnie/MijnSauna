@@ -30,9 +30,9 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
-                _logger.LogInformation($"{nameof(SessionWorker)} started!");
+                await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
 
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                _logger.LogInformation($"{nameof(SessionWorker)} started!");
 
                 _gpioService.Initialize();
                 _logger.LogInformation("GPIO initialized.");

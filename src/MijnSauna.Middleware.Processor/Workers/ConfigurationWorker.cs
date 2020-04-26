@@ -27,6 +27,8 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
                 _logger.LogInformation($"{nameof(ConfigurationWorker)} started!");
 
                 while (!stoppingToken.IsCancellationRequested)

@@ -29,11 +29,11 @@ namespace MijnSauna.Middleware.Processor.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try 
-            { 
-                _logger.LogInformation($"{nameof(SampleWorker)} started!");
+            try
+            {
+                await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
 
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                _logger.LogInformation($"{nameof(SampleWorker)} started!");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
