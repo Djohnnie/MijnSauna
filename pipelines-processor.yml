@@ -10,7 +10,7 @@ trigger:
     - releases/*
   paths:
     include:
-    - src/MijnSauna.Middleware.*
+    - src/MijnSauna.Middleware.Processor/*
 
 pool:
   vmImage: 'ubuntu-16.04'
@@ -73,10 +73,12 @@ steps:
 - script: |
     dotnet publish ./src/MijnSauna.Middleware.Processor --configuration "Release" --runtime linux-arm --output ./src/MijnSauna.Middleware.Processor/bin/Release/publish
 
-- task: CopyFiles@2
+- task: ArchiveFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/src/MijnSauna.Middleware.Processor/bin/Release/publish/**'
-    targetFolder: $(Build.ArtifactStagingDirectory)
+    rootFolderOrFile: '$(Build.SourcesDirectory)/src/MijnSauna.Middleware.Processor/bin/Release/publish' 
+    includeRootFolder: false 
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/MijnSauna.Middleware.Processor.zip' 
 
 - task: PublishBuildArtifacts@1
   inputs:
