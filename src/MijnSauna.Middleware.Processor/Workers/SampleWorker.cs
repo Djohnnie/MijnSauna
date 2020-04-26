@@ -32,40 +32,40 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try 
             { 
-            _logger.LogInformation($"{nameof(SampleWorker)} started at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(SampleWorker)} started at {DateTime.UtcNow}");
 
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
 
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
-
-                if (_sessionService.IsActive())
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    var sessionId = _sessionService.GetSessionId();
-                    var sampleRequest = new CreateSampleForSessionRequest
+                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
+                    if (_sessionService.IsActive())
                     {
-                        IsSaunaPowered = _gpioService.IsSaunaOn(),
-                        IsInfraredPowered = _gpioService.IsInfraredOn(),
-                        Temperature = await _gpioService.ReadTemperature(),
-                        TimeStamp = DateTime.UtcNow
-                    };
+                        var sessionId = _sessionService.GetSessionId();
+                        var sampleRequest = new CreateSampleForSessionRequest
+                        {
+                            IsSaunaPowered = _gpioService.IsSaunaOn(),
+                            IsInfraredPowered = _gpioService.IsInfraredOn(),
+                            Temperature = await _gpioService.ReadTemperature(),
+                            TimeStamp = DateTime.UtcNow
+                        };
 
-                    await _sampleClient.CreateSampleForSession(sessionId, sampleRequest);
+                        await _sampleClient.CreateSampleForSession(sessionId, sampleRequest);
 
-                    _logger.LogInformation($"Sample for active session sent at {DateTimeOffset.UtcNow}");
+                        _logger.LogInformation($"Sample for active session sent at {DateTime.UtcNow}");
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"No active session at {DateTime.UtcNow}");
+                    }
                 }
-                else
-                {
-                    _logger.LogInformation($"No active session at {DateTimeOffset.UtcNow}");
-                }
-            }
 
-            _logger.LogInformation($"{nameof(SampleWorker)} stopped at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(SampleWorker)} stopped at {DateTime.UtcNow}");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(SampleWorker)} throws Exception {ex.Message} at {DateTimeOffset.UtcNow}");
+                _logger.LogError($"{nameof(SampleWorker)} throws Exception {ex.Message} at {DateTime.UtcNow}");
             }
         }
     }

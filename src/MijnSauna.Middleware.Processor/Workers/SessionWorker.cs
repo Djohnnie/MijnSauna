@@ -31,12 +31,12 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
-                _logger.LogInformation($"{nameof(SessionWorker)} started at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(SessionWorker)} started at {DateTime.UtcNow}");
 
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
                 _gpioService.Initialize();
-                _logger.LogInformation($"GPIO initialized at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"GPIO initialized at {DateTime.UtcNow}");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
@@ -46,24 +46,24 @@ namespace MijnSauna.Middleware.Processor.Workers
                     if (activeSession != null)
                     {
                         _sessionService.UpdateSession(activeSession);
-                        _logger.LogInformation($"Active session updated at {DateTimeOffset.UtcNow}");
+                        _logger.LogInformation($"Active session updated at {DateTime.UtcNow}");
                     }
                     else
                     {
                         _sessionService.KillSession();
-                        _logger.LogInformation($"Active session killed at {DateTimeOffset.UtcNow}");
+                        _logger.LogInformation($"Active session killed at {DateTime.UtcNow}");
                     }
 
                 }
 
                 _gpioService.Shutdown();
-                _logger.LogInformation($"GPIO shutdown at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"GPIO shutdown at {DateTime.UtcNow}");
 
-                _logger.LogInformation($"{nameof(SessionWorker)} stopped at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(SessionWorker)} stopped at {DateTime.UtcNow}");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(SessionWorker)} throws Exception {ex.Message} at {DateTimeOffset.UtcNow}");
+                _logger.LogError($"{nameof(SessionWorker)} throws Exception {ex.Message} at {DateTime.UtcNow}");
             }
         }
     }

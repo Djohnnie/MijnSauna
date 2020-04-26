@@ -27,7 +27,7 @@ namespace MijnSauna.Common.Client
                 return response.Data.Content;
             }
 
-            return new TResponse();
+            return default;
         }
 
         public async Task<TResponse> Post<TResponse, TBody>(string resource, TBody body) where TResponse : new()
@@ -42,7 +42,7 @@ namespace MijnSauna.Common.Client
                 return response.Data.Content;
             }
 
-            return new TResponse();
+            return default;
         }
     }
 }

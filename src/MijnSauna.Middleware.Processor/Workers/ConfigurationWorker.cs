@@ -28,7 +28,7 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
-                _logger.LogInformation($"{nameof(ConfigurationWorker)} started at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(ConfigurationWorker)} started at {DateTime.UtcNow}");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
@@ -37,21 +37,21 @@ namespace MijnSauna.Middleware.Processor.Workers
                     if (configuration != null)
                     {
                         _configurationService.UpdateConfiguration(configuration);
-                        _logger.LogInformation($"Configuration updated at {DateTimeOffset.UtcNow}");
+                        _logger.LogInformation($"Configuration updated at {DateTime.UtcNow}");
                     }
                     else
                     {
-                        _logger.LogError($"Configuration error {DateTimeOffset.UtcNow}");
+                        _logger.LogError($"Configuration error {DateTime.UtcNow}");
                     }
 
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 }
 
-                _logger.LogInformation($"{nameof(ConfigurationWorker)} stopped at {DateTimeOffset.UtcNow}");
+                _logger.LogInformation($"{nameof(ConfigurationWorker)} stopped at {DateTime.UtcNow}");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(ConfigurationWorker)} throws Exception {ex.Message} at {DateTimeOffset.UtcNow}");
+                _logger.LogError($"{nameof(ConfigurationWorker)} throws Exception {ex.Message} at {DateTime.UtcNow}");
             }
         }
     }
