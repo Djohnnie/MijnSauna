@@ -10,7 +10,17 @@ trigger:
     - releases/*
   paths:
     include:
-    - src/MijnSauna.Backend.*
+    - src/MijnSauna.Backend.Api/*
+    - src/MijnSauna.Backend.Logic/*
+    - src/MijnSauna.Backend.Sensors/*
+    - src/MijnSauna.Backend.Mappers/*
+    - src/MijnSauna.Backend.DataAccess/*
+    - src/MijnSauna.Backend.Model/*
+    - src/MijnSauna.Backend.Common/*
+    - src/MijnSauna.Backend.Tests/*
+    - src/MijnSauna.Common.Client/*
+    - src/MijnSauna.Common.DataTransferObjects/*
+    - src/MijnSauna.Common.Protobuf/*
 
 pool:
   vmImage: 'ubuntu-16.04'

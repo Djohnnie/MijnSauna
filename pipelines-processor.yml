@@ -11,6 +11,10 @@ trigger:
   paths:
     include:
     - src/MijnSauna.Middleware.Processor/*
+    - src/MijnSauna.Middleware.Tests/*
+    - src/MijnSauna.Common.Client/*
+    - src/MijnSauna.Common.DataTransferObjects/*
+    - src/MijnSauna.Common.Protobuf/*
 
 pool:
   vmImage: 'ubuntu-16.04'

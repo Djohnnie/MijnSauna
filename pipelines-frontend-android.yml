@@ -10,7 +10,11 @@ trigger:
     - releases/*
   paths:
     include:
-    - src/MijnSauna.Frontend.*
+    - src/MijnSauna.Frontend.Phone/*
+    - src/MijnSauna.Frontend.Phone.Android/*
+    - src/MijnSauna.Common.Client/*
+    - src/MijnSauna.Common.DataTransferObjects/*
+    - src/MijnSauna.Common.Protobuf/*
 
 pool:
   vmImage: 'windows-latest'
