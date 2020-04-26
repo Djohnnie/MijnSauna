@@ -22,7 +22,7 @@ namespace MijnSauna.Backend.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (String.IsNullOrEmpty(_configurationHelper.ConnectionString))
+            if (string.IsNullOrEmpty(_configurationHelper.ConnectionString))
             {
                 optionsBuilder.UseInMemoryDatabase($"{_configurationHelper.Id}");
             }

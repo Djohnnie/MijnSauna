@@ -38,6 +38,8 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             _sessionId = activeSession.SessionId;
 
+            //if(activeSession.TemperatureGoal)
+
             if (activeSession.IsSauna && !_gpioService.IsSaunaOn())
             {
                 _logger.LogInformation("Sauna should be turned on and is off right now!");

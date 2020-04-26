@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MijnSauna.Backend.DataAccess;
 
 namespace MijnSauna.Backend.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200426193632_Change_Temperature_To_Integer")]
+    partial class Change_Temperature_To_Integer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,8 +127,8 @@ namespace MijnSauna.Backend.DataAccess.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("TemperatureGoal")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TemperatureGoal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);

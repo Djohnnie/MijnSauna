@@ -7,15 +7,15 @@ namespace MijnSauna.Backend.Model
     public class Session : IHasId
     {
         public Guid Id { get; set; }
-        public Int32 SysId { get; set; }
+        public int SysId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public DateTime? ActualEnd { get; set; }
-        public Boolean IsSauna { get; set; }
-        public Boolean IsInfrared { get; set; }
-        public Boolean IsActive { get; set; }
-        public Boolean IsCancelled { get; set; }
-        public Decimal TemperatureGoal { get; set; }
+        public bool IsSauna { get; set; }
+        public bool IsInfrared { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsCancelled { get; set; }
+        public int TemperatureGoal { get; set; }
         public List<Sample> Samples { get; set; }
     }
 }
