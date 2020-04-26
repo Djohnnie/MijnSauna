@@ -75,7 +75,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: './src/MijnSauna.Middleware.Processor/bin/Release/publish/**'
+    contents: '$(Build.SourcesDirectory)/src/MijnSauna.Middleware.Processor/bin/Release/publish/**'
     targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
