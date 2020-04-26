@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
@@ -13,13 +12,13 @@ namespace MijnSauna.Middleware.Processor.Workers
         private readonly ISessionService _sessionService;
         private readonly ISessionClient _sessionClient;
         private readonly IGpioService _gpioService;
-        private readonly ILogger<SessionWorker> _logger;
+        private readonly ILoggerService<SessionWorker> _logger;
 
         public SessionWorker(
             ISessionService sessionService,
             ISessionClient sessionClient,
             IGpioService gpioService,
-            ILogger<SessionWorker> logger)
+            ILoggerService<SessionWorker> logger)
         {
             _sessionService = sessionService;
             _sessionClient = sessionClient;
@@ -31,39 +30,52 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
-                _logger.LogInformation($"{nameof(SessionWorker)} started at {DateTime.UtcNow}");
+                _logger.LogInformation($"{nameof(SessionWorker)} started!");
 
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
                 _gpioService.Initialize();
-                _logger.LogInformation($"GPIO initialized at {DateTime.UtcNow}");
+                _logger.LogInformation("GPIO initialized.");
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
-
-                    var activeSession = await _sessionClient.GetActiveSession();
-                    if (activeSession != null)
+                    try
                     {
-                        _sessionService.UpdateSession(activeSession);
-                        _logger.LogInformation($"Active session updated at {DateTime.UtcNow}");
-                    }
-                    else
-                    {
-                        _sessionService.KillSession();
-                        _logger.LogInformation($"Active session killed at {DateTime.UtcNow}");
-                    }
+                        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
+                        var activeSession = await _sessionClient.GetActiveSession();
+                        if (activeSession != null)
+                        {
+                            _sessionService.UpdateSession(activeSession);
+                            _logger.LogInformation("Active session updated.");
+                        }
+                        else
+                        {
+                            var isKilled = _sessionService.KillSession();
+                            if (isKilled)
+                            {
+                                _logger.LogInformation("Active session killed.");
+                            }
+                            else
+                            {
+                                _logger.LogInformation("No active session.");
+                            }
+                        }
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        // This is most likely due to the Task.Delay being cancelled.
+                    }
                 }
 
                 _gpioService.Shutdown();
-                _logger.LogInformation($"GPIO shutdown at {DateTime.UtcNow}");
+                _logger.LogInformation("GPIO shutdown.");
 
-                _logger.LogInformation($"{nameof(SessionWorker)} stopped at {DateTime.UtcNow}");
+                _logger.LogInformation($"{nameof(SessionWorker)} stopped!");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(SessionWorker)} throws Exception {ex.Message} at {DateTime.UtcNow}");
+                _logger.LogError($"{nameof(SessionWorker)} throws Exception: {ex.Message}!");
             }
         }
     }

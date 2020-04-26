@@ -10,7 +10,7 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
         Guid GetSessionId();
         
         void UpdateSession(GetActiveSessionResponse activeSession);
-        
-        void KillSession();
+
+        bool KillSession();
     }
 }

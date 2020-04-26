@@ -30,7 +30,7 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             _gpioService.Initialize();
             var isSaunaOn  = _gpioService.IsSaunaOn();
-            var isInfraredOn = _gpioService.IsSaunaOn();
+            var isInfraredOn = _gpioService.IsInfraredOn();
 
             return Task.FromResult(new GetStateResponse
             {

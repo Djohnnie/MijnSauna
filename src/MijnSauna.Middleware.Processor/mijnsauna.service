@@ -3,7 +3,7 @@ Description=MijnSauna.Middleware.Processor
 
 [Service]
 Type=notify
-ExecStart=/usr/sbin/MijnSauna.Middleware.Processor
+ExecStart=/home/pi/sauna/MijnSauna.Middleware.Processor
 
 [Install]
 WantedBy=multi-user.target

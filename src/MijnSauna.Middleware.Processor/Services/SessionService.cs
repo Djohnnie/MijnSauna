@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 using MijnSauna.Middleware.Processor.Helpers;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
@@ -10,7 +9,7 @@ namespace MijnSauna.Middleware.Processor.Services
     {
         private readonly IConfigurationService _configurationService;
         private readonly IGpioService _gpioService;
-        private readonly ILogger<SessionService> _logger;
+        private readonly ILoggerService<SessionService> _logger;
 
         private Guid? _sessionId;
         private TemperatureTrend _temperatureTrend = TemperatureTrend.Idle;
@@ -18,7 +17,7 @@ namespace MijnSauna.Middleware.Processor.Services
         public SessionService(
             IConfigurationService configurationService,
             IGpioService gpioService,
-            ILogger<SessionService> logger)
+            ILoggerService<SessionService> logger)
         {
             _configurationService = configurationService;
             _gpioService = gpioService;
@@ -64,12 +63,16 @@ namespace MijnSauna.Middleware.Processor.Services
             }
         }
 
-        public void KillSession()
+        public bool KillSession()
         {
+            var result = IsActive();
+
             _sessionId = null;
             _gpioService.TurnSaunaOff();
             _gpioService.TurnInfraredOff();
             _temperatureTrend = TemperatureTrend.Idle;
+
+            return result;
         }
     }
 }

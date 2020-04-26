@@ -17,6 +17,8 @@ namespace MijnSauna.Middleware.Processor.DependencyInjection
         {
             serviceCollection.ConfigureClient();
 
+            serviceCollection.AddSingleton(typeof(ILoggerService<>), typeof(LoggerService<>));
+
             serviceCollection.AddSingleton<IClientConfiguration, ClientConfiguration>();
 
             serviceCollection.AddSingleton<IConfigurationService, ConfigurationService>();
