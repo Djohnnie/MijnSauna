@@ -46,7 +46,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                         var activeSession = await _sessionClient.GetActiveSession();
                         if (activeSession != null)
                         {
-                            _sessionService.UpdateSession(activeSession);
+                            await _sessionService.UpdateSession(activeSession);
                             _logger.LogInformation("Active session updated.");
                         }
                         else

@@ -44,17 +44,24 @@ namespace MijnSauna.Middleware.Processor.Workers
                         if (_sessionService.IsActive())
                         {
                             var sessionId = _sessionService.GetSessionId();
-                            var sampleRequest = new CreateSampleForSessionRequest
+                            if (sessionId.HasValue)
                             {
-                                IsSaunaPowered = _gpioService.IsSaunaOn(),
-                                IsInfraredPowered = _gpioService.IsInfraredOn(),
-                                Temperature = await _gpioService.ReadTemperature(),
-                                TimeStamp = DateTime.UtcNow
-                            };
+                                var sampleRequest = new CreateSampleForSessionRequest
+                                {
+                                    IsSaunaPowered = _gpioService.IsSaunaOn(),
+                                    IsInfraredPowered = _gpioService.IsInfraredOn(),
+                                    Temperature = await _gpioService.ReadTemperature(),
+                                    TimeStamp = DateTime.UtcNow
+                                };
 
-                            await _sampleClient.CreateSampleForSession(sessionId, sampleRequest);
+                                await _sampleClient.CreateSampleForSession(sessionId.Value, sampleRequest);
 
-                            _logger.LogInformation("Sample for active session sent.");
+                                _logger.LogInformation("Sample for active session sent.");
+                            }
+                            else
+                            {
+                                _logger.LogInformation("No active session.");
+                            }
                         }
                         else
                         {

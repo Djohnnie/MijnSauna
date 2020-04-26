@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Middleware.Processor.Services.Interfaces
@@ -7,9 +8,9 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
     {
         bool IsActive();
 
-        Guid GetSessionId();
+        Guid? GetSessionId();
         
-        void UpdateSession(GetActiveSessionResponse activeSession);
+        Task UpdateSession(GetActiveSessionResponse activeSession);
 
         bool KillSession();
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 using MijnSauna.Middleware.Processor.Helpers;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
@@ -29,38 +30,76 @@ namespace MijnSauna.Middleware.Processor.Services
             return _sessionId.HasValue;
         }
 
-        public Guid GetSessionId()
+        public Guid? GetSessionId()
         {
-            return _sessionId.Value;
+            return _sessionId;
         }
 
-        public void UpdateSession(GetActiveSessionResponse activeSession)
+        public async Task UpdateSession(GetActiveSessionResponse activeSession)
         {
             _sessionId = activeSession.SessionId;
 
-            //if(activeSession.TemperatureGoal)
+            var temperature = await _gpioService.ReadTemperature();
 
             if (activeSession.IsSauna && !_gpioService.IsSaunaOn())
             {
-                _logger.LogInformation("Sauna should be turned on and is off right now!");
-                _gpioService.TurnSaunaOn();
+                _logger.LogInformation("Active session requires sauna but sauna is off!");
+                _logger.LogInformation($"Temperature goal is {activeSession.TemperatureGoal} and actual temperature is {temperature}.");
+
+                if (temperature < activeSession.TemperatureGoal)
+                {
+                    _logger.LogInformation("Sauna should be turned on!");
+                    _gpioService.TurnSaunaOn();
+                }
+            }
+
+            if (activeSession.IsSauna && _gpioService.IsSaunaOn())
+            {
+                _logger.LogInformation("Active session requires sauna and sauna is on!");
+                _logger.LogInformation($"Temperature goal is {activeSession.TemperatureGoal} and actual temperature is {temperature}.");
+
+                if (temperature >= activeSession.TemperatureGoal)
+                {
+                    _logger.LogInformation("Sauna should be turned off!");
+                    _gpioService.TurnSaunaOff();
+                }
             }
 
             if (!activeSession.IsSauna && _gpioService.IsSaunaOn())
             {
-                _logger.LogInformation("Sauna should be turned off and is on right now!");
+                _logger.LogInformation("Active session requires no sauna and sauna is on!");
+                _logger.LogInformation("Sauna should be turned off!");
                 _gpioService.TurnSaunaOff();
             }
 
             if (activeSession.IsInfrared && !_gpioService.IsInfraredOn())
             {
-                _logger.LogInformation("Infrared should be turned on and is off right now!");
-                _gpioService.TurnInfraredOn();
+                _logger.LogInformation("Active session requires infrared but infrared is off!");
+                _logger.LogInformation($"Temperature goal is {activeSession.TemperatureGoal} and actual temperature is {temperature}.");
+
+                if (temperature < activeSession.TemperatureGoal)
+                {
+                    _logger.LogInformation("Infrared should be turned on!");
+                    _gpioService.TurnInfraredOn();
+                }
+            }
+
+            if (activeSession.IsInfrared && _gpioService.IsInfraredOn())
+            {
+                _logger.LogInformation("Active session requires infrared and infrared is on!");
+                _logger.LogInformation($"Temperature goal is {activeSession.TemperatureGoal} and actual temperature is {temperature}.");
+
+                if (temperature >= activeSession.TemperatureGoal)
+                {
+                    _logger.LogInformation("Infrared should be turned off!");
+                    _gpioService.TurnInfraredOff();
+                }
             }
 
             if (!activeSession.IsInfrared && _gpioService.IsInfraredOn())
             {
-                _logger.LogInformation("Infrared should be turned off and is on right now!");
+                _logger.LogInformation("Active session requires no infrared and infrared is on!");
+                _logger.LogInformation("Infrared should be turned off!");
                 _gpioService.TurnInfraredOff();
             }
         }
