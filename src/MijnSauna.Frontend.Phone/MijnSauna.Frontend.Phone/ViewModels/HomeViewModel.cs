@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MijnSauna.Common.Client.Interfaces;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -80,6 +81,22 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
+        #region <| Temperatures |>
+
+        private List<int> _temperatures;
+
+        public List<int> Temperatures
+        {
+            get => _temperatures;
+            set
+            {
+                _temperatures = value;
+                OnPropertyChanged(nameof(Temperatures));
+            }
+        }
+
+        #endregion
+
         public ICommand CreateSessionCommand { get; }
 
         public HomeViewModel(
@@ -92,6 +109,20 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             _sensorClient = sensorClient;
 
             Title = "Overzicht";
+            Temperatures = new List<int>();
+
+            Task.Run(async () =>
+            {
+                var rng = new Random();
+                int value = 20;
+                while (true)
+                {
+                    await Task.Delay(1000);
+                    value += rng.Next(-5, 15);
+                    Temperatures.Add(value);
+                    Temperatures = new List<int>(Temperatures);
+                }
+            });
 
             CreateSessionCommand = new Command(OnCreateSession);
 

@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <PackageReference Include="MagicGradients" Version="1.0.0" />
+    <PackageReference Include="Microcharts" Version="0.7.1" />
+    <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
     <PackageReference Include="Reactive.EventAggregator" Version="4.0.0" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1.1" />
@@ -29,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\TemperatureChart.xaml.cs">
+      <DependentUpon>TemperatureChart.xaml</DependentUpon>
+    </Compile>
     <Compile Update="DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>

@@ -48,7 +48,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         public CreateSessionViewModel()
         {
             Title = "Nieuwe sessie";
-            StartTime = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, 0);
+            StartTime = new TimeSpan(DateTime.Now.Hour, (int)(DateTime.Now.Minute / 5f) * 5, 0);
             StopTime = StartTime.Add(TimeSpan.FromMinutes(60));
 
             SelectSaunaCommand = new Command(OnSelectSauna);

@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
              xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
 
     <d:ContentView.BindingContext>
@@ -28,6 +29,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition Height="100" />
@@ -85,7 +87,12 @@
                     </Grid>
                 </Frame>
 
-                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <controls:TemperatureChart Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                                           HorizontalOptions="FillAndExpand"
+                                           Margin="-50,0,-50,-65" Temperatures="{Binding Temperatures}"
+                                           MinimumTemperature="0" MaximumTemperature="120" />
+
+                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                     <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
                     <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
                            HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
