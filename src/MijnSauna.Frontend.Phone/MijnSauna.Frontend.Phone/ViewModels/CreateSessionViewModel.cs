@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone.ViewModels
@@ -17,12 +18,38 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
         }
 
+        private TimeSpan _startTime;
+
+        public TimeSpan StartTime
+        {
+            get => _startTime;
+            set
+            {
+                _startTime = value;
+                OnPropertyChanged(nameof(StartTime));
+            }
+        }
+
+        private TimeSpan _stopTime;
+
+        public TimeSpan StopTime
+        {
+            get => _stopTime;
+            set
+            {
+                _stopTime = value;
+                OnPropertyChanged(nameof(StopTime));
+            }
+        }
+
         public ICommand SelectSaunaCommand { get; }
         public ICommand SelectInfraredCommand { get; }
 
         public CreateSessionViewModel()
         {
             Title = "Nieuwe sessie";
+            StartTime = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, 0);
+            StopTime = StartTime.Add(TimeSpan.FromMinutes(60));
 
             SelectSaunaCommand = new Command(OnSelectSauna);
             SelectInfraredCommand = new Command(OnSelectInfrared);
