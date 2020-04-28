@@ -32,7 +32,7 @@
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
@@ -40,36 +40,41 @@
                                  Option1Command="{Binding SelectSaunaCommand}"
                                  Option2Command="{Binding SelectInfraredCommand}" />
 
-                <TimePicker Grid.Row="1" Grid.Column="0"
+                <TimePicker Grid.Row="1" Grid.Column="0" FontSize="45"
                             HorizontalOptions="Center" VerticalOptions="Center"
                             Time="{Binding StartTime}">
                     <TimePicker.Format>HH:mm</TimePicker.Format>
                 </TimePicker>
 
-                <TimePicker Grid.Row="1" Grid.Column="1"
+                <TimePicker Grid.Row="1" Grid.Column="1" FontSize="45"
                             HorizontalOptions="Center" VerticalOptions="Center"
                             Time="{Binding StopTime}">
                     <TimePicker.Format>HH:mm</TimePicker.Format>
                 </TimePicker>
 
-                <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="15">
-                    <Label Text="Doeltemperatuur" />
-                    <Editor Text="10"
-                            Margin="0,0,0,20" />
+                <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="15"
+                             HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Doeltemperatuur" HorizontalOptions="Center" />
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="-" FontSize="30" Margin="10" />
+                        <Editor Text="110" HorizontalOptions="Center" FontSize="45"
+                                Margin="0,0,0,20" />
+                        <Button Text="+" FontSize="30" Margin="10" />
+                    </StackLayout>
                 </StackLayout>
 
                 <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
                     <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
                         <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
                                HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
-                            <Button Text="X" BackgroundColor="#F6462E" Margin="-20"
-                                    FontSize="25" TextColor="White" />
+                            <Button Text="&#xe802;" FontFamily="{StaticResource MijnSaunaFont}" BackgroundColor="#F6462E" 
+                                    Margin="-20" FontSize="45" TextColor="White" />
                         </Frame>
                         <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
                                HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
-                            <Button Text="+" BackgroundColor="#F6462E" Margin="-20"
-                                    FontSize="25" TextColor="White" />
+                            <Button Text="&#xe802;" FontFamily="{StaticResource MijnSaunaFont}" BackgroundColor="#F6462E" 
+                                    Margin="-20" FontSize="45" TextColor="White" />
                         </Frame>
                     </StackLayout>
                 </Grid>
