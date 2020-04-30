@@ -33,7 +33,8 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/src/MijnSauna.Frontend.Phone/MijnSauna.Frontend.Phone.Android/**/*.apk'
+    sourceFolder: '$(Build.SourcesDirectory)/src/MijnSauna.Frontend.Phone/MijnSauna.Frontend.Phone.Android/bin/Release'
+    contents: '*.apk'
     targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
