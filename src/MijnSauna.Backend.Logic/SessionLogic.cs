@@ -34,7 +34,7 @@ namespace MijnSauna.Backend.Logic
         public async Task<GetActiveSessionResponse> GetActiveSession()
         {
             var activeSession = await _sessionRepository.Single(x => x.Start <= DateTime.UtcNow && x.End >= DateTime.UtcNow);
-            if (activeSession.ActualEnd.HasValue && activeSession.ActualEnd.Value <= DateTime.UtcNow)
+            if (activeSession?.ActualEnd != null && activeSession.ActualEnd.Value <= DateTime.UtcNow)
             {
                 return null;
             }

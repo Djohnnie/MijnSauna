@@ -7,6 +7,7 @@ namespace MijnSauna.Middleware.Processor.Configuration
     {
         public string ServiceBaseUrl { get; set; }
         public string ClientId { get; set; }
+        public bool IsSaunaMode { get; set; }
 
         public ClientConfiguration(IConfiguration configuration)
         {

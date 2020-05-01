@@ -86,7 +86,10 @@ namespace MijnSauna.Backend.DataAccess.Repositories
             {
                 trackedEntity.State = EntityState.Detached;
             }
-            _dbContext.Entry(toUpdate).State = EntityState.Modified;
+
+            var entry = _dbContext.Entry(toUpdate);
+            entry.State = EntityState.Modified;
+            entry.Property("SysId").IsModified = false;
         }
 
         private void InternalRemove(TModel toRemove)
