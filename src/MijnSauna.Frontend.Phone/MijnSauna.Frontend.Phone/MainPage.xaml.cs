@@ -19,10 +19,7 @@ namespace MijnSauna.Frontend.Phone
             {
                 if (args.PropertyName == nameof(vm.SessionState))
                 {
-                    await Task.Delay(10);
-
-
-                    statusBarService.SetStatusBarColorFromArgb(
+                    await statusBarService.SetStatusBarColorFromArgb(
                         (int)(BackgroundColor.A * 255),
                         (int)(BackgroundColor.R * 255),
                         (int)(BackgroundColor.G * 255),

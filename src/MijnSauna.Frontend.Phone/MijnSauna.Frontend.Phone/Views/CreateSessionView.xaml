@@ -64,7 +64,7 @@
                 </StackLayout>
 
                 <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
-                    <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
+                    <controls:BottomControl Color="White" Margin="0,40,0,0" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
                         <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
                                HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">

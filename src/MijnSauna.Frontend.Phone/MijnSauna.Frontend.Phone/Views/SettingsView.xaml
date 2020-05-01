@@ -19,6 +19,9 @@
             <Label Text="ClientId" />
             <Editor Text="{Binding ClientId}"
                         Margin="0,0,0,20" />
+            <Label Text="IsSaunaMode" />
+            <CheckBox IsChecked="{Binding IsSaunaMode}"
+                    Margin="0,0,0,20" />
         </StackLayout>
 
     </ContentView.Content>

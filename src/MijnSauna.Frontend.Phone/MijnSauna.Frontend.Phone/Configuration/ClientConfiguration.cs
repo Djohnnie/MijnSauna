@@ -33,5 +33,18 @@ namespace MijnSauna.Frontend.Phone.Configuration
         }
 
         #endregion
+
+        #region <| IsSaunaMode |>
+
+        private const string IdIsSaunaMode = "sauna_mode";
+        private static readonly string DefaultIsSaunaMode = string.Empty;
+
+        public bool IsSaunaMode
+        {
+            get => AppSettings.GetValueOrDefault(IdIsSaunaMode, DefaultIsSaunaMode) == "TRUE";
+            set => AppSettings.AddOrUpdateValue(IdIsSaunaMode, value ? "TRUE" : "FALSE");
+        }
+
+        #endregion
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace MijnSauna.Frontend.Phone.Services.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace MijnSauna.Frontend.Phone.Services.Interfaces
 {
     public interface IStatusBarService
     {
-        void SetStatusBarColorFromArgb(int alpha, int red, int green, int blue);
+        Task<bool> SetStatusBarColorFromArgb(int alpha, int red, int green, int blue);
     }
 }

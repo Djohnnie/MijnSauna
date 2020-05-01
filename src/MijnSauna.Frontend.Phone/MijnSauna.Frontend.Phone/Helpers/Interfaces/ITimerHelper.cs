@@ -5,8 +5,11 @@ namespace MijnSauna.Frontend.Phone.Helpers.Interfaces
 {
     public interface ITimerHelper
     {
-        void Start(Func<Task> action, int interval);
+        ITimer Start(Func<Task> action, int interval);
+    }
 
+    public interface ITimer
+    {
         void Stop();
     }
 }

@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ViewModels\HomeViewModel.cs~RF45fc05f.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MagicGradients" Version="1.0.0" />
     <PackageReference Include="Microcharts" Version="0.7.1" />
     <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
@@ -36,6 +32,9 @@
     </Compile>
     <Compile Update="DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="SaunaPage.xaml.cs">
+      <DependentUpon>SaunaPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>

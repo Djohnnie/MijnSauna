@@ -18,6 +18,12 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             set => _clientConfiguration.ClientId = value;
         }
 
+        public bool IsSaunaMode
+        {
+            get => _clientConfiguration.IsSaunaMode;
+            set => _clientConfiguration.IsSaunaMode = value;
+        }
+
         public SettingsViewModel(IClientConfiguration clientConfiguration)
         {
             _clientConfiguration = clientConfiguration;

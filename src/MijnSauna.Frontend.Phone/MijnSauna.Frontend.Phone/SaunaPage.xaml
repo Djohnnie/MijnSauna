@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MijnSauna.Frontend.Phone.SaunaPage"
+             xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
+             xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters;assembly=MijnSauna.Frontend.Phone"
+             BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
+
+    <d:ContentPage.BindingContext>
+        <design:SaunaPageDesignViewModel />
+    </d:ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
+                                                     NoneColor="SlateBlue"
+                                                     ActiveColor="Crimson" />
+            <converters:SessionStateToVisibilityConverter x:Key="SessionStateToVisibilityConverter"
+                                                          NoneVisibility="False"
+                                                          ActiveVisibility="True" />
+            <converters:SessionStateToVisibilityConverter x:Key="SessionStateToInvisibilityConverter"
+                                                          NoneVisibility="True"
+                                                          ActiveVisibility="False" />
+            <OnPlatform x:Key="FontAwesome" x:TypeArguments="x:String">
+                <On Platform="Android" Value="fa-solid.ttf#Regular" />
+            </OnPlatform>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="300" />
+            <RowDefinition Height="120" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="{Binding Date}" FontSize="30" TextColor="White" />
+            <Label Text="{Binding Time}" FontSize="80" TextColor="White" HorizontalTextAlignment="Center" />
+        </StackLayout>
+
+        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"
+               Text="{Binding Description}" FontSize="100" TextColor="White" FontFamily="Times New Roman" />
+
+        <Label Grid.Row="2" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center"
+               Text="{Binding Temperature}" FontSize="200" TextColor="White" FontFamily="Times New Roman" />
+
+        <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="End"
+               Text="{Binding Countdown}" FontSize="70" TextColor="White" FontFamily="Times New Roman" />
+
+        <!--<Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Text="5000 W" TextColor="White" FontSize="30"
+                   HorizontalOptions="Start" VerticalOptions="End" />
+            <Label Grid.Column="1" Text="20 °C" TextColor="White" FontSize="30"
+                   HorizontalOptions="End" VerticalOptions="End" />
+        </Grid>-->
+
+        <controls:TemperatureChart Grid.Row="4" Margin="-20,0,-20,-150" 
+                                   Temperatures="{Binding Temperatures}" IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
+                                   MinimumTemperature="0" MaximumTemperature="120"
+                                   ChartBackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}" ChartHotColor="Black" />
+
+        <Grid Grid.Row="5">
+            <controls:BottomControl Color="Black" Padding="60" />
+            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
+                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
+                    Text="&#xf011;" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
+                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
+
+            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,125,0"
+                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
+                    Text="&#xf06d;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding CancelCommand}"
+                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
+
+            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="125,0,0,0"
+                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
+                    Text="&#xf7e5;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding CancelCommand}"
+                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

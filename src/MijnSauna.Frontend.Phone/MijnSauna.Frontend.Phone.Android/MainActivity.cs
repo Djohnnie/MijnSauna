@@ -27,10 +27,10 @@ namespace MijnSauna.Frontend.Phone.Droid
             container.AddXamarin();
             container.AddSingleton<App>();
             container.AddSingleton<IStatusBarService>(new StatusBarService(Window));
+            container.AddSingleton<ISoundService>(new SoundService(this));
             var provider = container.BuildServiceProvider();
 
             var app = provider.GetService<App>();
-
             LoadApplication(app);
         }
 

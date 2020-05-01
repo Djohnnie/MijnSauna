@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
              xmlns:controls="clr-namespace:MijnSauna.Frontend.Phone.Controls;assembly=MijnSauna.Frontend.Phone"
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              mc:Ignorable="d" x:Class="MijnSauna.Frontend.Phone.Views.HomeView">
 
     <d:ContentView.BindingContext>
@@ -93,7 +92,7 @@
                                            MinimumTemperature="0" MaximumTemperature="120" />
 
                 <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-                    <controls:BottomControl Color1="White" Color2="White" Margin="0,40,0,0" />
+                    <controls:BottomControl Color="White" Margin="0,40,0,0" />
                     <Frame CornerRadius="45" HasShadow="True" VerticalOptions="Center" HorizontalOptions="Center"
                            HeightRequest="30" WidthRequest="30" BackgroundColor="White" Margin="0,0,0,15">
                         <Button Text="+" BackgroundColor="#F6462E" Margin="-20" Command="{Binding CreateSessionCommand}"

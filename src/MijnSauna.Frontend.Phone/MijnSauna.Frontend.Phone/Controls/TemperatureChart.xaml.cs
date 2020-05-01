@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microcharts;
 using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Entry = Microcharts.Entry;
@@ -67,6 +68,54 @@ namespace MijnSauna.Frontend.Phone.Controls
 
         #endregion
 
+        #region <| ChartBackgroundColor |>
+
+        public Color ChartBackgroundColor
+        {
+            get => (Color)GetValue(ChartBackgroundColorProperty);
+            set => SetValue(ChartBackgroundColorProperty, value);
+        }
+
+        public static readonly BindableProperty ChartBackgroundColorProperty = BindableProperty.Create(
+            propertyName: nameof(ChartBackgroundColor),
+            returnType: typeof(Color),
+            declaringType: typeof(TemperatureChart),
+            propertyChanged: OnPropertyChanged);
+
+        #endregion
+
+        #region <| ChartColdColor |>
+
+        public Color ChartColdColor
+        {
+            get => (Color)GetValue(ChartColdColorProperty);
+            set => SetValue(ChartColdColorProperty, value);
+        }
+
+        public static readonly BindableProperty ChartColdColorProperty = BindableProperty.Create(
+            propertyName: nameof(ChartColdColor),
+            returnType: typeof(Color),
+            declaringType: typeof(TemperatureChart),
+            propertyChanged: OnPropertyChanged);
+
+        #endregion
+
+        #region <| ChartColdColor |>
+
+        public Color ChartHotColor
+        {
+            get => (Color)GetValue(ChartHotColorProperty);
+            set => SetValue(ChartHotColorProperty, value);
+        }
+
+        public static readonly BindableProperty ChartHotColorProperty = BindableProperty.Create(
+            propertyName: nameof(ChartHotColor),
+            returnType: typeof(Color),
+            declaringType: typeof(TemperatureChart),
+            propertyChanged: OnPropertyChanged);
+
+        #endregion
+
         #region <| Event Handlers |>
 
         private static void OnPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -84,7 +133,7 @@ namespace MijnSauna.Frontend.Phone.Controls
             ChartView.Chart = new LineChart
             {
                 Entries = GenerateEntries(),
-                BackgroundColor = SKColor.Parse("#DDDDDD"),
+                BackgroundColor = ChartBackgroundColor.ToSKColor(),
                 Margin = 0f,
                 LineSize = 5f,
                 LineMode = LineMode.Spline,
@@ -123,7 +172,8 @@ namespace MijnSauna.Frontend.Phone.Controls
             {
                 Label = "Temperature",
                 ValueLabel = $"{value}",
-                Color = new SKColor((byte)r, 0, (byte)b)
+                //Color = new SKColor((byte)r, 0, (byte)b)
+                Color = ChartHotColor.ToSKColor()
             };
         }
 
