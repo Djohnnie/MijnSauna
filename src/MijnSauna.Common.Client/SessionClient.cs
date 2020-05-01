@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 
@@ -22,6 +23,11 @@ namespace MijnSauna.Common.Client
         public Task<CreateSessionResponse> CreateSession(CreateSessionRequest request)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Task CancelSession(Guid sessionId)
+        {
+            return _serviceClient.Put($"sauna/sessions/{sessionId}/cancel");
         }
     }
 }

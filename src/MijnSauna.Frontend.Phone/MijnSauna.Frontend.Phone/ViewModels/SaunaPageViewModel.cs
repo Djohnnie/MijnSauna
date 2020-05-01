@@ -195,6 +195,10 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         private void OnCancel()
         {
             _soundService.PlayClickSound();
+            if (_activeSession != null)
+            {
+                _sessionClient.CancelSession(_activeSession.SessionId);
+            }
         }
     }
 }

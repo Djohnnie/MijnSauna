@@ -34,6 +34,11 @@ namespace MijnSauna.Backend.Logic
         public async Task<GetActiveSessionResponse> GetActiveSession()
         {
             var activeSession = await _sessionRepository.Single(x => x.Start <= DateTime.UtcNow && x.End >= DateTime.UtcNow);
+            if (activeSession.ActualEnd.HasValue && activeSession.ActualEnd.Value <= DateTime.UtcNow)
+            {
+                return null;
+            }
+
             return _getActiveSessionResponseMapper.Map(activeSession);
         }
 
@@ -44,6 +49,13 @@ namespace MijnSauna.Backend.Logic
             var session = _createSessionRequestMapper.Map(request);
             session = await _sessionRepository.Create(session);
             return _createSessionResponseMapper.Map(session);
+        }
+
+        public async Task CancelSession(Guid sessionId)
+        {
+            var session = await _sessionRepository.Single(x => x.Id == sessionId);
+            session.ActualEnd = DateTime.UtcNow;
+            await _sessionRepository.Update(session);
         }
     }
 }

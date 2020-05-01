@@ -44,5 +44,13 @@ namespace MijnSauna.Common.Client
 
             return default;
         }
+
+        public async Task Put(string resource)
+        {
+            var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
+            var request = new RestRequest(resource, Method.PUT);
+            request.AddHeader("ClientId", _clientConfiguration.ClientId);
+            await client.ExecuteAsync<ApiResult>(request);
+        }
     }
 }

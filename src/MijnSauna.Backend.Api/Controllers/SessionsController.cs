@@ -43,10 +43,9 @@ namespace MijnSauna.Backend.Api.Controllers
         }
 
         [HttpPut("{id}/cancel")]
-        public async Task<IActionResult> CancelSession(Guid id)
+        public Task<IActionResult> CancelSession(Guid id)
         {
-            await Task.Delay(1);
-            return Ok();
+            return Execute(l => l.CancelSession(id));
         }
     }
 }

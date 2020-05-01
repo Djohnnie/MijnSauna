@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
 
 namespace MijnSauna.Common.Client.Interfaces
@@ -8,5 +9,7 @@ namespace MijnSauna.Common.Client.Interfaces
         Task<GetActiveSessionResponse> GetActiveSession();
 
         Task<CreateSessionResponse> CreateSession(CreateSessionRequest request);
+
+        Task CancelSession(Guid sessionId);
     }
 }
