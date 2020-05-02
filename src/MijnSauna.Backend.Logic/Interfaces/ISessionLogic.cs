@@ -11,5 +11,7 @@ namespace MijnSauna.Backend.Logic.Interfaces
         Task<CreateSessionResponse> CreateSession(CreateSessionRequest request);
 
         Task CancelSession(Guid sessionId);
+
+        Task<CreateSessionResponse> QuickStartSession(QuickStartSessionRequest request);
     }
 }

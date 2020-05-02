@@ -15,6 +15,11 @@ namespace MijnSauna.Common.Client
             _serviceClient = serviceClient;
         }
 
+        public Task<GetSamplesForSessionResponse> GetSamplesForSession(Guid sessionId)
+        {
+            return _serviceClient.Get<GetSamplesForSessionResponse>($"sauna/sessions/{sessionId}/samples");
+        }
+
         public Task<CreateSampleForSessionResponse> CreateSampleForSession(Guid sessionId, CreateSampleForSessionRequest request)
         {
             return _serviceClient.Post<CreateSampleForSessionResponse, CreateSampleForSessionRequest>(

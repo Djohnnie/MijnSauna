@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MijnSauna.Common.Client.Interfaces;
@@ -17,8 +18,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         private readonly ITimerHelper _timerHelper;
         private readonly ISensorClient _sensorClient;
         private readonly ISessionClient _sessionClient;
+        private readonly ISampleClient _sampleClient;
         private readonly ISoundService _soundService;
-        private List<int> _temperatures = new List<int>();
         private GetActiveSessionResponse _activeSession;
 
         private SessionState _sessionState;
@@ -33,9 +34,16 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
         }
 
+        private List<int> _temperatures;
+
         public List<int> Temperatures
         {
             get => _temperatures;
+            set
+            {
+                _temperatures = value;
+                OnPropertyChanged(nameof(Temperatures));
+            }
         }
 
 
@@ -60,18 +68,6 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             {
                 _time = value;
                 OnPropertyChanged(nameof(Time));
-            }
-        }
-
-        private string _description;
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                _description = value;
-                OnPropertyChanged(nameof(Description));
             }
         }
 
@@ -108,41 +104,21 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             ITimerHelper timerHelper,
             ISensorClient sensorClient,
             ISessionClient sessionClient,
+            ISampleClient sampleClient,
             ISoundService soundService)
         {
             _timerHelper = timerHelper;
             _sensorClient = sensorClient;
             _sessionClient = sessionClient;
+            _sampleClient = sampleClient;
+            _soundService = soundService;
 
             _timerHelper.Start(OnTimer, 10000);
             _timerHelper.Start(OnCountdown, 500);
 
-            _soundService = soundService;
-            _temperatures.Add(23);
-            _temperatures.Add(28);
-            _temperatures.Add(31);
-            _temperatures.Add(36);
-            _temperatures.Add(41);
-            _temperatures.Add(42);
-            _temperatures.Add(43);
-            _temperatures.Add(56);
-            _temperatures.Add(66);
-            _temperatures.Add(71);
-            _temperatures.Add(90);
-            _temperatures.Add(93);
-            _temperatures.Add(101);
-            _temperatures.Add(115);
-            _temperatures.Add(120);
-            _temperatures.Add(115);
-            _temperatures.Add(116);
-            _temperatures.Add(119);
-            _temperatures.Add(118);
-            _temperatures.Add(111);
-            _temperatures.Add(120);
-
-            QuickStartSaunaCommand = new Command(OnQuickStartSauna);
-            QuickStartInfraredCommand = new Command(OnQuickStartInfrared);
-            CancelCommand = new Command(OnCancel);
+            QuickStartSaunaCommand = new Command(async () => await OnQuickStartSauna());
+            QuickStartInfraredCommand = new Command(async () => await OnQuickStartInfrared());
+            CancelCommand = new Command(async () => await OnCancel());
         }
 
         private async Task OnTimer()
@@ -151,17 +127,54 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
             _activeSession = await _sessionClient.GetActiveSession();
             SessionState = _activeSession != null ? SessionState.Active : SessionState.None;
-            Description = _activeSession != null ? _activeSession.IsSauna ? "sauna" : "infrarood" : String.Empty;
-
 
             var temperature = await _sensorClient.GetSaunaTemperature();
 
             Date = $"{currentDateAndTime:dddd d MMMM yyyy}";
             Time = $"{currentDateAndTime:HH:mm}";
             Temperature = $"{temperature.Temperature} °C";
+
+            if (_activeSession != null)
+            {
+                var samples = await _sampleClient.GetSamplesForSession(_activeSession.SessionId);
+                Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+            }
         }
 
         private Task OnCountdown()
+        {
+            return RefreshData();
+        }
+
+        private async Task OnQuickStartSauna()
+        {
+            _soundService.PlayClickSound();
+            await _sessionClient.QuickStartSession(new QuickStartSessionRequest
+            {
+                IsSauna = true
+            });
+        }
+
+        private async Task OnQuickStartInfrared()
+        {
+            _soundService.PlayClickSound();
+            await _sessionClient.QuickStartSession(new QuickStartSessionRequest
+            {
+                IsInfrared = true
+            });
+        }
+
+        private async Task OnCancel()
+        {
+            _soundService.PlayClickSound();
+            if (_activeSession != null)
+            {
+                await _sessionClient.CancelSession(_activeSession.SessionId);
+                await RefreshData();
+            }
+        }
+
+        private Task RefreshData()
         {
             if (_activeSession != null)
             {
@@ -179,26 +192,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             {
                 Countdown = string.Empty;
             }
+
             return Task.CompletedTask;
-        }
-
-        private void OnQuickStartSauna()
-        {
-            _soundService.PlayClickSound();
-        }
-
-        private void OnQuickStartInfrared()
-        {
-            _soundService.PlayClickSound();
-        }
-
-        private void OnCancel()
-        {
-            _soundService.PlayClickSound();
-            if (_activeSession != null)
-            {
-                _sessionClient.CancelSession(_activeSession.SessionId);
-            }
         }
     }
 }

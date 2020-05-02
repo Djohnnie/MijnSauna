@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xml:space="preserve"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 200 200"
+   x="0px"
+   y="0px"
+   id="svg3847"
+   sodipodi:docname="off.svg"
+   width="200"
+   height="200"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><metadata
+     id="metadata3851"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     id="namedview3849"
+     showgrid="false"
+     inkscape:zoom="1.8241546"
+     inkscape:cx="127.25523"
+     inkscape:cy="152.52833"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3847" /><defs
+     id="defs3835"><style
+       type="text/css"
+       id="style3833">
+   
+    .fil0 {fill:black}
+   
+  </style></defs><g
+     id="g3841"
+     transform="matrix(0.43360434,0,0,0.43478261,20,10.000001)"><path
+       class="fil0"
+       d="m 237,52 c 77,22 132,93 132,177 0,102 -82,185 -184,185 C 83,414 0,331 0,229 0,145 56,74 133,52 v 53 c -49,20 -83,68 -83,124 0,75 60,135 135,135 74,0 135,-60 135,-135 0,-56 -35,-104 -83,-124 z"
+       id="path3837"
+       inkscape:connector-curvature="0"
+       style="fill:#000000" /><path
+       class="fil0"
+       d="m 185,0 c 16,0 30,14 30,30 v 168 c 0,17 -14,30 -30,30 -17,0 -31,-13 -31,-30 V 30 C 154,14 168,0 185,0 Z"
+       id="path3839"
+       inkscape:connector-curvature="0"
+       style="fill:#000000" /></g></svg>

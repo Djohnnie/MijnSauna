@@ -42,6 +42,12 @@ namespace MijnSauna.Backend.Api.Controllers
             return Execute(l => l.CreateSession(request));
         }
 
+        [HttpPost("quickstart")]
+        public Task<IActionResult> QuickStartSession([FromBody] QuickStartSessionRequest request)
+        {
+            return Execute(l => l.QuickStartSession(request));
+        }
+
         [HttpPut("{id}/cancel")]
         public Task<IActionResult> CancelSession(Guid id)
         {

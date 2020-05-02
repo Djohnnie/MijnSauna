@@ -28,6 +28,9 @@
             <OnPlatform x:Key="FontAwesome" x:TypeArguments="x:String">
                 <On Platform="Android" Value="fa-solid.ttf#Regular" />
             </OnPlatform>
+            <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="mijnsauna.ttf#fontello" />
+            </OnPlatform>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -46,26 +49,14 @@
             <Label Text="{Binding Time}" FontSize="80" TextColor="White" HorizontalTextAlignment="Center" />
         </StackLayout>
 
-        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"
-               Text="{Binding Description}" FontSize="100" TextColor="White" FontFamily="Times New Roman" />
+        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,0"
+               Text="&#xe801;" FontSize="100" TextColor="#FFFFFF" FontFamily="{StaticResource MijnSaunaFont}" />
 
         <Label Grid.Row="2" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center"
                Text="{Binding Temperature}" FontSize="200" TextColor="White" FontFamily="Times New Roman" />
 
         <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="End"
                Text="{Binding Countdown}" FontSize="70" TextColor="White" FontFamily="Times New Roman" />
-
-        <!--<Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Column="0" Text="5000 W" TextColor="White" FontSize="30"
-                   HorizontalOptions="Start" VerticalOptions="End" />
-            <Label Grid.Column="1" Text="20 °C" TextColor="White" FontSize="30"
-                   HorizontalOptions="End" VerticalOptions="End" />
-        </Grid>-->
 
         <controls:TemperatureChart Grid.Row="4" Margin="-20,0,-20,-150" 
                                    Temperatures="{Binding Temperatures}" IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
@@ -74,20 +65,21 @@
 
         <Grid Grid.Row="5">
             <controls:BottomControl Color="Black" Padding="60" />
-            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
-                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
-                    Text="&#xf011;" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
-                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,125,0"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="&#xf06d;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding CancelCommand}"
-                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
+                    Text="&#xe801;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartSaunaCommand}"
+                    FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="125,0,0,0"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="&#xf7e5;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding CancelCommand}"
-                    FontSize="50" FontFamily="{StaticResource FontAwesome}" TextColor="White" />
+                    Text="&#xe802;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartInfraredCommand}"
+                    FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
+
+            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
+                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
+                    Text="&#xe806;" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
+                    FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
         </Grid>
 
     </Grid>

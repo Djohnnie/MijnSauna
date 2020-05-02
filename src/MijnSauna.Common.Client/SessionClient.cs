@@ -22,7 +22,14 @@ namespace MijnSauna.Common.Client
 
         public Task<CreateSessionResponse> CreateSession(CreateSessionRequest request)
         {
-            throw new System.NotImplementedException();
+            return _serviceClient.Post<CreateSessionResponse, CreateSessionRequest>(
+                "sauna/sessions", request);
+        }
+
+        public Task<CreateSessionResponse> QuickStartSession(QuickStartSessionRequest request)
+        {
+            return _serviceClient.Post<CreateSessionResponse, QuickStartSessionRequest>(
+                "sauna/sessions/quickstart", request);
         }
 
         public Task CancelSession(Guid sessionId)

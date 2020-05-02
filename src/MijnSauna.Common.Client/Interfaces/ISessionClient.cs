@@ -10,6 +10,8 @@ namespace MijnSauna.Common.Client.Interfaces
 
         Task<CreateSessionResponse> CreateSession(CreateSessionRequest request);
 
+        Task<CreateSessionResponse> QuickStartSession(QuickStartSessionRequest request);
+
         Task CancelSession(Guid sessionId);
     }
 }

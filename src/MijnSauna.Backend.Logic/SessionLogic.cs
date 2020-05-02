@@ -57,5 +57,20 @@ namespace MijnSauna.Backend.Logic
             session.ActualEnd = DateTime.UtcNow;
             await _sessionRepository.Update(session);
         }
+
+        public async Task<CreateSessionResponse> QuickStartSession(QuickStartSessionRequest request)
+        {
+            var session = new Session
+            {
+                IsSauna = request.IsSauna,
+                IsInfrared = request.IsInfrared,
+                Start = DateTime.UtcNow,
+                End = DateTime.UtcNow.AddHours(1),
+                TemperatureGoal = 110
+            };
+
+            session = await _sessionRepository.Create(session);
+            return _createSessionResponseMapper.Map(session);
+        }
     }
 }
