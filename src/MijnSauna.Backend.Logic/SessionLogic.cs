@@ -33,12 +33,7 @@ namespace MijnSauna.Backend.Logic
 
         public async Task<GetActiveSessionResponse> GetActiveSession()
         {
-            var activeSession = await _sessionRepository.Single(x => x.Start <= DateTime.UtcNow && x.End >= DateTime.UtcNow);
-            if (activeSession?.ActualEnd != null && activeSession.ActualEnd.Value <= DateTime.UtcNow)
-            {
-                return null;
-            }
-
+            var activeSession = await _sessionRepository.Single(x => x.Start <= DateTime.UtcNow && x.ActualEnd >= DateTime.UtcNow);
             return _getActiveSessionResponseMapper.Map(activeSession);
         }
 
@@ -66,6 +61,7 @@ namespace MijnSauna.Backend.Logic
                 IsInfrared = request.IsInfrared,
                 Start = DateTime.UtcNow,
                 End = DateTime.UtcNow.AddHours(1),
+                ActualEnd = DateTime.UtcNow.AddHours(1),
                 TemperatureGoal = 110
             };
 

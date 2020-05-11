@@ -10,7 +10,8 @@ namespace MijnSauna.Backend.Mappers
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CreateSessionRequest, Session>();
+                cfg.CreateMap<CreateSessionRequest, Session>()
+                    .ForMember(dest => dest.ActualEnd, opt => opt.MapFrom(src => src.End));
             });
             _mapper = config.CreateMapper();
         }

@@ -20,6 +20,7 @@ namespace MijnSauna.Backend.Tests.Mappers
 
             // Assert
             result.Should().BeEquivalentTo(createSessionRequest);
+            result.ActualEnd.Should().Be(createSessionRequest.End);
         }
     }
 }

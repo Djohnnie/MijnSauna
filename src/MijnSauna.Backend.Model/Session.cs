@@ -10,10 +10,9 @@ namespace MijnSauna.Backend.Model
         public int SysId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public DateTime? ActualEnd { get; set; }
+        public DateTime ActualEnd { get; set; }
         public bool IsSauna { get; set; }
         public bool IsInfrared { get; set; }
-        public bool IsActive { get; set; }
         public bool IsCancelled { get; set; }
         public int TemperatureGoal { get; set; }
         public List<Sample> Samples { get; set; }
