@@ -34,7 +34,9 @@ namespace MijnSauna.Backend.Logic
         public async Task<GetSamplesForSessionResponse> GetSamplesForSession(Guid sessionId)
         {
             var samples = await _sampleRepository.Find(x => x.Session.Id == sessionId);
-            return _getSamplesForSessionResponseMapper.Map(samples);
+            var response = _getSamplesForSessionResponseMapper.Map(samples);
+            response.SessionId = sessionId;
+            return response;
         }
 
         public async Task<CreateSampleForSessionResponse> CreateSampleForSession(Guid sessionId, CreateSampleForSessionRequest request)

@@ -14,7 +14,6 @@ namespace MijnSauna.Backend.Mappers
             {
                 cfg.CreateMap<Sample, SampleForSession>();
                 cfg.CreateMap<IList<Sample>, GetSamplesForSessionResponse>()
-                    .ForMember(d => d.SessionId, o => o.MapFrom(s => s.First().Session.Id))
                     .ForMember(d => d.Samples, o => o.MapFrom(s => s));
             });
             _mapper = config.CreateMapper();

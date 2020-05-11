@@ -28,7 +28,7 @@ namespace MijnSauna.Backend.DataAccess.Repositories
 
         public async Task<IList<TModel>> Find(Expression<Func<TModel, Boolean>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public async Task<IList<TModel>> Find<TProperty>(Expression<Func<TModel, Boolean>> predicate, Expression<Func<TModel, TProperty>> include)
@@ -38,7 +38,7 @@ namespace MijnSauna.Backend.DataAccess.Repositories
 
         public async Task<TModel> Single(Expression<Func<TModel, Boolean>> predicate)
         {
-            return await _dbSet.SingleOrDefaultAsync(predicate);
+            return await _dbSet.AsNoTracking().SingleOrDefaultAsync(predicate);
         }
 
         public virtual async Task<TModel> Create(TModel toCreate)

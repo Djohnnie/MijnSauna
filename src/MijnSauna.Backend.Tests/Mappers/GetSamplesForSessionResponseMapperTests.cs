@@ -24,7 +24,7 @@ namespace MijnSauna.Backend.Tests.Mappers
             var result = mapper.Map(samples);
 
             // Assert
-            result.SessionId.Should().Be(session.Id);
+            result.SessionId.Should().Be(Guid.Empty);
             result.Samples.Should().HaveCount(3);
             result.Samples.Should().BeEquivalentTo(samples, c => c.Excluding(x => x.SysId).Excluding(x => x.Session));
         }
