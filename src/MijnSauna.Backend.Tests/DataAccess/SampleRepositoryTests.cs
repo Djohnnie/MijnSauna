@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using MijnSauna.Backend.Common;
 using MijnSauna.Backend.DataAccess;

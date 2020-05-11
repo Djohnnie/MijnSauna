@@ -1,6 +1,6 @@
 ﻿namespace MijnSauna.Backend.Tests.DataAccess
 {
-    public class SessionRepositoryTests
+    public class LogRepositoryTests
     {
     }
 }
