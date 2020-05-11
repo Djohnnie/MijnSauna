@@ -216,7 +216,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
             timerHelper.Start(OnTimer, 10000);
             timerHelper.Start(OnCountdown, 500);
-            timerHelper.Start(OnProgress, 200);
+            timerHelper.Start(OnProgress, 100);
 
             QuickStartSaunaCommand = new Command(async () => await OnQuickStartSauna());
             QuickStartInfraredCommand = new Command(async () => await OnQuickStartInfrared());
@@ -237,7 +237,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             return RefreshData();
         }
 
-        private int _counter = 0;
+        private int _counter;
 
         private Task OnProgress()
         {
@@ -273,7 +273,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
             else
             {
-                SaunaCaption = "\ue807";
+                SaunaCaption = "\ue812";
             }
 
             if (_isInfraredPending)
@@ -282,7 +282,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             }
             else
             {
-                InfraredCaption = "\ue80c";
+                InfraredCaption = "\ue807";
             }
 
             if (_isCancelPending)
@@ -353,20 +353,24 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         private async Task RefreshActiveSession()
         {
             var currentDateAndTime = DateTime.Now;
+            Temperatures = new List<int>();
 
             ActiveSession = await _sessionClient.GetActiveSession();
             SessionState = ActiveSession != null ? SessionState.Active : SessionState.None;
 
-            var temperature = await _sensorClient.GetSaunaTemperature();
-
             Date = $"{currentDateAndTime:dddd d MMMM yyyy}";
             Time = $"{currentDateAndTime:HH:mm}";
-            Temperature = $"{temperature.Temperature} °C";
+
+            var temperature = await _sensorClient.GetSaunaTemperature();
+            Temperature = temperature != null ? $"{temperature.Temperature} °C" : "connection error";
 
             if (_activeSession != null)
             {
                 var samples = await _sampleClient.GetSamplesForSession(_activeSession.SessionId);
-                Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+                if (samples != null)
+                {
+                    Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+                }
             }
         }
 

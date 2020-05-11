@@ -26,7 +26,7 @@
                                                           NoneVisibility="True"
                                                           ActiveVisibility="False" />
             <converters:ActiveSessionToLogoConverter x:Key="ActiveSessionToLogoConverter"
-                                                     Idle="&#xE811;" Sauna="&#xE807;" Infrared="&#xE80C;" />
+                                                     Idle="&#xE811;" Sauna="&#xE812;" Infrared="&#xE807;" />
             <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
                 <On Platform="Android" Value="mijnsauna.ttf#fontello" />
             </OnPlatform>
