@@ -25,9 +25,8 @@
             <converters:SessionStateToVisibilityConverter x:Key="SessionStateToInvisibilityConverter"
                                                           NoneVisibility="True"
                                                           ActiveVisibility="False" />
-            <OnPlatform x:Key="FontAwesome" x:TypeArguments="x:String">
-                <On Platform="Android" Value="fa-solid.ttf#Regular" />
-            </OnPlatform>
+            <converters:ActiveSessionToLogoConverter x:Key="ActiveSessionToLogoConverter"
+                                                     Idle="&#xE811;" Sauna="&#xE807;" Infrared="&#xE80C;" />
             <OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
                 <On Platform="Android" Value="mijnsauna.ttf#fontello" />
             </OnPlatform>
@@ -50,7 +49,8 @@
         </StackLayout>
 
         <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,0"
-               Text="&#xe801;" FontSize="100" TextColor="#FFFFFF" FontFamily="{StaticResource MijnSaunaFont}" />
+               Text="{Binding ActiveSession, Converter={StaticResource ActiveSessionToLogoConverter}}"
+               FontSize="150" TextColor="#FFFFFF" FontFamily="{StaticResource MijnSaunaFont}" />
 
         <Label Grid.Row="2" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center"
                Text="{Binding Temperature}" FontSize="200" TextColor="White" FontFamily="Times New Roman" />
@@ -68,17 +68,17 @@
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,125,0"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="&#xe801;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartSaunaCommand}"
+                    Text="{Binding SaunaCaption}" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartSaunaCommand}"
                     FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="125,0,0,0"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="&#xe802;" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartInfraredCommand}"
+                    Text="{Binding InfraredCaption}" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartInfraredCommand}"
                     FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
-                    Text="&#xe806;" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
+                    Text="{Binding CancelCaption}" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
                     FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="White" />
         </Grid>
 

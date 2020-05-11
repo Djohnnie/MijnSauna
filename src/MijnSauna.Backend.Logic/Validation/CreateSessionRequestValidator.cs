@@ -6,7 +6,7 @@ namespace MijnSauna.Backend.Logic.Validation
 {
     public class CreateSessionRequestValidator : IValidator<CreateSessionRequest>
     {
-        public Boolean Validate(CreateSessionRequest toValidate)
+        public bool Validate(CreateSessionRequest toValidate)
         {
             return true;
         }
