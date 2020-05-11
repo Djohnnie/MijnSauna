@@ -12,6 +12,6 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
         
         Task UpdateSession(GetActiveSessionResponse activeSession);
 
-        bool KillSession();
+        Task<bool> KillSession();
     }
 }

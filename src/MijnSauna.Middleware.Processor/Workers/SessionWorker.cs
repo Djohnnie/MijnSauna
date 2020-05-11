@@ -37,7 +37,7 @@ namespace MijnSauna.Middleware.Processor.Workers
 
                 _logger.LogInformation($"{nameof(SessionWorker)} started!");
 
-                _gpioService.Initialize();
+                await _gpioService.Initialize();
                 _logger.LogInformation("GPIO initialized.");
 
                 while (!stoppingToken.IsCancellationRequested)
@@ -54,7 +54,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                         }
                         else
                         {
-                            var isKilled = _sessionService.KillSession();
+                            var isKilled = await _sessionService.KillSession();
                             if (isKilled)
                             {
                                 _logger.LogInformation("Active session killed.");
@@ -71,7 +71,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                     }
                 }
 
-                _gpioService.Shutdown();
+                await _gpioService.Shutdown();
                 _logger.LogInformation("GPIO shutdown.");
 
                 _logger.LogInformation($"{nameof(SessionWorker)} stopped!");

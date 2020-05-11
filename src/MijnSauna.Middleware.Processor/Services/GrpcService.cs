@@ -22,7 +22,7 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             _logger.LogInformation("Temperature requested by gRPC!");
 
-            _gpioService.Initialize();
+            await _gpioService.Initialize();
             var temperature = await _gpioService.ReadTemperature();
 
             return new GetTemperatureResponse
@@ -31,19 +31,19 @@ namespace MijnSauna.Middleware.Processor.Services
             };
         }
 
-        public override Task<GetStateResponse> GetState(GetStateRequest request, ServerCallContext context)
+        public override async Task<GetStateResponse> GetState(GetStateRequest request, ServerCallContext context)
         {
             _logger.LogInformation("State requested by gRPC!");
 
-            _gpioService.Initialize();
-            var isSaunaOn  = _gpioService.IsSaunaOn();
-            var isInfraredOn = _gpioService.IsInfraredOn();
+            await _gpioService.Initialize();
+            var isSaunaOn = await _gpioService.IsSaunaOn();
+            var isInfraredOn = await _gpioService.IsInfraredOn();
 
-            return Task.FromResult(new GetStateResponse
+            return new GetStateResponse
             {
                 IsSaunaOn = isSaunaOn,
                 IsInfraredOn = isInfraredOn
-            });
+            };
         }
     }
 }

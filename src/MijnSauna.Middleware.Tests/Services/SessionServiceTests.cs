@@ -26,8 +26,8 @@ namespace MijnSauna.Middleware.Tests.Services
 
             // Mock
             gpioService.Setup(x => x.ReadTemperature()).ReturnsAsync(0);
-            gpioService.Setup(x => x.IsSaunaOn()).Returns(false);
-            gpioService.Setup(x => x.IsInfraredOn()).Returns(false);
+            gpioService.Setup(x => x.IsSaunaOn()).ReturnsAsync(false);
+            gpioService.Setup(x => x.IsInfraredOn()).ReturnsAsync(false);
 
             // Act
             await sessionService.UpdateSession(data);

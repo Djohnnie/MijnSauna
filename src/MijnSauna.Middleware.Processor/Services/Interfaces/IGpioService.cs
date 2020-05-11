@@ -4,22 +4,22 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
 {
     public interface IGpioService
     {
-        void Initialize();
+        Task Initialize();
 
-        void TurnSaunaOn();
+        Task TurnSaunaOn();
 
-        void TurnSaunaOff();
+        Task TurnSaunaOff();
 
-        bool IsSaunaOn();
+        Task<bool> IsSaunaOn();
 
-        void TurnInfraredOn();
+        Task TurnInfraredOn();
 
-        void TurnInfraredOff();
+        Task TurnInfraredOff();
 
-        bool IsInfraredOn();
+        Task<bool> IsInfraredOn();
 
         Task<int> ReadTemperature();
 
-        void Shutdown();
+        Task Shutdown();
     }
 }

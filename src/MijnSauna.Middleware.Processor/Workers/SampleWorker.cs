@@ -51,8 +51,8 @@ namespace MijnSauna.Middleware.Processor.Workers
                             {
                                 var sampleRequest = new CreateSampleForSessionRequest
                                 {
-                                    IsSaunaPowered = _gpioService.IsSaunaOn(),
-                                    IsInfraredPowered = _gpioService.IsInfraredOn(),
+                                    IsSaunaPowered = await _gpioService.IsSaunaOn(),
+                                    IsInfraredPowered = await _gpioService.IsInfraredOn(),
                                     Temperature = await _gpioService.ReadTemperature(),
                                     TimeStamp = DateTime.UtcNow
                                 };

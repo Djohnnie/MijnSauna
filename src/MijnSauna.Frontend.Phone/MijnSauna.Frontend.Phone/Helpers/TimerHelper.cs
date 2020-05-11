@@ -33,7 +33,7 @@ namespace MijnSauna.Frontend.Phone.Helpers
                                 await action();
                                 await Task.Delay(interval, _cancellation.Token);
                             }
-                            catch(Exception ex)
+                            catch
                             {
                                 // Do nothing!
                             }

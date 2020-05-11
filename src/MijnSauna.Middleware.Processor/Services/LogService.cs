@@ -17,6 +17,16 @@ namespace MijnSauna.Middleware.Processor.Services
             _logClient = logClient;
         }
 
+        public Task LogInformation(string title, string message)
+        {
+            return _logClient.LogInformation(new LogInformationRequest
+            {
+                Title = title,
+                Message = message,
+                Component = "MijnSauna.Middleware.Processor"
+            });
+        }
+
         public Task LogException(string title, string message, Exception ex)
         {
             return _logClient.LogError(new LogErrorRequest
