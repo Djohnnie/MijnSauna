@@ -15,6 +15,12 @@ namespace MijnSauna.Backend.Api.Controllers
             ILogLogic logLogic,
             ILogger<ILogLogic> logger) : base(logLogic, logger) { }
 
+        [HttpPost("info")]
+        public Task<IActionResult> LogInformation([FromBody] LogInformationRequest request)
+        {
+            return Execute(l => l.LogInformation(request));
+        }
+
         [HttpPost("error")]
         public Task<IActionResult> LogError([FromBody] LogErrorRequest request)
         {

@@ -14,6 +14,11 @@ namespace MijnSauna.Common.Client
             _serviceClient = serviceClient;
         }
 
+        public Task LogInformation(LogInformationRequest request)
+        {
+            return _serviceClient.Post("logs/info", request);
+        }
+
         public Task LogError(LogErrorRequest request)
         {
             return _serviceClient.Post("logs/error", request);

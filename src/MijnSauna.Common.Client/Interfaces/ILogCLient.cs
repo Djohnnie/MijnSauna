@@ -5,6 +5,8 @@ namespace MijnSauna.Common.Client.Interfaces
 {
     public interface ILogClient
     {
+        Task LogInformation(LogInformationRequest request);
+
         Task LogError(LogErrorRequest request);
     }
 }

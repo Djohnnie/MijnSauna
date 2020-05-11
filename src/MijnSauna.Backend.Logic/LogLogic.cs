@@ -10,14 +10,23 @@ namespace MijnSauna.Backend.Logic
     public class LogLogic : ILogLogic
     {
         private readonly IRepository<Log> _logRepository;
+        private readonly IMapper<Log, LogInformationRequest> _logInformationRequestMapper;
         private readonly IMapper<Log, LogErrorRequest> _logErrorRequestMapper;
 
         public LogLogic(
             IRepository<Log> logRepository,
+            IMapper<Log, LogInformationRequest> logInformationRequestMapper,
             IMapper<Log, LogErrorRequest> logErrorRequestMapper)
         {
             _logRepository = logRepository;
+            _logInformationRequestMapper = logInformationRequestMapper;
             _logErrorRequestMapper = logErrorRequestMapper;
+        }
+
+        public async Task LogInformation(LogInformationRequest request)
+        {
+            var log = _logInformationRequestMapper.Map(request);
+            await _logRepository.Create(log);
         }
 
         public async Task LogError(LogErrorRequest request)

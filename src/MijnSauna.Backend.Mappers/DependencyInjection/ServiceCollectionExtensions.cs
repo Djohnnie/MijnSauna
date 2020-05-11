@@ -30,6 +30,7 @@ namespace MijnSauna.Backend.Mappers.DependencyInjection
             serviceCollection.AddSingleton<IMapper<Sample, CreateSampleForSessionRequest>, CreateSampleForSessionRequestMapper>();
             serviceCollection.AddSingleton<IMapper<Sample, CreateSampleForSessionResponse>, CreateSampleForSessionResponseMapper>();
 
+            serviceCollection.AddSingleton<IMapper<Log, LogInformationRequest>, LogInformationRequestMapper>();
             serviceCollection.AddSingleton<IMapper<Log, LogErrorRequest>, LogErrorRequestMapper>();
         }
     }
