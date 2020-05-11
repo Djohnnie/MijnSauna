@@ -30,6 +30,18 @@ namespace MijnSauna.Common.Client
             return default;
         }
 
+        public async Task Post<TBody>(string resource, TBody body)
+        {
+            var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
+            var request = new RestRequest(resource, Method.POST);
+            request.AddHeader("ClientId", _clientConfiguration.ClientId);
+            request.AddJsonBody(body);
+            var response = await client.ExecuteAsync<ApiResult>(request);
+            if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
+            {
+            }
+        }
+
         public async Task<TResponse> Post<TResponse, TBody>(string resource, TBody body) where TResponse : new()
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
