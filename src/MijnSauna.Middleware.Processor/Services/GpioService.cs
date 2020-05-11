@@ -11,15 +11,18 @@ namespace MijnSauna.Middleware.Processor.Services
     {
         private readonly IConfigurationService _configurationService;
         private readonly IGpioController _gpioController;
+        private readonly ILogService _logService;
 
         private bool _initialized;
 
         public GpioService(
             IConfigurationService configurationService,
-            IGpioController gpioController)
+            IGpioController gpioController,
+            ILogService logService)
         {
             _configurationService = configurationService;
             _gpioController = gpioController;
+            _logService = logService;
         }
 
         public void Initialize()
@@ -85,13 +88,18 @@ namespace MijnSauna.Middleware.Processor.Services
                         var sensorData = await File.ReadAllLinesAsync(sensorFile);
                         var temperatureData = sensorData[1].Substring(29, sensorData[1].Length - 29);
                         var rawTemperature = Convert.ToInt32(temperatureData);
-                        temperature = (int)Math.Round((double)rawTemperature / 1000f);
+                        if (rawTemperature != 0)
+                        {
+                            temperature = (int)Math.Round((double)rawTemperature / 1000f);
+                        }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Nothing we can do...
+                await _logService.LogException(
+                    "Error while reading temperature!",
+                    "Error while reading temperature!", ex);
             }
 
             return temperature;

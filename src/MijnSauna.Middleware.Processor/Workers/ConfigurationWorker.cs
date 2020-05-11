@@ -11,15 +11,18 @@ namespace MijnSauna.Middleware.Processor.Workers
     {
         private readonly IConfigurationService _configurationService;
         private readonly IConfigurationClient _configurationClient;
+        private readonly ILogService _logService;
         private readonly ILoggerService<ConfigurationWorker> _logger;
 
         public ConfigurationWorker(
             IConfigurationService configurationService,
             IConfigurationClient configurationClient,
+            ILogService logService,
             ILoggerService<ConfigurationWorker> logger)
         {
             _configurationService = configurationService;
             _configurationClient = configurationClient;
+            _logService = logService;
             _logger = logger;
         }
 
@@ -60,6 +63,9 @@ namespace MijnSauna.Middleware.Processor.Workers
             catch (Exception ex)
             {
                 _logger.LogError($"{nameof(ConfigurationWorker)} throws Exception: {ex.Message}!");
+                await _logService.LogException(
+                    "SessionWorker throws Exception!",
+                    "SessionWorker throws Exception!", ex);
             }
         }
     }

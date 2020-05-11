@@ -13,17 +13,20 @@ namespace MijnSauna.Middleware.Processor.Workers
         private readonly ISessionService _sessionService;
         private readonly ISampleClient _sampleClient;
         private readonly IGpioService _gpioService;
+        private readonly ILogService _logService;
         private readonly ILoggerService<SampleWorker> _logger;
 
         public SampleWorker(
             ISessionService sessionService,
             ISampleClient sampleClient,
             IGpioService gpioService,
+            ILogService logService,
             ILoggerService<SampleWorker> logger)
         {
             _sessionService = sessionService;
             _sampleClient = sampleClient;
             _gpioService = gpioService;
+            _logService = logService;
             _logger = logger;
         }
 
@@ -78,7 +81,10 @@ namespace MijnSauna.Middleware.Processor.Workers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{nameof(SampleWorker)} throws Exception: {ex.Message}!");
+                _logger.LogError($"{nameof(SampleWorker)} throws Exception: {ex.Message}!"); 
+                await _logService.LogException(
+                    "SessionWorker throws Exception!",
+                    "SessionWorker throws Exception!", ex);
             }
         }
     }

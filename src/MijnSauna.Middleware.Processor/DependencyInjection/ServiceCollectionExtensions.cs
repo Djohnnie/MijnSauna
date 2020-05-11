@@ -24,6 +24,8 @@ namespace MijnSauna.Middleware.Processor.DependencyInjection
             serviceCollection.AddSingleton<IConfigurationService, ConfigurationService>();
             serviceCollection.AddSingleton<ISessionService, SessionService>();
             serviceCollection.AddSingleton<IGpioService, GpioService>();
+            serviceCollection.AddSingleton<ILogService, LogService>();
+
             serviceCollection.AddSingleton<IGpioController, GpioController>();
         }
     }
