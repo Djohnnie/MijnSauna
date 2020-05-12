@@ -54,8 +54,11 @@ namespace MijnSauna.Backend.Logic
         public async Task CancelSession(Guid sessionId)
         {
             var session = await _sessionRepository.Single(x => x.Id == sessionId);
-            session.ActualEnd = DateTime.UtcNow;
-            await _sessionRepository.Update(session);
+            if (session != null)
+            {
+                session.ActualEnd = DateTime.UtcNow;
+                await _sessionRepository.Update(session);
+            }
         }
 
         public async Task<CreateSessionResponse> QuickStartSession(QuickStartSessionRequest request)
