@@ -45,10 +45,10 @@ namespace MijnSauna.Backend.Sensors
 
         private async Task ReadConfiguration()
         {
-            var hostBase = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_HOST_BASE);
-            var cityId = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_CITY_ID);
-            var appId = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_CLIENT_ID);
-            _regex = await _configurationProxy.GetValue(ConfigurationConstants.OPENWEATHERMAP_REGEX);
+            var hostBase = await _configurationProxy.GetString(ConfigurationConstants.OPENWEATHERMAP_HOST_BASE);
+            var cityId = await _configurationProxy.GetString(ConfigurationConstants.OPENWEATHERMAP_CITY_ID);
+            var appId = await _configurationProxy.GetString(ConfigurationConstants.OPENWEATHERMAP_CLIENT_ID);
+            _regex = await _configurationProxy.GetString(ConfigurationConstants.OPENWEATHERMAP_REGEX);
             _url = $"{hostBase}?id={cityId}&appid={appId}&units=metric";
         }
     }

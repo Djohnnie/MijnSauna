@@ -4,6 +4,8 @@ namespace MijnSauna.Backend.Sensors.Configuration
 {
     public interface IConfigurationProxy
     {
-        Task<string> GetValue(string name);
+        Task<string> GetString(string name);
+
+        Task<int> GetInt32(string name);
     }
 }

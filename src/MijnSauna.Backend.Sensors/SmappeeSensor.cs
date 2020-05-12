@@ -80,15 +80,15 @@ namespace MijnSauna.Backend.Sensors
 
         private async Task ReadConfiguration()
         {
-            var hostBase = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_HOST_BASE);
-            var loginUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_LOGON_RESOURCE);
+            var hostBase = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_HOST_BASE);
+            var loginUrl = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_LOGON_RESOURCE);
             _loginUrl = $"{hostBase}/{loginUrl}";
-            var reportUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_REPORT_RESOURCE);
+            var reportUrl = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_REPORT_RESOURCE);
             _reportUrl = $"{hostBase}/{reportUrl}";
-            var logoffUrl = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_LOGOFF_RESOURCE);
+            var logoffUrl = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_LOGOFF_RESOURCE);
             _logoutUrl = $"{hostBase}/{logoffUrl}";
-            _admin = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_ADMIN);
-            _regex = await _configurationProxy.GetValue(ConfigurationConstants.SMAPPEE_REGEX);
+            _admin = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_ADMIN);
+            _regex = await _configurationProxy.GetString(ConfigurationConstants.SMAPPEE_REGEX);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace MijnSauna.Backend.Sensors
 
         private async Task ReadConfiguration()
         {
-            _url = await _configurationProxy.GetValue(ConfigurationConstants.SAUNASERVICE_HOST);
+            _url = await _configurationProxy.GetString(ConfigurationConstants.SAUNASERVICE_HOST);
         }
     }
 }

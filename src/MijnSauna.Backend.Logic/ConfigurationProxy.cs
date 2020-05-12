@@ -1,4 +1,5 @@
-﻿using MijnSauna.Backend.Logic.Interfaces;
+﻿using System;
+using MijnSauna.Backend.Logic.Interfaces;
 using MijnSauna.Backend.Sensors.Configuration;
 using System.Threading.Tasks;
 
@@ -14,10 +15,16 @@ namespace MijnSauna.Backend.Logic
             _configurationLogic = configurationLogic;
         }
 
-        public async Task<string> GetValue(string name)
+        public async Task<string> GetString(string name)
         {
             var value = await _configurationLogic.GetConfigurationValue(name);
             return value.Value;
+        }
+
+        public async Task<int> GetInt32(string name)
+        {
+            var value = await _configurationLogic.GetConfigurationValue(name);
+            return Convert.ToInt32(value.Value);
         }
     }
 }

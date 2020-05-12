@@ -15,5 +15,10 @@
         public const string OPENWEATHERMAP_REGEX = "OPENWEATHERMAP_REGEX";
 
         public const string SAUNASERVICE_HOST = "SAUNASERVICE_HOST";
+
+        public const string SAUNA_DEFAULT_DURATION = "SAUNA_DEFAULT_DURATION";
+        public const string INFRARED_DEFAULT_DURATION = "INFRARED_DEFAULT_DURATION";
+        public const string SAUNA_DEFAULT_TEMPERATURE = "SAUNA_DEFAULT_TEMPERATURE";
+        public const string INFRARED_DEFAULT_TEMPERATURE = "INFRARED_DEFAULT_TEMPERATURE";
     }
 }
