@@ -8,7 +8,7 @@
              xmlns:pages="clr-namespace:MijnSauna.Frontend.Phone"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Phone.ViewModels.Design;assembly=MijnSauna.Frontend.Phone"
                   xmlns:converters="clr-namespace:MijnSauna.Frontend.Phone.Converters"
-                  IsPresented="{Binding IsPresented}" Appearing="MainPage_OnAppearing"                
+                  IsPresented="{Binding IsPresented}"                
                   BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
     <d:MasterDetailPage.BindingContext>
         <design:MainPageDesignViewModel />
@@ -17,8 +17,8 @@
     <MasterDetailPage.Resources>
         <ResourceDictionary>
             <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
-                                                     NoneColor="#068DCD"
-                                                     ActiveColor="#F6462E" />
+                                                     NoneColor="SlateBlue"
+                                                     ActiveColor="Crimson" />
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"/>
                 <Setter Property="BarTextColor" Value="White"/>

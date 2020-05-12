@@ -4,6 +4,10 @@ namespace MijnSauna.Frontend.Phone.Services.Interfaces
 {
     public interface IStatusBarService
     {
-        Task<bool> SetStatusBarColorFromArgb(int alpha, int red, int green, int blue);
+        Task SetFullscreen(bool fullscreen);
+
+        Task KeepScreenOn(bool keepScreenOn);
+
+        Task SetStatusBarColorFromArgb(int alpha, int red, int green, int blue);
     }
 }

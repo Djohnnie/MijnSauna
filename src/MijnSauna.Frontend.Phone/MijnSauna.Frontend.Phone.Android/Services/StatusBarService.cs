@@ -14,19 +14,44 @@ namespace MijnSauna.Frontend.Phone.Droid.Services
         public StatusBarService(Window window)
         {
             _window = window;
-            window.SetFlags(
-                WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Fullscreen,
-                WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Fullscreen);
         }
 
-        public async Task<bool> SetStatusBarColorFromArgb(int alpha, int red, int green, int blue)
+        public async Task SetFullscreen(bool fullscreen)
+        {
+            await BeginInvokeOnMainThreadAsync(() =>
+            {
+                if (fullscreen)
+                {
+                    _window.AddFlags(WindowManagerFlags.Fullscreen);
+                }
+                else
+                {
+                    _window.ClearFlags(WindowManagerFlags.Fullscreen);
+                }
+            });
+        }
+
+        public async Task KeepScreenOn(bool keepScreenOn)
+        {
+            await BeginInvokeOnMainThreadAsync(() =>
+            {
+                if (keepScreenOn)
+                {
+                    _window.AddFlags(WindowManagerFlags.KeepScreenOn);
+                }
+                else
+                {
+                    _window.ClearFlags(WindowManagerFlags.KeepScreenOn);
+                }
+            });
+        }
+
+        public async Task SetStatusBarColorFromArgb(int alpha, int red, int green, int blue)
         {
             await BeginInvokeOnMainThreadAsync(() =>
             {
                 _window.SetStatusBarColor(Color.Argb(alpha, red, green, blue));
             });
-
-            return true;
         }
 
         public Task BeginInvokeOnMainThreadAsync(Action action)

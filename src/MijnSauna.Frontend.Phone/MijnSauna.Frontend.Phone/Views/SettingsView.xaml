@@ -13,15 +13,15 @@
     <ContentView.Content>
 
         <StackLayout Grid.Row="3" Padding="15">
-            <Label Text="Service URL" />
+            <Label Text="Service URL" TextColor="White" />
             <Editor Text="{Binding ServiceBaseUrl}"
-                        Margin="0,0,0,20" />
-            <Label Text="ClientId" />
+                    TextColor="White" Margin="0,0,0,20" />
+            <Label Text="ClientId" TextColor="White" />
             <Editor Text="{Binding ClientId}"
-                        Margin="0,0,0,20" />
-            <Label Text="IsSaunaMode" />
+                    TextColor="White" Margin="0,0,0,20" />
+            <Label Text="IsSaunaMode" TextColor="White" />
             <CheckBox IsChecked="{Binding IsSaunaMode}"
-                    Margin="0,0,0,20" />
+                      Color="White" Margin="0,0,0,20" />
         </StackLayout>
 
     </ContentView.Content>

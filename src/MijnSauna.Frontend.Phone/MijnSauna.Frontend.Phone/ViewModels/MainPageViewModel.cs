@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MijnSauna.Common.Client.Interfaces;
 using MijnSauna.Frontend.Phone.Enums;
 using MijnSauna.Frontend.Phone.Factories.Interfaces;
+using MijnSauna.Frontend.Phone.Helpers.Interfaces;
 using MijnSauna.Frontend.Phone.ViewModels.Base;
 using MijnSauna.Frontend.Phone.ViewModels.Events;
 using MijnSauna.Frontend.Phone.ViewModels.Helpers;
@@ -64,7 +65,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             IViewModelFactory viewModelFactory,
             ISessionClient sessionClient,
             IEventAggregator eventAggregator,
-            IClientConfiguration clientConfiguration)
+            IClientConfiguration clientConfiguration,
+            ITimerHelper timerHelper)
         {
             _sessionClient = sessionClient;
 
@@ -80,16 +82,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                 DetailPageViewModel = viewModelFactory.Get<SettingsViewModel>();
             }
 
-            _ = Task.Run(async () =>
-            {
-                while (true)
-                {
-                    SessionState = SessionState.None;
-                    await Task.Delay(2000);
-                    SessionState = SessionState.Active;
-                    await Task.Delay(2000);
-                }
-            });
+            timerHelper.Start(OnPolling, 10000);
 
             eventAggregator.GetEvent<NavigationItemSelected>().Subscribe(e =>
             {
@@ -112,17 +105,10 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             });
         }
 
-        public async Task OnAppearing()
+        private async Task OnPolling()
         {
-            try
-            {
-                var activeSession = await _sessionClient.GetActiveSession();
-                SessionState = activeSession == null ? SessionState.None : SessionState.Active;
-            }
-            catch
-            {
-
-            }
+            var activeSession = await _sessionClient.GetActiveSession();
+            SessionState = activeSession == null ? SessionState.None : SessionState.Active;
         }
     }
 }

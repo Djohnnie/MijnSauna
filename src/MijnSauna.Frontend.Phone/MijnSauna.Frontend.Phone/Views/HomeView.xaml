@@ -34,57 +34,19 @@
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Row="0" Grid.Column="0" CornerRadius="15" HasShadow="True" Margin="10,10,5,5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="4*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" VerticalTextAlignment="Center" 
-                               Text="&#xe802;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="Black" />
-                        <Label Grid.Column="1" VerticalTextAlignment="Center"
-                               Text="{Binding PowerUsage}" FontSize="36" TextColor="Black" />
-                    </Grid>
-                </Frame>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding SaunaTemperature}" FontSize="50" TextColor="White" FontFamily="Times New Roman" />
 
-                <Frame Grid.Row="0" Grid.Column="1" CornerRadius="15" HasShadow="True" Margin="5,10,10,5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="4*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" VerticalTextAlignment="Center" 
-                               Text="&#xe801;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="Black" />
-                        <Label Grid.Column="1" VerticalTextAlignment="Center"
-                               Text="{Binding SaunaTemperature}" FontSize="36" TextColor="Black" />
-                    </Grid>
-                </Frame>
+                <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding OutsideTemperature}" FontSize="50" TextColor="White" FontFamily="Times New Roman" />
+                
+                <Label Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding PowerUsage}" FontSize="50" TextColor="White" FontFamily="Times New Roman" />
 
-                <Frame Grid.Row="1" Grid.Column="0" CornerRadius="15" HasShadow="True" Margin="10,5,5,10">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="4*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" VerticalTextAlignment="Center" 
-                               Text="&#xe802;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="Black" />
-                        <Label Grid.Column="1" VerticalTextAlignment="Center"
-                               Text="{Binding OutsideTemperature}" FontSize="36" TextColor="Black" />
-                    </Grid>
-                </Frame>
+                <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding CurrentTime}" FontSize="50" TextColor="White" FontFamily="Times New Roman" />
 
-                <Frame Grid.Row="1" Grid.Column="1" CornerRadius="15" HasShadow="True" Margin="5,5,10,10">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="4*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" VerticalTextAlignment="Center" 
-                               Text="&#xe803;" FontSize="50" FontFamily="{StaticResource MijnSaunaFont}" TextColor="Black" />
-                        <Label Grid.Column="1" VerticalTextAlignment="Center"
-                               Text="{Binding CurrentTime}" FontSize="36" TextColor="Black" />
-                    </Grid>
-                </Frame>
+
 
                 <controls:TemperatureChart Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                            HorizontalOptions="FillAndExpand"

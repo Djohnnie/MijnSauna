@@ -214,8 +214,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             _sampleClient = sampleClient;
             _soundService = soundService;
 
-            timerHelper.Start(OnTimer, 10000);
-            timerHelper.Start(OnCountdown, 500);
+            timerHelper.Start(OnPolling, 10000);
+            timerHelper.Start(OnCountdown, 1000);
             timerHelper.Start(OnProgress, 100);
 
             QuickStartSaunaCommand = new Command(async () => await OnQuickStartSauna());
@@ -227,7 +227,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #region <| Timer Handlers |>
 
-        private Task OnTimer()
+        private Task OnPolling()
         {
             return RefreshActiveSession();
         }
@@ -364,9 +364,9 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             var temperature = await _sensorClient.GetSaunaTemperature();
             Temperature = temperature != null ? $"{temperature.Temperature} °C" : "connection error";
 
-            if (_activeSession != null)
+            if (ActiveSession != null)
             {
-                var samples = await _sampleClient.GetSamplesForSession(_activeSession.SessionId);
+                var samples = await _sampleClient.GetSamplesForSession(ActiveSession.SessionId);
                 if (samples != null)
                 {
                     Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
@@ -376,9 +376,9 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         private Task RefreshData()
         {
-            if (_activeSession != null)
+            if (ActiveSession != null)
             {
-                var timeDifference = _activeSession.End.ToLocalTime() - DateTime.Now;
+                var timeDifference = ActiveSession.End.ToLocalTime() - DateTime.Now;
                 if (timeDifference > TimeSpan.Zero)
                 {
                     Countdown = timeDifference > TimeSpan.FromHours(1) ? $"{timeDifference:hh\\:mm\\:ss}" : $"{timeDifference:mm\\:ss}";

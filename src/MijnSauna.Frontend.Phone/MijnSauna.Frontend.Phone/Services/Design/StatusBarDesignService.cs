@@ -5,10 +5,22 @@ namespace MijnSauna.Frontend.Phone.Services.Design
 {
     public class StatusBarDesignService : IStatusBarService
     {
-        public Task<bool> SetStatusBarColorFromArgb(int alpha, int red, int green, int blue)
+        public Task SetFullscreen(bool fullscreen)
         {
             // Nothing to do in design mode.
-            return Task.FromResult(true);
+            return Task.CompletedTask;
+        }
+
+        public Task KeepScreenOn(bool keepScreenOn)
+        {
+            // Nothing to do in design mode.
+            return Task.CompletedTask;
+        }
+
+        public Task SetStatusBarColorFromArgb(int alpha, int red, int green, int blue)
+        {
+            // Nothing to do in design mode.
+            return Task.CompletedTask;
         }
     }
 }

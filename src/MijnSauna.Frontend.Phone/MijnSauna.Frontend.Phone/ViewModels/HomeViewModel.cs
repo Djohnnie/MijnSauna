@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MijnSauna.Common.Client.Interfaces;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MijnSauna.Common.DataTransferObjects.Sessions;
+using MijnSauna.Frontend.Phone.Enums;
 using MijnSauna.Frontend.Phone.Helpers.Interfaces;
 using MijnSauna.Frontend.Phone.ViewModels.Events;
 using MijnSauna.Frontend.Phone.ViewModels.Helpers;
@@ -13,11 +16,48 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 {
     public class HomeViewModel : DetailPageViewModel
     {
+        #region <| Dependencies |>
+
         private readonly IEventAggregator _eventAggregator;
-        private readonly ITimerHelper _timerHelper;
+        private readonly ISessionClient _sessionClient;
+        private readonly ISampleClient _sampleClient;
         private readonly ISensorClient _sensorClient;
 
-        #region <| PowerUsage |>
+        #endregion
+
+        #region <| Properties - SessionState |>
+
+        private SessionState _sessionState;
+
+        public SessionState SessionState
+        {
+            get => _sessionState;
+            set
+            {
+                _sessionState = value;
+                OnPropertyChanged(nameof(SessionState));
+            }
+        }
+
+        #endregion
+
+        #region <| Properties - ActiveSession |>
+
+        private GetActiveSessionResponse _activeSession;
+
+        public GetActiveSessionResponse ActiveSession
+        {
+            get => _activeSession;
+            set
+            {
+                _activeSession = value;
+                OnPropertyChanged(nameof(ActiveSession));
+            }
+        }
+
+        #endregion
+
+        #region <| Properties - PowerUsage |>
 
         private string _powerUsage;
 
@@ -33,7 +73,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
-        #region <| SaunaTemperature |>
+        #region <| Properties - SaunaTemperature |>
 
         private string _saunaTemperature;
 
@@ -49,7 +89,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
-        #region <| OutsideTemperature |>
+        #region <| Properties - OutsideTemperature |>
 
         private string _outsideTemperature;
 
@@ -65,7 +105,7 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
-        #region <| CurrentTime |>
+        #region <| Properties - CurrentTime |>
 
         private string _currentTime;
 
@@ -81,7 +121,23 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
-        #region <| Temperatures |>
+        #region <| Properties - Countdown |>
+
+        private string _countdown;
+
+        public string Countdown
+        {
+            get => _countdown;
+            set
+            {
+                _countdown = value;
+                OnPropertyChanged(nameof(Countdown));
+            }
+        }
+
+        #endregion
+
+        #region <| Properties - Temperatures |>
 
         private List<int> _temperatures;
 
@@ -97,48 +153,52 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
+        #region <| Commands |>
+
         public ICommand CreateSessionCommand { get; }
+
+        #endregion
+
+        #region <| Construction |>
 
         public HomeViewModel(
             IEventAggregator eventAggregator,
+            ISessionClient sessionClient,
+            ISampleClient sampleClient,
             ITimerHelper timerHelper,
             ISensorClient sensorClient)
         {
             _eventAggregator = eventAggregator;
-            _timerHelper = timerHelper;
+            _sessionClient = sessionClient;
+            _sampleClient = sampleClient;
             _sensorClient = sensorClient;
 
             Title = "Overzicht";
             Temperatures = new List<int>();
 
-            Task.Run(async () =>
-            {
-                var rng = new Random();
-                int value = 20;
-                while (true)
-                {
-                    await Task.Delay(1000);
-                    value += rng.Next(-5, 15);
-                    Temperatures.Add(value);
-                    Temperatures = new List<int>(Temperatures);
-                }
-            });
+            timerHelper.Start(OnPolling, 10000);
+            timerHelper.Start(OnCountdown, 1000);
 
             CreateSessionCommand = new Command(OnCreateSession);
-
-            _timerHelper.Start(RefreshData, 10000);
         }
 
-        private async Task RefreshData()
+        #endregion
+
+        #region <| Timer Handlers |>
+
+        private Task OnPolling()
         {
-            var powerUsage = await _sensorClient.GetPowerUsage();
-            PowerUsage = $"{powerUsage.PowerUsage} W";
-            var saunaTemperature = await _sensorClient.GetSaunaTemperature();
-            SaunaTemperature = $"{saunaTemperature.Temperature} °C";
-            var outsideTemperature = await _sensorClient.GetOutsideTemperature();
-            OutsideTemperature = $"{outsideTemperature.Temperature} °C";
-            CurrentTime = $"{DateTime.Now:HH:mm}";
+            return RefreshActiveSession();
         }
+
+        private Task OnCountdown()
+        {
+            return RefreshData();
+        }
+
+        #endregion
+
+        #region <| Command Handlers |>
 
         private void OnCreateSession()
         {
@@ -147,5 +207,61 @@ namespace MijnSauna.Frontend.Phone.ViewModels
                 Type = NavigationType.CreateSession
             });
         }
+
+        #endregion
+
+        #region <| Helper Methods |>
+
+        private async Task RefreshActiveSession()
+        {
+            var currentDateAndTime = DateTime.Now;
+            Temperatures = new List<int>();
+
+            ActiveSession = await _sessionClient.GetActiveSession();
+            SessionState = ActiveSession != null ? SessionState.Active : SessionState.None;
+
+            var powerUsage = await _sensorClient.GetPowerUsage();
+            PowerUsage = $"{powerUsage.PowerUsage} W";
+            var saunaTemperature = await _sensorClient.GetSaunaTemperature();
+            SaunaTemperature = $"{saunaTemperature.Temperature} °C";
+            var outsideTemperature = await _sensorClient.GetOutsideTemperature();
+            OutsideTemperature = $"{outsideTemperature.Temperature} °C";
+            CurrentTime = $"{DateTime.Now:HH:mm}";
+
+            if (_activeSession != null)
+            {
+                var samples = await _sampleClient.GetSamplesForSession(_activeSession.SessionId);
+                if (samples != null)
+                {
+                    Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+                }
+            }
+        }
+
+        private Task RefreshData()
+        {
+            if (_activeSession != null)
+            {
+                var timeDifference = _activeSession.End.ToLocalTime() - DateTime.Now;
+                if (timeDifference > TimeSpan.Zero)
+                {
+                    Countdown = timeDifference > TimeSpan.FromHours(1) ? $"{timeDifference:hh\\:mm\\:ss}" : $"{timeDifference:mm\\:ss}";
+                }
+                else
+                {
+                    Countdown = "00:00";
+                }
+            }
+            else
+            {
+                Countdown = string.Empty;
+            }
+
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+
     }
 }

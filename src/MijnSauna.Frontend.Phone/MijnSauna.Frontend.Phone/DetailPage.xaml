@@ -17,8 +17,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
-                                                     NoneColor="#068DCD"
-                                                     ActiveColor="#F6462E" />
+                                                     NoneColor="SlateBlue"
+                                                     ActiveColor="Crimson" />
 
             <converters:TypeNameConverter x:Key="TypeNameConverter" />
 
@@ -52,26 +52,26 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
-                   Text="&#xe800;" FontSize="90" TextColor="DarkOrange" FontFamily="{StaticResource MijnSaunaFont}" />
+                   Text="&#xe800;" FontSize="80" TextColor="White" FontFamily="{StaticResource MijnSaunaFont}" />
             <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
-                   Text="mijn sauna" FontSize="40" TextColor="DarkOrange" />
+                   Text="mijn sauna" FontSize="40" TextColor="White" />
         </Grid>
 
         <controls:SwirlControl Grid.Row="1" Margin="0"
                                Color1="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
-                               Color2="#DDDDDD" />
+                               Color2="#F02850" />
 
-        <Grid Grid.Row="2" BackgroundColor="#DDDDDD" Margin="0" Padding="0">
+        <Grid Grid.Row="2" BackgroundColor="#F02850" Margin="0" Padding="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Margin="0,-30,10,10" VerticalTextAlignment="Center" HorizontalTextAlignment="End" 
-                   Text="{Binding Title}" TextColor="Gray" FontSize="18" FontAttributes="Bold" />
+                   Text="{Binding Title}" TextColor="White" FontSize="18" FontAttributes="Bold" />
         </Grid>
 
-        <TemplatedView Grid.Row="3" BindingContext="{Binding}" BackgroundColor="#DDDDDD">
+        <TemplatedView Grid.Row="3" BindingContext="{Binding}" BackgroundColor="#F02850">
             <TemplatedView.Triggers>
                 <DataTrigger TargetType="TemplatedView" Binding="{Binding Path=., Converter={StaticResource TypeNameConverter}}" Value="HomeViewModel">
                     <Setter Property="ControlTemplate" Value="{StaticResource HomeTemplate}" />

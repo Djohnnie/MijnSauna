@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using MijnSauna.Common.Client.Interfaces;
+using MijnSauna.Frontend.Phone.Services.Interfaces;
 using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone
@@ -9,13 +10,16 @@ namespace MijnSauna.Frontend.Phone
     {
         public App(
             IClientConfiguration clientConfiguration,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            IStatusBarService statusBarService)
         {
             InitializeComponent();
 
             if (clientConfiguration.IsSaunaMode)
             {
                 MainPage = serviceProvider.GetService<SaunaPage>();
+                statusBarService.KeepScreenOn(true);
+                statusBarService.SetFullscreen(true);
             }
             else
             {
