@@ -128,6 +128,38 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
+        #region <| Properties - OutsideTemperature |>
+
+        private string _outsideTemperature;
+
+        public string OutsideTemperature
+        {
+            get => _outsideTemperature;
+            set
+            {
+                _outsideTemperature = value;
+                OnPropertyChanged(nameof(OutsideTemperature));
+            }
+        }
+
+        #endregion
+
+        #region <| Properties - PowerUsage |>
+
+        private string _powerUsage;
+
+        public string PowerUsage
+        {
+            get => _powerUsage;
+            set
+            {
+                _powerUsage = value;
+                OnPropertyChanged(nameof(PowerUsage));
+            }
+        }
+
+        #endregion
+
         #region <| Properties - Countdown |>
 
         private string _countdown;
@@ -353,23 +385,37 @@ namespace MijnSauna.Frontend.Phone.ViewModels
         private async Task RefreshActiveSession()
         {
             var currentDateAndTime = DateTime.Now;
-            Temperatures = new List<int>();
 
             ActiveSession = await _sessionClient.GetActiveSession();
             SessionState = ActiveSession != null ? SessionState.Active : SessionState.None;
+
+            if (ActiveSession == null)
+            {
+                Temperatures = new List<int>();
+            }
 
             Date = $"{currentDateAndTime:dddd d MMMM yyyy}";
             Time = $"{currentDateAndTime:HH:mm}";
 
             var temperature = await _sensorClient.GetSaunaTemperature();
-            Temperature = temperature != null ? $"{temperature.Temperature} °C" : "connection error";
+            Temperature = temperature != null ? $"{temperature.Temperature} °C" : "???";
+            var outsideTemperature = await _sensorClient.GetOutsideTemperature();
+            OutsideTemperature = outsideTemperature != null ? $"{outsideTemperature.Temperature} °C" : "???";
+            var powerUsage = await _sensorClient.GetPowerUsage();
+            PowerUsage = powerUsage != null ? $"{powerUsage.PowerUsage} W" : "???";
 
             if (ActiveSession != null)
             {
+                List<int> temperatures = null;
                 var samples = await _sampleClient.GetSamplesForSession(ActiveSession.SessionId);
                 if (samples != null)
                 {
-                    Temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+                    temperatures = samples.Samples.Select(x => x.Temperature).ToList();
+                }
+
+                if (temperatures != null && temperatures.Count > 0)
+                {
+                    Temperatures = temperatures;
                 }
             }
         }
