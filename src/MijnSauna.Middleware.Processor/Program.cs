@@ -1,8 +1,12 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Exceptions;
+using Serilog.Sinks.Elasticsearch;
 
 namespace MijnSauna.Middleware.Processor
 {
@@ -26,6 +30,17 @@ namespace MijnSauna.Middleware.Processor
                             configure => configure.Protocols = HttpProtocols.Http2);
                     });
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging((hostContext, logging) =>
+                {
+                    Log.Logger = new LoggerConfiguration()
+                        .Enrich.FromLogContext()
+                        .Enrich.WithExceptionDetails()
+                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://192.168.10.2:9200"))
+                        {
+                            AutoRegisterTemplate = true
+                        }).CreateLogger();
+                    logging.AddSerilog();
                 });
     }
 }
