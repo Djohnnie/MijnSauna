@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using MijnSauna.Backend.Api.DependencyInjection;
 using MijnSauna.Backend.Api.Middleware;
 using MijnSauna.Backend.Api.Swagger;
+using Prometheus;
 using static System.Environment;
 
 namespace MijnSauna.Backend.Api
@@ -49,11 +50,9 @@ namespace MijnSauna.Backend.Api
             app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseHttpMetrics();
             app.UseAuthorization();
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -63,6 +62,7 @@ namespace MijnSauna.Backend.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapMetrics();
             });
         }
     }
