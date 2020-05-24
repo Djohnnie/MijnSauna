@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Exceptions;
@@ -21,10 +22,14 @@ namespace MijnSauna.Middleware.Processor
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSystemd()
+                .ConfigureAppConfiguration((hostContext, configBuilder) =>
+                {
+                    configBuilder.AddEnvironmentVariables();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseKestrel();
-                    webBuilder.ConfigureKestrel((context, options) =>
+                    webBuilder.ConfigureKestrel((hostContext, options) =>
                     {
                         options.Listen(IPAddress.Any, 5050,
                             configure => configure.Protocols = HttpProtocols.Http2);
@@ -33,12 +38,14 @@ namespace MijnSauna.Middleware.Processor
                 })
                 .ConfigureLogging((hostContext, logging) =>
                 {
+                    var elasticHost = hostContext.Configuration.GetValue<string>("ElasticHost");
                     Log.Logger = new LoggerConfiguration()
                         .Enrich.FromLogContext()
                         .Enrich.WithExceptionDetails()
-                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://192.168.10.2:9200"))
+                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticHost))
                         {
-                            AutoRegisterTemplate = true
+                            AutoRegisterTemplate = true,
+                            IndexFormat = "mijnsauna-processor-{0:yyyy.MM}"
                         }).CreateLogger();
                     logging.AddSerilog();
                 });

@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
-using MijnSauna.Middleware.Processor.Helpers;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
 namespace MijnSauna.Middleware.Processor.Services
 {
     public class SessionService : ISessionService
     {
-        private readonly IConfigurationService _configurationService;
         private readonly IGpioService _gpioService;
         private readonly ILoggerService<SessionService> _logger;
 
+        private readonly Guid _correlationId = Guid.NewGuid();
         private Guid? _sessionId;
-        private TemperatureTrend _temperatureTrend = TemperatureTrend.Idle;
 
         public SessionService(
-            IConfigurationService configurationService,
             IGpioService gpioService,
             ILoggerService<SessionService> logger)
         {
-            _configurationService = configurationService;
             _gpioService = gpioService;
             _logger = logger;
+        }
+
+        public Guid GetCorrelationId()
+        {
+            return _correlationId;
         }
 
         public bool IsActive()
@@ -111,7 +112,6 @@ namespace MijnSauna.Middleware.Processor.Services
             _sessionId = null;
             await _gpioService.TurnSaunaOff();
             await _gpioService.TurnInfraredOff();
-            _temperatureTrend = TemperatureTrend.Idle;
 
             return result;
         }
