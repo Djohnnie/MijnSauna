@@ -13,10 +13,9 @@ namespace MijnSauna.Middleware.Tests.Services
         public async Task SessionService_UpdateSession_Without_IsSauna_Or_IsInfrared_Should_Not_Do_Anything()
         {
             // Arrange
-            var configurationServiceMock = new Mock<IConfigurationService>();
             var gpioService = new Mock<IGpioService>();
             var loggerService = new Mock<ILoggerService<SessionService>>();
-            var sessionService = new SessionService(configurationServiceMock.Object, gpioService.Object, loggerService.Object);
+            var sessionService = new SessionService(gpioService.Object, loggerService.Object);
 
             var data = new GetActiveSessionResponse
             {
