@@ -19,7 +19,13 @@ namespace MijnSauna.Backend.Api.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if(context.Request.Path.HasValue && context.Request.Path.Value.Contains("swagger"))
+            if (context.Request.Path.HasValue && context.Request.Path.Value.Contains("swagger"))
+            {
+                await _next.Invoke(context);
+                return;
+            }
+
+            if (context.Request.Path.HasValue && context.Request.Path.Value.Contains("metrics"))
             {
                 await _next.Invoke(context);
                 return;
