@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
+using MijnSauna.Middleware.Processor.Context.Interfaces;
 using MijnSauna.Middleware.Processor.Services;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 using Moq;
@@ -13,9 +14,10 @@ namespace MijnSauna.Middleware.Tests.Services
         public async Task SessionService_UpdateSession_Without_IsSauna_Or_IsInfrared_Should_Not_Do_Anything()
         {
             // Arrange
+            var sessionContext = new Mock<ISessionContext>();
             var gpioService = new Mock<IGpioService>();
             var loggerService = new Mock<ILoggerService<SessionService>>();
-            var sessionService = new SessionService(gpioService.Object, loggerService.Object);
+            var sessionService = new SessionService(sessionContext.Object, gpioService.Object, loggerService.Object);
 
             var data = new GetActiveSessionResponse
             {

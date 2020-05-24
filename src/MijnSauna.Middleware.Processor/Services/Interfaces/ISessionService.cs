@@ -6,8 +6,6 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
 {
     public interface ISessionService
     {
-        Guid GetCorrelationId();
-
         bool IsActive();
 
         Guid? GetSessionId();

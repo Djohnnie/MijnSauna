@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MijnSauna.Common.DataTransferObjects.Sessions;
+using MijnSauna.Middleware.Processor.Context.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
 
 namespace MijnSauna.Middleware.Processor.Services
 {
     public class SessionService : ISessionService
     {
+        private readonly ISessionContext _sessionContext;
         private readonly IGpioService _gpioService;
         private readonly ILoggerService<SessionService> _logger;
 
-        private readonly Guid _correlationId = Guid.NewGuid();
         private Guid? _sessionId;
 
         public SessionService(
+            ISessionContext sessionContext,
             IGpioService gpioService,
             ILoggerService<SessionService> logger)
         {
+            _sessionContext = sessionContext;
             _gpioService = gpioService;
             _logger = logger;
-        }
-
-        public Guid GetCorrelationId()
-        {
-            return _correlationId;
         }
 
         public bool IsActive()
@@ -38,7 +36,7 @@ namespace MijnSauna.Middleware.Processor.Services
 
         public async Task UpdateSession(GetActiveSessionResponse activeSession)
         {
-            _sessionId = activeSession.SessionId;
+            SetSessionId(activeSession.SessionId);
 
             var temperature = await _gpioService.ReadTemperature();
 
@@ -109,11 +107,17 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             var result = IsActive();
 
-            _sessionId = null;
+            SetSessionId(null);
             await _gpioService.TurnSaunaOff();
             await _gpioService.TurnInfraredOff();
 
             return result;
+        }
+
+        private void SetSessionId(Guid? sessionId)
+        {
+            _sessionId = sessionId;
+            _sessionContext.SetSessionId(sessionId);
         }
     }
 }
