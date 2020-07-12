@@ -2,7 +2,7 @@
 {
     public class SaunaPageDesignViewModel : SaunaPageViewModel
     {
-        public SaunaPageDesignViewModel() : base(null, null, null, null, null)
+        public SaunaPageDesignViewModel() : base(null, null, null, null, null, null)
         {
 
         }

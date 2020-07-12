@@ -224,6 +224,22 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
+        #region <| Properties - MediaInfo |>
+
+        private string _mediaInfo;
+
+        public string MediaInfo
+        {
+            get => _mediaInfo;
+            set
+            {
+                _mediaInfo = value;
+                OnPropertyChanged(nameof(MediaInfo));
+            }
+        }
+
+        #endregion
+
         #region <| Commands |>
 
         public ICommand QuickStartSaunaCommand { get; set; }
@@ -239,12 +255,18 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             ISensorClient sensorClient,
             ISessionClient sessionClient,
             ISampleClient sampleClient,
-            ISoundService soundService)
+            ISoundService soundService,
+            IMediaService mediaService)
         {
             _sensorClient = sensorClient;
             _sessionClient = sessionClient;
             _sampleClient = sampleClient;
             _soundService = soundService;
+
+            mediaService.RegisterCallback(mediaInfo =>
+            {
+                MediaInfo = mediaInfo == null ? string.Empty : $"{mediaInfo.Artist} - {mediaInfo.Track}";
+            });
 
             timerHelper.Start(OnPolling, 10000);
             timerHelper.Start(OnCountdown, 1000);
