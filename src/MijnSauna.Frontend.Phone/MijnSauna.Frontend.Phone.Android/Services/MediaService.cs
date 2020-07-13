@@ -13,11 +13,12 @@ namespace MijnSauna.Frontend.Phone.Droid.Services
         {
             if (_callback != null)
             {
+                var playing = intent.GetBooleanExtra("playing", false);
                 var artist = intent.GetStringExtra("artist");
                 var album = intent.GetStringExtra("album");
                 var track = intent.GetStringExtra("track");
 
-                _callback(track != null && artist != null ? new MediaInfo
+                _callback(playing ? new MediaInfo
                 {
                     Artist = artist,
                     Track = track,
