@@ -65,7 +65,7 @@
                Text="{Binding Countdown}" FontSize="70" TextColor="White" FontFamily="Times New Roman" />
 
         <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="End" Margin="25,0,25,0"
-               Text="{Binding MediaInfo}" LineBreakMode="TailTruncation" FontSize="36" TextColor="White" FontFamily="Times New Roman" />
+               Text="{Binding MediaInfo}" LineBreakMode="TailTruncation" FontSize="42" TextColor="White" FontFamily="Times New Roman" />
 
         <controls:TemperatureChart Grid.Row="4" Margin="-20,0,-20,-150" 
                                    Temperatures="{Binding Temperatures}" IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"

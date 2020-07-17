@@ -71,6 +71,7 @@
     <Compile Include="Services\MediaService.cs" />
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\mijnsauna.ttf" />
@@ -100,13 +101,16 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MijnSauna.Frontend.Phone\MijnSauna.Frontend.Phone.csproj">
       <Project>{63FFDF9E-5FC1-4B3A-B807-2AD27FA64572}</Project>
       <Name>MijnSauna.Frontend.Phone</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
