@@ -36,7 +36,8 @@ steps:
   displayName: 'Use .NET SDK (5.0)'
   inputs:
     packageType: sdk
-    version: 5.0.100
+    version: 5.0.100-preview.8.20417.9
+    includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
