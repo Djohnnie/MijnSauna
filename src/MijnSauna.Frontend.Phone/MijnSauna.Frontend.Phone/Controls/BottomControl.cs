@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone.Controls
 {
-    public class BottomControl : SKCanvasView
+    public class BottomControl : SKGLView
     {
         #region <| Color |>
 
@@ -38,8 +38,10 @@ namespace MijnSauna.Frontend.Phone.Controls
 
         #endregion
 
-        protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
+        protected override void OnPaintSurface(SKPaintGLSurfaceEventArgs e)
         {
+            base.OnPaintSurface(e);
+
             var paint = new SKPaint
             {
                 Color = Color.ToSKColor(),

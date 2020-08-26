@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace MijnSauna.Frontend.Phone.Controls
 {
-    public class SwirlControl : SKCanvasView
+    public class SwirlControl : SKGLView
     {
         public Color Color1 { get; set; }
 
@@ -16,8 +16,10 @@ namespace MijnSauna.Frontend.Phone.Controls
 
         public Color Color2 { get; set; }
 
-        protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
+        protected override void OnPaintSurface(SKPaintGLSurfaceEventArgs e)
         {
+            base.OnPaintSurface(e);
+
             var paint = new SKPaint
             {
                 Color = Color2.ToSKColor(),

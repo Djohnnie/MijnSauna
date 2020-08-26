@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microcharts;
-using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Entry = Microcharts.Entry;
 
 namespace MijnSauna.Frontend.Phone.Controls
 {
@@ -132,7 +130,7 @@ namespace MijnSauna.Frontend.Phone.Controls
         {
             ChartView.Chart = new LineChart
             {
-                Entries = GenerateEntries(),
+                Entries = GenerateChartEntries(),
                 BackgroundColor = ChartBackgroundColor.ToSKColor(),
                 Margin = 0f,
                 LineSize = 5f,
@@ -144,9 +142,9 @@ namespace MijnSauna.Frontend.Phone.Controls
             };
         }
 
-        private IEnumerable<Entry> GenerateEntries()
+        private IEnumerable<ChartEntry> GenerateChartEntries()
         {
-            var entries = new List<Entry>();
+            var entries = new List<ChartEntry>();
 
             if (Temperatures != null)
             {
@@ -156,19 +154,19 @@ namespace MijnSauna.Frontend.Phone.Controls
                     if (value < MinimumTemperature) value = MinimumTemperature;
                     if (value > MaximumTemperature) value = MaximumTemperature;
 
-                    entries.Add(GenerateEntry(value));
+                    entries.Add(GenerateChartEntry(value));
                 }
             }
 
             return entries;
         }
 
-        private Entry GenerateEntry(int value)
+        private ChartEntry GenerateChartEntry(int value)
         {
             var r = value / (double)MaximumTemperature * 255f;
             var b = 255 - value / (double)MaximumTemperature * 255f;
 
-            return new Entry(value)
+            return new ChartEntry(value)
             {
                 Label = "Temperature",
                 ValueLabel = $"{value}",

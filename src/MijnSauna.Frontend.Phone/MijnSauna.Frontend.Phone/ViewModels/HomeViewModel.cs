@@ -25,22 +25,6 @@ namespace MijnSauna.Frontend.Phone.ViewModels
 
         #endregion
 
-        #region <| Properties - SessionState |>
-
-        private SessionState _sessionState;
-
-        public SessionState SessionState
-        {
-            get => _sessionState;
-            set
-            {
-                _sessionState = value;
-                OnPropertyChanged(nameof(SessionState));
-            }
-        }
-
-        #endregion
-
         #region <| Properties - ActiveSession |>
 
         private GetActiveSessionResponse _activeSession;
