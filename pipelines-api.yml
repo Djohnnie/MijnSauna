@@ -33,10 +33,10 @@ variables:
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Use .NET Core SDK (3.1)'
+  displayName: 'Use .NET SDK (5.0)'
   inputs:
     packageType: sdk
-    version: 3.1.102
+    version: 5.0.100-preview.8
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
