@@ -9,6 +9,8 @@
         public const string SMAPPEE_ADMIN = "SMAPPEE_ADMIN";
         public const string SMAPPEE_REGEX = "SMAPPEE_REGEX";
 
+        public const string SHELLY_HOST_BASE = "SHELLY_HOST_BASE";
+
         public const string OPENWEATHERMAP_HOST_BASE = "OPENWEATHERMAP_HOST_BASE";
         public const string OPENWEATHERMAP_CLIENT_ID = "OPENWEATHERMAP_CLIENT_ID";
         public const string OPENWEATHERMAP_CITY_ID = "OPENWEATHERMAP_CITY_ID";

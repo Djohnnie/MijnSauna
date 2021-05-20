@@ -7,6 +7,8 @@ namespace MijnSauna.Backend.Logic.Interfaces
     {
         Task<GetPowerUsageResponse> GetPowerUsage();
 
+        Task<GetSaunaPowerUsageResponse> GetSaunaPowerUsage();
+
         Task<GetSaunaTemperatureResponse> GetSaunaTemperature();
 
         Task<GetOutsideTemperatureResponse> GetOutsideTemperature();

@@ -20,6 +20,12 @@ namespace MijnSauna.Backend.Api.Controllers
             return Execute(l => l.GetPowerUsage());
         }
 
+        [HttpGet("power/sauna")]
+        public Task<IActionResult> GetSaunaPowerUsage()
+        {
+            return Execute(l => l.GetSaunaPowerUsage());
+        }
+
         [HttpGet("temperature/sauna")]
         public Task<IActionResult> GetSaunaTemperature()
         {
