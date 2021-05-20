@@ -3,6 +3,7 @@ using MijnSauna.Backend.Sensors.Configuration;
 using MijnSauna.Backend.Sensors.Interfaces;
 using MijnSauna.Backend.Sensors.Model;
 using RestSharp;
+using RestSharp.Serializers.SystemTextJson;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace MijnSauna.Backend.Sensors
         {
             var host = await _configurationProxy.GetString(ConfigurationConstants.SHELLY_HOST_BASE);
             var client = new RestClient(host);
+            client.UseSystemTextJson();
             var request = new RestRequest("status", Method.GET);
             var response = await client.ExecuteAsync<ShellyEMetering>(request);
 
