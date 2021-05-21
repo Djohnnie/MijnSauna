@@ -25,6 +25,7 @@ namespace MijnSauna.Middleware.Processor
                 .ConfigureAppConfiguration((hostContext, configBuilder) =>
                 {
                     configBuilder.AddEnvironmentVariables();
+                    configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
