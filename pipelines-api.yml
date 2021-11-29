@@ -1,8 +1,3 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
-
 trigger:
   branches:
     include:
@@ -23,7 +18,7 @@ trigger:
     - src/MijnSauna.Common.Protobuf/*
 
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-20.04'
 
 variables:
   solution: '**/backend/**/*.sln'
@@ -33,10 +28,10 @@ variables:
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Use .NET SDK (5.0)'
+  displayName: 'Use .NET SDK (6.0)'
   inputs:
     packageType: sdk
-    version: 5.0.203
+    version: 6.0.100
     includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
