@@ -204,8 +204,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             ActiveSession = await _sessionClient.GetActiveSession();
             SessionState = ActiveSession != null ? SessionState.Active : SessionState.None;
 
-            var powerUsage = await _sensorClient.GetPowerUsage();
-            PowerUsage = $"{powerUsage.PowerUsage} W";
+            var powerUsage = await _sensorClient.GetSaunaPowerUsage();
+            PowerUsage = $"{powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage} W";
             var saunaTemperature = await _sensorClient.GetSaunaTemperature();
             SaunaTemperature = $"{saunaTemperature.Temperature} °C";
             var outsideTemperature = await _sensorClient.GetOutsideTemperature();

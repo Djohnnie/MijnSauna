@@ -5,7 +5,7 @@ namespace MijnSauna.Common.Client.Interfaces
 {
     public interface ISensorClient
     {
-        Task<GetPowerUsageResponse> GetPowerUsage();
+        Task<GetSaunaPowerUsageResponse> GetSaunaPowerUsage();
 
         Task<GetSaunaTemperatureResponse> GetSaunaTemperature();
 

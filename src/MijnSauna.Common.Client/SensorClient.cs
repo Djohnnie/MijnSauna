@@ -14,9 +14,9 @@ namespace MijnSauna.Common.Client
             _serviceClient = serviceClient;
         }
 
-        public Task<GetPowerUsageResponse> GetPowerUsage()
+        public Task<GetSaunaPowerUsageResponse> GetSaunaPowerUsage()
         {
-            return _serviceClient.Get<GetPowerUsageResponse>("sensors/power");
+            return _serviceClient.Get<GetSaunaPowerUsageResponse>("sensors/power/sauna");
         }
 
         public Task<GetOutsideTemperatureResponse> GetOutsideTemperature()

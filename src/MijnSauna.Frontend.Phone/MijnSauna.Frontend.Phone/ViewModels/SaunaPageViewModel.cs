@@ -423,8 +423,8 @@ namespace MijnSauna.Frontend.Phone.ViewModels
             Temperature = temperature != null ? $"{temperature.Temperature} °C" : "???";
             var outsideTemperature = await _sensorClient.GetOutsideTemperature();
             OutsideTemperature = outsideTemperature != null ? $"{outsideTemperature.Temperature} °C" : "???";
-            var powerUsage = await _sensorClient.GetPowerUsage();
-            PowerUsage = powerUsage != null ? $"{powerUsage.PowerUsage} W" : "???";
+            var powerUsage = await _sensorClient.GetSaunaPowerUsage();
+            PowerUsage = powerUsage != null ? $"{(powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage):F0} W" : "???";
 
             if (ActiveSession != null)
             {
