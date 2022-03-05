@@ -30,7 +30,7 @@ namespace MijnSauna.Backend.Sensors
             var result = 0;
 
             var client = new RestClient(_url);
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(string.Empty, Method.Get);
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {

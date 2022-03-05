@@ -19,7 +19,7 @@ namespace MijnSauna.Common.Client
         public async Task<TResponse> Get<TResponse>(string resource) where TResponse : new()
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
-            var request = new RestRequest(resource, Method.GET);
+            var request = new RestRequest(resource, Method.Get);
             request.AddHeader("ClientId", _clientConfiguration.ClientId);
             var response = await client.ExecuteAsync<ApiResult<TResponse>>(request);
             if (response.IsSuccessful && response.StatusCode == HttpStatusCode.OK)
@@ -30,10 +30,10 @@ namespace MijnSauna.Common.Client
             return default;
         }
 
-        public async Task Post<TBody>(string resource, TBody body)
+        public async Task Post<TBody>(string resource, TBody body) where TBody : class
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
-            var request = new RestRequest(resource, Method.POST);
+            var request = new RestRequest(resource, Method.Post);
             request.AddHeader("ClientId", _clientConfiguration.ClientId);
             request.AddJsonBody(body);
             var response = await client.ExecuteAsync<ApiResult>(request);
@@ -42,10 +42,10 @@ namespace MijnSauna.Common.Client
             }
         }
 
-        public async Task<TResponse> Post<TResponse, TBody>(string resource, TBody body) where TResponse : new()
+        public async Task<TResponse> Post<TResponse, TBody>(string resource, TBody body) where TResponse : new() where TBody : class
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
-            var request = new RestRequest(resource, Method.POST);
+            var request = new RestRequest(resource, Method.Post);
             request.AddHeader("ClientId", _clientConfiguration.ClientId);
             request.AddJsonBody(body);
             var response = await client.ExecuteAsync<ApiResult<TResponse>>(request);
@@ -60,7 +60,7 @@ namespace MijnSauna.Common.Client
         public async Task Put(string resource)
         {
             var client = new RestClient(_clientConfiguration.ServiceBaseUrl);
-            var request = new RestRequest(resource, Method.PUT);
+            var request = new RestRequest(resource, Method.Put);
             request.AddHeader("ClientId", _clientConfiguration.ClientId);
             await client.ExecuteAsync<ApiResult>(request);
         }

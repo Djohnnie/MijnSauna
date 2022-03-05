@@ -39,8 +39,8 @@ namespace MijnSauna.Backend.Sensors
         private async Task Login()
         {
             var client = new RestClient(_loginUrl);
-            var request = new RestRequest(Method.POST);
-            request.Body = new RequestBody("application/json", "", _admin);
+            var request = new RestRequest(string.Empty, Method.Post);
+            request.AddBody(_admin, "application/json");
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
@@ -53,7 +53,7 @@ namespace MijnSauna.Backend.Sensors
             int result = 0;
 
             var client = new RestClient(_reportUrl);
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(string.Empty, Method.Get);
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
@@ -69,8 +69,8 @@ namespace MijnSauna.Backend.Sensors
         private async Task Logout()
         {
             var client = new RestClient(_logoutUrl);
-            var request = new RestRequest(Method.POST);
-            request.Body = new RequestBody("application/json", "", _admin);
+            var request = new RestRequest(string.Empty, Method.Post);
+            request.AddBody(_admin, "application/json");
             var response = await client.ExecuteAsync(request);
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {

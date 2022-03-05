@@ -23,8 +23,7 @@ namespace MijnSauna.Backend.Sensors
         {
             var host = await _configurationProxy.GetString(ConfigurationConstants.SHELLY_HOST_BASE);
             var client = new RestClient(host);
-            client.UseSystemTextJson();
-            var request = new RestRequest("status", Method.GET);
+            var request = new RestRequest("status", Method.Get);
             var response = await client.ExecuteAsync<ShellyEMetering>(request);
 
             if (response.ResponseStatus == ResponseStatus.Completed && 
