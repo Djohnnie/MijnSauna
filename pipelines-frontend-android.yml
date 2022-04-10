@@ -2,37 +2,41 @@ trigger:
   branches:
     include:
     - master
-    - releases/*
   paths:
     include:
-    - src/MijnSauna.Frontend.Phone/*
-    - src/MijnSauna.Frontend.Phone.Android/*
+    - src/MijnSauna.Frontend.Maui/*
     - src/MijnSauna.Common.Client/*
     - src/MijnSauna.Common.DataTransferObjects/*
-    - src/MijnSauna.Common.Protobuf/*
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2022'
 
 steps:
-- task: NuGetToolInstaller@0
 
-- task: NuGetCommand@2
+- task: CmdLine@2
+  displayName: 'Install MAUI workload for dotnet CLI'
   inputs:
-    restoreSolution: '**/MijnSauna.Frontend.sln'
+    script: 'dotnet workload install maui'
 
-- task: XamarinAndroid@1
+- task: DotNetCoreCLI@2
+  displayName: 'Build MijnSauna.Frontend.Maui.csproj for net6.0-android'
   inputs:
-    projectFile: '**/MijnSauna.Frontend.Phone.Android.csproj'
-    configuration: Release
+    command: 'build'
+    projects: 'src\MijnSauna.Frontend.Maui\MijnSauna.Frontend.Maui.csproj'
+    arguments: '-c Release -f net6.0-android'
 
 - task: CopyFiles@2
+  displayName: 'Copy signed packages to ArtifactStagingDirectory'
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)/src/MijnSauna.Frontend.Phone/MijnSauna.Frontend.Phone.Android/bin/Release'
-    contents: '*.apk'
-    targetFolder: $(Build.ArtifactStagingDirectory)
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: |
+      **/*-Signed.aab
+      **/*-Signed.apk
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish signed packages to ArtifactStagingDirectory'
   inputs:
-    PathtoPublish: $(Build.ArtifactStagingDirectory)
-    ArtifactName: 'MyApp'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: MijnSauna.Frontend.Maui
