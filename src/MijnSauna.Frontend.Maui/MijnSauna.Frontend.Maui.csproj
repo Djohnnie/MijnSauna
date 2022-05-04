@@ -8,15 +8,16 @@
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 
 		<!-- Display name -->
 		<ApplicationTitle>MijnSauna.Frontend.Maui</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.mijnsauna.frontend.maui</ApplicationId>
+		<ApplicationIdGuid>A3C9EC03-C31D-46BE-A315-A685CDDF9CAF</ApplicationIdGuid>
 
 		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- Required for C# Hot Reload -->
@@ -44,12 +45,6 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\fa-brands.ttf" />
 	  <None Remove="Resources\Fonts\fa-regular.ttf" />
@@ -60,10 +55,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
 	</ItemGroup>
-
-	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<OutputType>WinExe</OutputType>
-		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-	</PropertyGroup>
 	
 </Project>
