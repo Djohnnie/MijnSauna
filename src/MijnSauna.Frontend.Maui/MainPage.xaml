@@ -17,92 +17,8 @@
                                                           ActiveVisibility="False" />
             <converters:ActiveSessionToLogoConverter x:Key="ActiveSessionToLogoConverter"
                                                      Idle="&#xE811;" Sauna="&#xE812;" Infrared="&#xE807;" />
-
-            <!--<OnPlatform x:Key="MijnSaunaFont" x:TypeArguments="x:String">
-                <On Platform="Android" Value="mijnsauna.ttf#fontello" />
-            </OnPlatform>-->
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <!--<Grid BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="300" />
-            <RowDefinition Height="120" />
-        </Grid.RowDefinitions>
-
-        <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
-            <Label Text="{Binding Date}" FontSize="30" TextColor="White" />
-            <Label Text="{Binding Time}" FontSize="80" TextColor="White" HorizontalTextAlignment="Center" />
-        </StackLayout>
-
-        <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="15,10,10,10"
-               Text="{Binding OutsideTemperature}" FontSize="40" TextColor="White" FontFamily="Times New Roman" />
-
-        <Label Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="10,10,15,10"
-               Text="{Binding PowerUsage}" FontSize="40" TextColor="White" FontFamily="Times New Roman" />
-
-        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,0"
-               Text="{Binding ActiveSession, Converter={StaticResource ActiveSessionToLogoConverter}}"
-               FontSize="150" TextColor="#FFFFFF" FontFamily="MijnSaunaFont" />
-
-        <Label Grid.Row="2" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Start"
-               Text="{Binding Temperature}" FontSize="200" TextColor="White" FontFamily="Times New Roman" />
-
-        <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center"
-               Text="{Binding Countdown}" FontSize="70" TextColor="White" FontFamily="Times New Roman" />
-
-        <Label Grid.Row="3" HorizontalOptions="Center" VerticalOptions="End" Margin="25,0,25,0"
-               Text="{Binding MediaInfo}" LineBreakMode="TailTruncation" FontSize="42" TextColor="White" FontFamily="Times New Roman" />
-
-        -->
-    <!--<controls:TemperatureChart Grid.Row="4" Margin="-20,0,-20,-150" 
-                                   Temperatures="{Binding Temperatures}" IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
-                                   MinimumTemperature="0" MaximumTemperature="120"
-                                   ChartBackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}" ChartHotColor="Black" />-->
-    <!--
-
-        <lvc:CartesianChart Grid.Row="4" Grid.RowSpan="2" 
-                            Series="{Binding Temperatures}" 
-                            Padding="0" Margin="-40"
-                            TooltipPosition="Hidden" LegendPosition="Hidden" 
-                            DrawMargin="{Binding DrawMargin}"
-                            XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"
-                            IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"/>
-
-        <Grid Grid.Row="5">
-            -->
-    <!--<controls:BottomControl Color="Black" Padding="60" />-->
-    <!--
-
-            <Grid Background="Yellow">
-                <Ellipse Fill="Black"
-                     Aspect="Uniform"
-                     HorizontalOptions="Fill"
-                     VerticalOptions="Fill" />
-            </Grid>
-
-            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,125,0"
-                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="{Binding SaunaCaption}" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartSaunaCommand}"
-                    FontSize="50" FontFamily="MijnSaunaFont" TextColor="White" />
-
-            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="125,0,0,0"
-                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
-                    Text="{Binding InfraredCaption}" CornerRadius="50" BackgroundColor="#7E6EE1" Command="{Binding QuickStartInfraredCommand}"
-                    FontSize="50" FontFamily="MijnSaunaFont" TextColor="White" />
-
-            <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"
-                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
-                    Text="{Binding CancelCaption}" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
-                    FontSize="50" FontFamily="MijnSaunaFont" TextColor="White" />
-        </Grid>  
-    
-
-    </Grid>-->
 
     <AbsoluteLayout BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}">
 
@@ -149,18 +65,19 @@
                    Text="{Binding MediaInfo}" LineBreakMode="TailTruncation" FontSize="42" TextColor="White" FontFamily="Times New Roman" />
         </Grid>
 
-        <lvc:CartesianChart Grid.Row="4" Grid.RowSpan="2" 
-                            Series="{Binding Temperatures}" 
-                            Padding="0" Margin="-40"
+        <Grid AbsoluteLayout.LayoutBounds=".5,1,1,500"
+              AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+            <lvc:CartesianChart Grid.Row="4" Grid.RowSpan="2" 
+                            Series="{Binding Temperatures}"
                             TooltipPosition="Hidden" LegendPosition="Hidden" 
                             DrawMargin="{Binding DrawMargin}"
-                            XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"
-                            />
+                            XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"/>
+        </Grid>
 
         <Grid AbsoluteLayout.LayoutBounds="0.5,1,1,150"
               AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
 
-            <Rectangle Aspect="Fill" Fill="Black" WidthRequest="100" HeightRequest="100" />
+            <!--<Rectangle Aspect="Fill" Fill="Black" WidthRequest="100" HeightRequest="100" />-->
 
             <Button HeightRequest="100" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,125,0"
                     IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"

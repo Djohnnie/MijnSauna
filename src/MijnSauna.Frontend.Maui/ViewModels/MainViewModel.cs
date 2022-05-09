@@ -304,7 +304,7 @@ public class MainViewModel : ViewModelBase
         {
             new LineSeries<ObservableValue>
             {
-                Values = (new []{20,30,40,50,60,70,80,90}).Select(x=>new ObservableValue(x)),
+                Values = _observableValues,
                 Fill = new SolidColorPaint(new SKColor(220,20,60)),
                 Stroke = new SolidColorPaint(SKColors.Black, 5),
                 GeometrySize = 0,
@@ -453,6 +453,8 @@ public class MainViewModel : ViewModelBase
 
     #region <| Helper Methods |>
 
+    private readonly Random _random = new Random();
+
     private async Task RefreshActiveSession()
     {
         try
@@ -478,17 +480,6 @@ public class MainViewModel : ViewModelBase
             PowerUsage = powerUsage != null
                 ? $"{(powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage):F0} W"
                 : "???";
-
-            _observableValues.Add(new ObservableValue(20));
-            _observableValues.Add(new ObservableValue(25));
-            _observableValues.Add(new ObservableValue(35));
-            _observableValues.Add(new ObservableValue(50));
-            _observableValues.Add(new ObservableValue(60));
-            _observableValues.Add(new ObservableValue(70));
-            _observableValues.Add(new ObservableValue(100));
-            _observableValues.Add(new ObservableValue(110));
-            _observableValues.Add(new ObservableValue(110));
-            _observableValues.Add(new ObservableValue(100));
 
             if (ActiveSession != null)
             {
