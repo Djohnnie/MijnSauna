@@ -4,6 +4,7 @@ using MijnSauna.Common.Client.DependencyInjection;
 using MijnSauna.Frontend.Maui.Blazor.Helpers;
 using MijnSauna.Frontend.Maui.Blazor.Helpers.Interfaces;
 using MijnSauna.Frontend.Maui.Blazor.Services;
+using MijnSauna.Frontend.Maui.Blazor.ViewModels;
 
 #if ANDROID
 using Android.App;
@@ -62,8 +63,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         //builder.Services.AddSingleton<MainViewModel>();
 
-        //builder.Services.AddSingleton<SettingsPage>();
-        //builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddSingleton<SettingsPage>();
+        builder.Services.AddSingleton<SettingsViewModel>();
 
 #if ANDROID
         builder.Services.AddSingleton<IClientConfiguration, AndroidClientConfiguration>();
