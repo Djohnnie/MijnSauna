@@ -25,6 +25,18 @@ html, body, .page {
     text-align: right;
 }
 
+.date-box {
+    background-color: blue;
+    text-align: center;
+    font-size: 3em;
+}
+
+.time-box {
+    background-color: blue;
+    text-align: center;
+    font-size: 10em;
+}
+
 .footer {
     width: 100%;
     bottom: 0%;

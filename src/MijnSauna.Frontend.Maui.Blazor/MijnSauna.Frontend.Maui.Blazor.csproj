@@ -45,6 +45,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="LiveChartsCore.SkiaSharpView.Blazor" Version="2.0.0-beta.220" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\MijnSauna.Common.Client\MijnSauna.Common.Client.csproj" />
 	  <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
 	</ItemGroup>

@@ -1,16 +1,28 @@
 ﻿@page "/"
 
 @using MijnSauna.Frontend.Maui.Blazor.Services
+@using LiveChartsCore
+@using LiveChartsCore.SkiaSharpView
+@using LiveChartsCore.SkiaSharpView.Blazor
 
 @inject IMediaService _mediaService
 
 <div class="flex-container">
-    <div class="temperature-box">@MediaInfo</div>
+    <div class="temperature-box">11 °C </div>
     <div class="power-box">1234 W</div>
 </div>
 
 <div class="flex-container">
-    TEST @MediaInfo
+    <div class="date-box">@DateTime.Now.ToLongDateString()</div>
+</div>
+
+<div class="flex-container">
+    <div class="time-box">@DateTime.Now.ToShortTimeString()</div>
+</div>
+
+<div class="flex-container">
+    <CartesianChart Series="_series">
+    </CartesianChart>
 </div>
 
 <div class="footer">
@@ -23,6 +35,16 @@
 @code
 {
     private string MediaInfo = "";
+
+    private ISeries[] _series = 
+        new ISeries[] 
+        { 
+            new LineSeries<double> 
+            { 
+                Values = new double[] { 2, 1, 3, 5, 3, 4, 6 }, 
+                Fill = null 
+            } 
+        }; 
 
     protected override async Task OnInitializedAsync()
     {
