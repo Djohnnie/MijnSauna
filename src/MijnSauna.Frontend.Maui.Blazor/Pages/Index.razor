@@ -1,12 +1,16 @@
 ﻿@page "/"
 
+@using MijnSauna.Frontend.Maui.Blazor.Services
+
+@inject IMediaService _mediaService
+
 <div class="flex-container">
-    <div class="temperature-box">125 °C</div>
+    <div class="temperature-box">@MediaInfo</div>
     <div class="power-box">1234 W</div>
 </div>
 
 <div class="flex-container">
-    15:09
+    TEST @MediaInfo
 </div>
 
 <div class="footer">
@@ -15,3 +19,17 @@
         <div class="power-box">1234 W</div>
     </div>
 </div>
+
+@code
+{
+    private string MediaInfo = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _mediaService.RegisterCallback(mediaInfo =>
+        {
+            MediaInfo = mediaInfo == null ? string.Empty : $"{mediaInfo.Artist} - {mediaInfo.Track}";
+            StateHasChanged();
+        });
+    }
+}

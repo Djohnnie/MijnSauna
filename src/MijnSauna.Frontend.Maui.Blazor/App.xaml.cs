@@ -1,12 +1,11 @@
-﻿namespace MijnSauna.Frontend.Maui.Blazor
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿namespace MijnSauna.Frontend.Maui.Blazor;
 
-            MainPage = new MainPage();
-        }
+public partial class App : Application
+{
+    public App(MainPage mainPage)
+    {
+        InitializeComponent();
+
+        MainPage = mainPage;
     }
 }
