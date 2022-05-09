@@ -68,9 +68,9 @@ public class MainViewModel : ViewModelBase
 
     #region <| Properties - Temperatures |>
 
-    private ObservableCollection<ISeries> _temperatures;
+    private List<ISeries> _temperatures;
 
-    public ObservableCollection<ISeries> Temperatures
+    public List<ISeries> Temperatures
     {
         get => _temperatures;
         set
@@ -298,16 +298,13 @@ public class MainViewModel : ViewModelBase
         OutsideTemperature = "6 °C";
         Countdown = "10:11";
         PowerUsage = "6099 W";
+        MediaInfo = "Fleshgod Apocalypse - The Forsaking";
 
-        timerHelper.Start(OnPolling, 10000);
-        timerHelper.Start(OnCountdown, 1000);
-        timerHelper.Start(OnProgress, 100);
-
-        Temperatures = new ObservableCollection<ISeries>
+        Temperatures = new List<ISeries>
         {
             new LineSeries<ObservableValue>
             {
-                Values = _observableValues,
+                Values = (new []{20,30,40,50,60,70,80,90}).Select(x=>new ObservableValue(x)),
                 Fill = new SolidColorPaint(new SKColor(220,20,60)),
                 Stroke = new SolidColorPaint(SKColors.Black, 5),
                 GeometrySize = 0,
@@ -315,7 +312,9 @@ public class MainViewModel : ViewModelBase
             }
         };
 
-
+        timerHelper.Start(OnPolling, 10000);
+        timerHelper.Start(OnCountdown, 1000);
+        timerHelper.Start(OnProgress, 100);
 
         mediaService.RegisterCallback(mediaInfo =>
         {
@@ -480,6 +479,17 @@ public class MainViewModel : ViewModelBase
                 ? $"{(powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage):F0} W"
                 : "???";
 
+            _observableValues.Add(new ObservableValue(20));
+            _observableValues.Add(new ObservableValue(25));
+            _observableValues.Add(new ObservableValue(35));
+            _observableValues.Add(new ObservableValue(50));
+            _observableValues.Add(new ObservableValue(60));
+            _observableValues.Add(new ObservableValue(70));
+            _observableValues.Add(new ObservableValue(100));
+            _observableValues.Add(new ObservableValue(110));
+            _observableValues.Add(new ObservableValue(110));
+            _observableValues.Add(new ObservableValue(100));
+
             if (ActiveSession != null)
             {
                 var samples = await _sampleClient.GetSamplesForSession(ActiveSession.SessionId);
@@ -490,7 +500,7 @@ public class MainViewModel : ViewModelBase
 
                     foreach (var sample in samples.Samples)
                     {
-                        _observableValues.Add(new ObservableValue(sample.Temperature*2));
+                        _observableValues.Add(new ObservableValue(sample.Temperature * 2));
                     }
                 }
                 else
@@ -521,7 +531,8 @@ public class MainViewModel : ViewModelBase
         }
         else
         {
-            Countdown = string.Empty;
+            //Countdown = string.Empty;
+            Countdown = "59:33";
         }
 
         return Task.CompletedTask;
