@@ -113,19 +113,22 @@ namespace MijnSauna.Middleware.Processor.Services
                 await _gpioService.TurnInfraredOff();
             }
 
-            // If a sauna session should be active and the infrared boost is not turned on...
-            if (activeSession.IsSauna && temperature < 50 && !await _gpioService.IsInfraredOn())
-            {
-                _logger.LogInformation("Active session requires sauna and can benefit from infrared boost!");
-                await _gpioService.TurnInfraredOn();
-            }
+            // DISABLED INFRARED BOOST
+            //// If a sauna session should be active and the infrared boost is not turned on...
+            //if (activeSession.IsSauna && temperature < 50 && !await _gpioService.IsInfraredOn())
+            //{
+            //    _logger.LogInformation("Active session requires sauna and can benefit from infrared boost!");
+            //    await _gpioService.TurnInfraredOn();
+            //}
 
-            // If a sauna session should be active and the infrared boost is turned on...
-            if (activeSession.IsSauna && temperature >= 50 && await _gpioService.IsInfraredOn())
-            {
-                _logger.LogInformation("Active session requires sauna and should stop boosting from infrared!");
-                await _gpioService.TurnInfraredOff();
-            }
+            //// If a sauna session should be active and the infrared boost is turned on...
+            //if (activeSession.IsSauna && temperature >= 50 && await _gpioService.IsInfraredOn())
+            //{
+            //    _logger.LogInformation("Active session requires sauna and should stop boosting from infrared!");
+            //    await _gpioService.TurnInfraredOff();
+            //}
+            // DISABLED INFRARED BOOST
+
         }
 
         public async Task<bool> KillSession()
