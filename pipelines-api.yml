@@ -82,5 +82,5 @@ steps:
 - script: |
     cd ./src/MijnSauna.Backend.Api
     docker build -t djohnnie/mijnsauna-api .
-    docker login -u $(dockerId) -p $(dockerPwd)
+    docker login -u '$(dockerId)' -p '$(dockerPwd)'
     docker push djohnnie/mijnsauna-api
