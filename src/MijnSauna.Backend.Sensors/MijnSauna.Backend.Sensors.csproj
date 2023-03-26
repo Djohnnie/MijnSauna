@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="RestSharp" Version="107.3.0" />
-    <PackageReference Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="RestSharp" Version="109.0.1" />
+		<PackageReference Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MijnSauna.Backend.Common\MijnSauna.Backend.Common.csproj" />
-    <ProjectReference Include="..\MijnSauna.Common.Protobuf\MijnSauna.Common.Protobuf.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MijnSauna.Backend.Common\MijnSauna.Backend.Common.csproj" />
+		<ProjectReference Include="..\MijnSauna.Common.Protobuf\MijnSauna.Common.Protobuf.csproj" />
+	</ItemGroup>
 
 </Project>

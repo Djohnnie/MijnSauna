@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="11.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MijnSauna.Backend.Model\MijnSauna.Backend.Model.csproj" />
-    <ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MijnSauna.Backend.Model\MijnSauna.Backend.Model.csproj" />
+		<ProjectReference Include="..\MijnSauna.Common.DataTransferObjects\MijnSauna.Common.DataTransferObjects.csproj" />
+	</ItemGroup>
 
 </Project>
