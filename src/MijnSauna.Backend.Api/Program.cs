@@ -23,7 +23,6 @@ namespace MijnSauna.Backend.Api
                     webBuilder.UseKestrel();
                     webBuilder.ConfigureKestrel((context, options) =>
                     {
-                        options.Listen(IPAddress.Any, 5000);
                         if (string.IsNullOrEmpty(certificateFileName) || string.IsNullOrEmpty(certificatePassword))
                         {
                             options.Listen(IPAddress.Any, 5000);
