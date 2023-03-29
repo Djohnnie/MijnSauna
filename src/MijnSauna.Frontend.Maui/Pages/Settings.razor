@@ -1,0 +1,63 @@
+﻿@page "/settings"
+
+@using MijnSauna.Common.Client.Interfaces;
+@using MudBlazor
+
+@inject IClientConfiguration _clientConfiguration
+
+<MudContainer Class="mud-theme-primary">
+
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudCard Elevation="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">App Instellingen</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudStack>
+                    <MudTextField @bind-Value="ServiceBaseUrl" Label="Server URL" Variant="Variant.Outlined"></MudTextField>
+                    <MudTextField @bind-Value="ClientId" Label="Client ID" Variant="Variant.Outlined"></MudTextField>
+
+                    <MudGrid>
+                        <MudItem xs="10" sm="10" md="10">
+                            <MudText>Automatisch openen in sauna-modus</MudText>
+                        </MudItem>
+                        <MudItem xs="2" sm="2" md="2">
+                            <MudSwitch @bind-Checked="@IsSaunaMode" Color="Color.Primary" />
+                        </MudItem>
+                    </MudGrid>
+                </MudStack>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnSave">Opslaan</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudContainer>
+
+</MudContainer>
+
+@code {
+    public string ServiceBaseUrl;
+    public string ClientId;
+    public bool IsSaunaMode;
+
+    protected override Task OnInitializedAsync()
+    {
+        ServiceBaseUrl = _clientConfiguration.ServiceBaseUrl;
+        ClientId = _clientConfiguration.ClientId;
+        IsSaunaMode = _clientConfiguration.IsSaunaMode;
+
+        return Task.CompletedTask;
+    }
+
+    private void OnSave()
+    {
+        _clientConfiguration.ServiceBaseUrl = ServiceBaseUrl;
+        _clientConfiguration.ClientId = ClientId;
+        _clientConfiguration.IsSaunaMode = IsSaunaMode;
+    }
+}

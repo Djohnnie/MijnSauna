@@ -1,0 +1,44 @@
+﻿@using MudBlazor
+@using MudBlazor.Utilities;
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="MijnSaunaTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Color="Color.Primary">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        Mijn Sauna
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="0">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent Class="mud-theme-primary">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code
+{
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    MudTheme MijnSaunaTheme = new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = new MudColor("#6a5acd"),
+                Secondary = new MudColor("#DC143C"),
+                AppbarBackground = Colors.Red.Default,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            }
+        };
+}

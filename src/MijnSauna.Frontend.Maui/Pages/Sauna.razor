@@ -1,0 +1,91 @@
+﻿@page "/sauna"
+
+@using MijnSauna.Common.Client.Interfaces;
+@using MijnSauna.Common.DataTransferObjects.Configuration;
+@using MudBlazor
+
+@inject IConfigurationClient _configurationClient
+
+<MudContainer Class="mud-theme-primary">
+
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudCard Elevation="0">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Sauna Instellingen</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudStack>
+                    <MudGrid>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="SaunaDefaultDuration" Label="Standaard duurtijd voor sauna sessies"
+                                             Variant="Variant.Outlined" Min="5" Max="240" Step="5"></MudNumericField>
+                        </MudItem>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="SaunaDefaultTemperature" Label="Maximum temperatuur voor sauna sessies"
+                                             Variant="Variant.Outlined" Min="25" Max="110" Step="5"></MudNumericField>
+                        </MudItem>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="InfraredDefaultDuration" Label="Standaard duurtijd voor infrarood sessies"
+                                             Variant="Variant.Outlined" Min="5" Max="240" Step="5"></MudNumericField>
+                        </MudItem>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="InfraredDefaultTemperature" Label="Maximum temperatuur voor infrarood sessies"
+                                             Variant="Variant.Outlined" Min="25" Max="60" Step="5"></MudNumericField>
+                        </MudItem>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="SaunaHysteresis" Label="Hysteresis voor sauna sessies"
+                                             Variant="Variant.Outlined" Min="0" Max="10" Step="1"></MudNumericField>
+                        </MudItem>
+                        <MudItem md="6" xs="12">
+                            <MudNumericField @bind-Value="InfraredHysteresis" Label="Hysteresis voor sauna sessies"
+                                             Variant="Variant.Outlined" Min="0" Max="10" Step="1"></MudNumericField>
+                        </MudItem>
+                    </MudGrid>
+                </MudStack>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnSave">Opslaan</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudContainer>
+
+</MudContainer>
+
+@code {
+    int SaunaDefaultDuration;
+    int SaunaDefaultTemperature;
+    int InfraredDefaultDuration;
+    int InfraredDefaultTemperature;
+    int SaunaHysteresis;
+    int InfraredHysteresis;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var configuration = await _configurationClient.GetConfigurationValues();
+        SaunaDefaultDuration = Convert.ToInt32(GetConfigurationValue("SAUNA_DEFAULT_DURATION", configuration.ConfigurationValues));
+        SaunaDefaultTemperature = Convert.ToInt32(GetConfigurationValue("SAUNA_DEFAULT_TEMPERATURE", configuration.ConfigurationValues));
+        InfraredDefaultDuration = Convert.ToInt32(GetConfigurationValue("INFRARED_DEFAULT_DURATION", configuration.ConfigurationValues));
+        InfraredDefaultTemperature = Convert.ToInt32(GetConfigurationValue("INFRARED_DEFAULT_TEMPERATURE", configuration.ConfigurationValues));
+        SaunaHysteresis = Convert.ToInt32(GetConfigurationValue("SAUNA_HYSTERESIS", configuration.ConfigurationValues));
+        InfraredHysteresis = Convert.ToInt32(GetConfigurationValue("INFRARED_HYSTERESIS", configuration.ConfigurationValues));
+    }
+
+    private void OnSave()
+    {
+
+    }
+
+    private string GetConfigurationValue(string key, List<ConfigurationValue> values)
+    {
+        return values.SingleOrDefault(x => x.Name == key)?.Value;
+    }
+}

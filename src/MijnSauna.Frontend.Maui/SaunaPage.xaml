@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:design="clr-namespace:MijnSauna.Frontend.Maui.ViewModels.Design;assembly=MijnSauna.Frontend.Maui"
+             xmlns:converters="clr-namespace:MijnSauna.Frontend.Maui.Converters;assembly=MijnSauna.Frontend.Maui"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             BackgroundColor="{Binding SessionState, Converter={StaticResource SessionStateToColorConverter}}"
+             x:Class="MijnSauna.Frontend.Maui.SaunaPage"
+             x:DataType="design:SaunaDesignViewModel"
+             NavigationPage.HasNavigationBar="false"
+             Shell.NavBarIsVisible="false" Title="SaunaPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SessionStateToColorConverter x:Key="SessionStateToColorConverter"
+                                                     NoneColor="SlateBlue"
+                                                     ActiveColor="Crimson" />
+            <converters:SessionStateToVisibilityConverter x:Key="SessionStateToVisibilityConverter"
+                                                          NoneVisibility="False"
+                                                          ActiveVisibility="True" />
+            <converters:SessionStateToVisibilityConverter x:Key="SessionStateToInvisibilityConverter"
+                                                          NoneVisibility="True"
+                                                          ActiveVisibility="False" />
+            <converters:ActiveSessionToLogoConverter x:Key="ActiveSessionToLogoConverter"
+                                                     Idle="&#xE811;" Sauna="&#xE812;" Infrared="&#xE807;" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" StrokeThickness="0" BackgroundColor="Transparent">
+            <Grid>
+                <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"
+                   Text="{Binding OutsideTemperature}" FontSize="{Binding OutsideTemperatureFontSize}" TextColor="White" />
+                <Label Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="5"
+                   Text="{Binding PowerUsage}" FontSize="{Binding PowerUsageFontSize}" TextColor="White" />
+
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                    <Label Text="{Binding Date}" FontSize="{Binding DateFontSize}" TextColor="White" Margin="5" />
+                    <Label Text="{Binding Time}" FontSize="{Binding TimeFontSize}" TextColor="White" HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" StrokeThickness="0" BackgroundColor="Transparent">
+            <Grid>
+                <Label HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding ActiveSession, Converter={StaticResource ActiveSessionToLogoConverter}}"
+                       FontSize="{Binding SessionStateFontSize}" TextColor="#FFFFFF" FontFamily="MijnSaunaFont" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" StrokeThickness="0" BackgroundColor="Transparent">
+            <Grid>
+                <Label HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding Temperature}" FontSize="{Binding TemperatureFontSize}" TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TemperatureTapCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="3" StrokeThickness="0" BackgroundColor="Transparent">
+            <Grid>
+                <Label HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding Countdown}" FontSize="{Binding CountdownFontSize}" TextColor="White" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="4" StrokeThickness="0" BackgroundColor="Transparent">
+            <Grid>
+                <Label HorizontalOptions="Center" VerticalOptions="Center"
+                       Text="{Binding MediaInfo}" LineBreakMode="TailTruncation" FontSize="{Binding MediaInfoFontSize}" TextColor="White" />
+            </Grid>
+        </Border>
+
+        <lvc:CartesianChart Grid.Row="5" Grid.RowSpan="2" Series="{Binding Series}" TooltipPosition="Hidden"
+                            XAxes="{Binding XAxes}" YAxes="{Binding YAxes}" Margin="-50,0,-50,-10" />
+
+        <Grid Grid.Row="6">
+            <Ellipse Fill="Black" StrokeThickness="0" Margin="{Binding BottomMargin}" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+
+                <Button HeightRequest="{Binding ButtonSize}" WidthRequest="{Binding ButtonSize}" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"
+                            IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
+                            Text="{Binding SaunaCaption}" CornerRadius="100" BackgroundColor="#7E6EE1" Command="{Binding QuickStartSaunaCommand}"
+                            FontSize="{Binding ButtonFontSize}" FontFamily="MijnSaunaFont" TextColor="White" />
+
+                <Button HeightRequest="{Binding ButtonSize}" WidthRequest="{Binding ButtonSize}" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"
+                            IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToInvisibilityConverter}}"
+                            Text="{Binding InfraredCaption}" CornerRadius="100" BackgroundColor="#7E6EE1" Command="{Binding QuickStartInfraredCommand}"
+                            FontSize="{Binding ButtonFontSize}" FontFamily="MijnSaunaFont" TextColor="White" />
+
+            </StackLayout>
+
+            <Button HeightRequest="{Binding ButtonSize}" WidthRequest="{Binding ButtonSize}" VerticalOptions="Center" HorizontalOptions="Center" Margin="10"
+                    IsVisible="{Binding SessionState, Converter={StaticResource SessionStateToVisibilityConverter}}"
+                    Text="{Binding CancelCaption}" CornerRadius="50" BackgroundColor="#F02850" Command="{Binding CancelCommand}"
+                    FontSize="{Binding ButtonFontSize}" FontFamily="MijnSaunaFont" TextColor="White" />
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

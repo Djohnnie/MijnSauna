@@ -7,3 +7,6 @@ sudo systemctl status mijnsauna
 sudo systemctl start mijnsauna.service
 sudo systemctl enable mijnsauna.service
 sudo journalctl -u mijnsauna
+
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s

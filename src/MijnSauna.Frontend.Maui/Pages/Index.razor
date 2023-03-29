@@ -1,0 +1,17 @@
+﻿@page "/"
+@using MudBlazor
+@using MijnSauna.Frontend.Maui
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    
+    <CustomDatePicker PickerVariant="PickerVariant.Static" Date="@(DateTime.Today)" />
+
+</MudContainer>
+
+@code 
+{
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+}
