@@ -28,6 +28,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <PublishTrimmed>False</PublishTrimmed>
+	  <RunAOTCompilation>False</RunAOTCompilation>
 	</PropertyGroup>
 
 	<ItemGroup>
