@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
              xmlns:design="clr-namespace:MijnSauna.Frontend.Maui.ViewModels.Design;assembly=MijnSauna.Frontend.Maui"
              xmlns:converters="clr-namespace:MijnSauna.Frontend.Maui.Converters;assembly=MijnSauna.Frontend.Maui"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
