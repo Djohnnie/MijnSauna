@@ -19,11 +19,11 @@ steps:
     script: 'dotnet workload install maui'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish MijnSauna.Frontend.Maui.csproj for net7.0-android'
+  displayName: 'Publish MijnSauna.Frontend.Maui.csproj for net8.0-android'
   inputs:
     command: 'publish'
     projects: 'src\MijnSauna.Frontend.Maui\MijnSauna.Frontend.Maui.csproj'
-    arguments: '-c Debug -f net7.0-android'
+    arguments: '-c Debug -f net8.0-android'
 
 - task: CopyFiles@2
   displayName: 'Copy signed packages to ArtifactStagingDirectory'

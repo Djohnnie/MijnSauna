@@ -12,7 +12,7 @@ trigger:
     - src/MijnSauna.Common.Protobuf/*
 
 pool:
-  vmImage: 'ubuntu-22.04'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/backend/**/*.sln'
@@ -22,10 +22,10 @@ variables:
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Use .NET SDK (7.0)'
+  displayName: 'Use .NET SDK (8.0)'
   inputs:
     packageType: sdk
-    version: 7.0.202
+    version: 8.0.203
     includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
