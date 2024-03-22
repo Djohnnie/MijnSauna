@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<UserSecretsId>dotnet-MijnSauna.Middleware.Processor-3EFEA4DE-D436-4FE6-BE8A-99C493FC44D5</UserSecretsId>
 		<SelfContained>true</SelfContained>
-		<RuntimeIdentifier>win10-x64;linux-arm</RuntimeIdentifier>
+		<RuntimeIdentifiers>win-x64;linux-arm</RuntimeIdentifiers>
 	</PropertyGroup>
 
 	<ItemGroup>
