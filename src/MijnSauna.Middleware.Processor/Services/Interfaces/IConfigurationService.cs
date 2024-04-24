@@ -4,6 +4,7 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
 {
     public interface IConfigurationService
     {
+        bool IsConfigured { get; set; }
         string TemperatureModulesW1 { get; set; }
         string TemperatureModuleW1 { get; set; }
         int SaunaOutputGpioPin { get; set; }

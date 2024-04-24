@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MijnSauna.Middleware.Processor.Controllers.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
-using MijnSauna.Middleware.Processor.Workers;
 
 namespace MijnSauna.Middleware.Processor.Services
 {
@@ -28,13 +27,13 @@ namespace MijnSauna.Middleware.Processor.Services
             _logService = logService;
         }
 
-        public async Task Initialize()
+        public async Task<bool> Initialize()
         {
             try
             {
                 await _semaphore.WaitAsync();
 
-                if (!_initialized)
+                if (_configurationService.IsConfigured && !_initialized)
                 {
                     _gpioController.OpenPin(_configurationService.SaunaOutputGpioPin, PinMode.Output);
                     await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaOutputGpioPin} opened for output");
@@ -58,6 +57,8 @@ namespace MijnSauna.Middleware.Processor.Services
             {
                 _semaphore.Release();
             }
+
+            return _initialized;
         }
 
         public Task TurnSaunaOn()

@@ -4,7 +4,7 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
 {
     public interface IGpioService
     {
-        Task Initialize();
+        Task<bool> Initialize();
 
         Task TurnSaunaOn();
 

@@ -34,7 +34,7 @@ namespace MijnSauna.Middleware.Processor.Workers
         {
             try
             {
-                await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(35), stoppingToken);
 
                 _logger.LogInformation($"{nameof(SampleWorker)} started!");
 

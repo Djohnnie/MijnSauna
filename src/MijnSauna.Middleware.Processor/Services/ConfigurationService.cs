@@ -20,6 +20,7 @@ namespace MijnSauna.Middleware.Processor.Services
         private const string SAUNA_DEFAULT_TEMPERATURE = "SAUNA_DEFAULT_TEMPERATURE";
         private const string INFRARED_DEFAULT_TEMPERATURE = "INFRARED_DEFAULT_TEMPERATURE";
 
+        public bool IsConfigured { get; set; }
         public string TemperatureModulesW1 { get; set; }
         public string TemperatureModuleW1 { get; set; }
         public int SaunaOutputGpioPin { get; set; }
@@ -47,6 +48,8 @@ namespace MijnSauna.Middleware.Processor.Services
             InfraredDefaultDuration = ToInt32(configuration, INFRARED_DEFAULT_DURATION);
             SaunaDefaultTemperature = ToInt32(configuration, SAUNA_DEFAULT_TEMPERATURE);
             InfraredDefaultTemperature = ToInt32(configuration, INFRARED_DEFAULT_TEMPERATURE);
+
+            IsConfigured = true;
         }
 
         private string ToString(GetConfigurationValuesResponse configuration, string configurationName)

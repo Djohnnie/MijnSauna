@@ -22,8 +22,12 @@ namespace MijnSauna.Middleware.Processor.Services
         {
             _logger.LogInformation("Temperature requested by gRPC!");
 
-            await _gpioService.Initialize();
-            var temperature = await _gpioService.ReadTemperature();
+            var temperature = 0;
+
+            if (await _gpioService.Initialize())
+            {
+                temperature = await _gpioService.ReadTemperature();
+            }
 
             return new GetTemperatureResponse
             {
