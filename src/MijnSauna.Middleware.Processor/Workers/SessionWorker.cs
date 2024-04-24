@@ -69,6 +69,13 @@ namespace MijnSauna.Middleware.Processor.Workers
                     {
                         // This is most likely due to the Task.Delay being cancelled.
                     }
+                    catch (InvalidOperationException ex)
+                    {
+                        _logger.LogError($"{nameof(SessionWorker)} throws Exception: {ex.Message}!");
+                        await _logService.LogException(
+                            "SessionWorker throws Exception!",
+                            "SessionWorker throws Exception!", ex);
+                    }
                 }
 
                 await _gpioService.Shutdown();

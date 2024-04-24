@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MijnSauna.Middleware.Processor.Controllers.Interfaces;
 using MijnSauna.Middleware.Processor.Services.Interfaces;
+using MijnSauna.Middleware.Processor.Workers;
 
 namespace MijnSauna.Middleware.Processor.Services
 {
@@ -36,13 +37,19 @@ namespace MijnSauna.Middleware.Processor.Services
                 if (!_initialized)
                 {
                     _gpioController.OpenPin(_configurationService.SaunaOutputGpioPin, PinMode.Output);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaOutputGpioPin} opened for output");
                     _gpioController.Write(_configurationService.SaunaOutputGpioPin, PinValue.High);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaOutputGpioPin} set to high");
 
                     _gpioController.OpenPin(_configurationService.InfraredOutputGpioPin, PinMode.Output);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredOutputGpioPin} opened for output");
                     _gpioController.Write(_configurationService.InfraredOutputGpioPin, PinValue.High);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredOutputGpioPin} set to high");
 
                     _gpioController.OpenPin(_configurationService.SaunaInputGpioPin, PinMode.Input);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaInputGpioPin} opened for input");
                     _gpioController.OpenPin(_configurationService.InfraredInputGpioPin, PinMode.Input);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredInputGpioPin} opened for input");
 
                     _initialized = true;
                 }
