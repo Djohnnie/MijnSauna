@@ -2,6 +2,7 @@
 {
     public class GetPowerUsageResponse
     {
-        public int PowerUsage { get; set; }
+        public decimal PowerUsage { get; set; }
+        public int BatteryPercentage { get; set; }
     }
 }

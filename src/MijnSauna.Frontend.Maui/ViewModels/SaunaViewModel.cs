@@ -695,7 +695,7 @@ public class SaunaViewModel : ViewModelBase
         var outsideTemperature = await _sensorClient.GetOutsideTemperature();
         OutsideTemperature = outsideTemperature != null ? $"{outsideTemperature.Temperature} °C" : "???";
         var powerUsage = await _sensorClient.GetSaunaPowerUsage();
-        PowerUsage = powerUsage != null ? $"{(powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage):F0} W" : "???";
+        PowerUsage = powerUsage != null ? $"{powerUsage.SaunaPowerUsage + powerUsage.InfraredPowerUsage:F1} kW ({powerUsage.BatteryPercentage} %)" : "???";
 
         if (ActiveSession != null)
         {

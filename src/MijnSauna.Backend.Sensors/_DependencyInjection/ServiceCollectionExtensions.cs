@@ -2,17 +2,17 @@
 using MijnSauna.Backend.Sensors.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 
-namespace MijnSauna.Backend.Sensors.DependencyInjection
+namespace MijnSauna.Backend.Sensors.DependencyInjection;
+
+[ExcludeFromCodeCoverage]
+public static class ServiceCollectionExtensions
 {
-    [ExcludeFromCodeCoverage]
-    public static class ServiceCollectionExtensions
+    public static void ConfigureSensors(this IServiceCollection serviceCollection)
     {
-        public static void ConfigureSensors(this IServiceCollection serviceCollection)
-        {
-            serviceCollection.AddTransient<ISmappeeSensor, SmappeeSensor>();
-            serviceCollection.AddTransient<IOpenWeatherMapSensor, OpenWeatherMapSensor>();
-            serviceCollection.AddTransient<ISaunaSensor, SaunaSensor>();
-            serviceCollection.AddTransient<IShellySensor, ShellySensor>();
-        }
+        serviceCollection.AddTransient<ISmappeeSensor, SmappeeSensor>();
+        serviceCollection.AddTransient<IOpenWeatherMapSensor, OpenWeatherMapSensor>();
+        serviceCollection.AddTransient<ISaunaSensor, SaunaSensor>();
+        serviceCollection.AddTransient<IShellySensor, ShellySensor>();
+        serviceCollection.AddTransient<ISolarSensor, SolarSensor>();
     }
 }
