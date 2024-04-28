@@ -19,6 +19,12 @@ steps:
     script: 'dotnet workload install maui'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages for MijnSauna.Frontend.Maui.csproj'
+  inputs:
+    command: 'restore'
+    projects: 'src\MijnSauna.Frontend.Maui\MijnSauna.Frontend.Maui.csproj'
+
+- task: DotNetCoreCLI@2
   displayName: 'Publish MijnSauna.Frontend.Maui.csproj for net8.0-android'
   inputs:
     command: 'publish'

@@ -48,8 +48,9 @@
 	<ItemGroup>
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc2" />
 		<PackageReference Include="MudBlazor" Version="6.19.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.21" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
@@ -69,12 +70,12 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Update="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.14" />
+		<PackageReference Update="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.21" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.14" />
+		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.21" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
+		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
 	</ItemGroup>
 </Project>
