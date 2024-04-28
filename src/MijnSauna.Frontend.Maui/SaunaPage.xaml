@@ -29,7 +29,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="6*" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="6*" />
             <RowDefinition Height="3*" />
@@ -39,17 +39,18 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" StrokeThickness="0" BackgroundColor="Transparent">
-            <Grid>
-                <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"
-                   Text="{Binding OutsideTemperature}" FontSize="{Binding OutsideTemperatureFontSize}" TextColor="White" />
-                <Label Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="5"
-                   Text="{Binding PowerUsage}" FontSize="{Binding PowerUsageFontSize}" TextColor="White" />
-
+            <StackLayout VerticalOptions="Start">
+                <Grid>
+                    <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="5"
+                           Text="{Binding OutsideTemperature}" FontSize="{Binding OutsideTemperatureFontSize}" TextColor="White" />
+                    <Label Grid.Row="0" HorizontalOptions="End" VerticalOptions="Start" Margin="5"
+                           Text="{Binding PowerUsage}" FontSize="{Binding PowerUsageFontSize}" TextColor="White" />
+                </Grid>
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                     <Label Text="{Binding Date}" FontSize="{Binding DateFontSize}" TextColor="White" Margin="5" />
                     <Label Text="{Binding Time}" FontSize="{Binding TimeFontSize}" TextColor="White" HorizontalTextAlignment="Center" />
                 </StackLayout>
-            </Grid>
+            </StackLayout>
         </Border>
 
         <Border Grid.Row="1" StrokeThickness="0" BackgroundColor="Transparent">

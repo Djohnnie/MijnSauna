@@ -687,7 +687,7 @@ public class SaunaViewModel : ViewModelBase
             Temperatures = new List<int>();
         }
 
-        Date = $"{currentDateAndTime:dddd d MMMM yyyy}";
+        Date = $"{currentDateAndTime:dddd d MMMM}";
         Time = $"{currentDateAndTime:HH:mm}";
 
         var temperature = await _sensorClient.GetSaunaTemperature();
