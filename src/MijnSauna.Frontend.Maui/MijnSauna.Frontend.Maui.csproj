@@ -16,9 +16,6 @@
 		<!-- Versions -->
 		<ApplicationDisplayVersion>2.0</ApplicationDisplayVersion>
 		<ApplicationVersion>2</ApplicationVersion>
-		<PublishTrimmed>False</PublishTrimmed>
-		<RunAOTCompilation>False</RunAOTCompilation>
-		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
