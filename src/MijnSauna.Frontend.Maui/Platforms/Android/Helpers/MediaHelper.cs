@@ -3,6 +3,7 @@ using MijnSauna.Frontend.Maui.Helpers;
 
 namespace MijnSauna.Frontend.Maui.Platforms.Android.Helpers;
 
+[BroadcastReceiver(Enabled = true, Exported = true)]
 public class MediaHelper : BroadcastReceiver, IMediaHelper
 {
     private Action<MediaInfo> _callback;
