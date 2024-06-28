@@ -51,9 +51,13 @@ public class ShowerHeatingWorker : BackgroundService
                     if (temperature < _configurationService.ShowerHeatingThresholdTemperature)
                     {
                         await _gpioService.TurnShowerHeatingOn();
-                        showerHeatingIsOn = true;
-                        _logger.LogInformation("Shower heating turned ON.");
-                        await _logService.LogInformation(nameof(ShowerHeatingWorker), "Shower heating turned ON.");
+
+                        if (!showerHeatingIsOn)
+                        {
+                            showerHeatingIsOn = true;
+                            _logger.LogInformation("Shower heating turned ON.");
+                            await _logService.LogInformation(nameof(ShowerHeatingWorker), "Shower heating turned ON.");
+                        }
                     }
                     else
                     {
