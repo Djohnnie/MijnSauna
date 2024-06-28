@@ -20,6 +20,10 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
 
         Task<int> ReadTemperature();
 
+        Task TurnShowerHeatingOn();
+
+        Task TurnShowerHeatingOff();
+
         Task Shutdown();
     }
 }

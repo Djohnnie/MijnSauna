@@ -11,6 +11,8 @@ namespace MijnSauna.Middleware.Processor.Services.Interfaces
         int SaunaInputGpioPin { get; set; }
         int InfraredOutputGpioPin { get; set; }
         int InfraredInputGpioPin { get; set; }
+        int ShowerHeatingOutputGpioPin { get; set; }
+        int ShowerHeatingThresholdTemperature { get; set; }
         int SaunaHysteresis { get; set; }
         int InfraredHysteresis { get; set; }
         int SaunaDefaultDuration { get; set; }

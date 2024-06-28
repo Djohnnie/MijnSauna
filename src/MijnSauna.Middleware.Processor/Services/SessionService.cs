@@ -128,7 +128,6 @@ namespace MijnSauna.Middleware.Processor.Services
             //    await _gpioService.TurnInfraredOff();
             //}
             // DISABLED INFRARED BOOST
-
         }
 
         public async Task<bool> KillSession()

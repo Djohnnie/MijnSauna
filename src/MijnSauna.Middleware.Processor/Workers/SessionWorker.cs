@@ -35,7 +35,9 @@ namespace MijnSauna.Middleware.Processor.Workers
             {
                 await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
 
-                _logger.LogInformation($"{nameof(SessionWorker)} started!");
+                var log = $"{nameof(SessionWorker)} started!";
+                _logger.LogInformation(log);
+                await _logService.LogInformation(nameof(SessionWorker), log);
 
                 await _gpioService.Initialize();
                 _logger.LogInformation("GPIO initialized.");
@@ -72,9 +74,7 @@ namespace MijnSauna.Middleware.Processor.Workers
                     catch (InvalidOperationException ex)
                     {
                         _logger.LogError($"{nameof(SessionWorker)} throws Exception: {ex.Message}!");
-                        await _logService.LogException(
-                            "SessionWorker throws Exception!",
-                            "SessionWorker throws Exception!", ex);
+                        await _logService.LogException(nameof(SessionWorker), $"{nameof(SessionWorker)} throws Exception!", ex);
                     }
                 }
 
@@ -86,9 +86,7 @@ namespace MijnSauna.Middleware.Processor.Workers
             catch (Exception ex)
             {
                 _logger.LogError($"{nameof(SessionWorker)} throws Exception: {ex.Message}!");
-                await _logService.LogException(
-                    "SessionWorker throws Exception!",
-                    "SessionWorker throws Exception!", ex);
+                await _logService.LogException(nameof(SessionWorker), $"{nameof(SessionWorker)} throws Exception!", ex);
             }
         }
     }

@@ -36,19 +36,24 @@ namespace MijnSauna.Middleware.Processor.Services
                 if (_configurationService.IsConfigured && !_initialized)
                 {
                     _gpioController.OpenPin(_configurationService.SaunaOutputGpioPin, PinMode.Output);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaOutputGpioPin} opened for output");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.SaunaOutputGpioPin)} {_configurationService.SaunaOutputGpioPin} opened for output");
                     _gpioController.Write(_configurationService.SaunaOutputGpioPin, PinValue.High);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaOutputGpioPin} set to high");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.SaunaOutputGpioPin)} {_configurationService.SaunaOutputGpioPin} set to high");
 
                     _gpioController.OpenPin(_configurationService.InfraredOutputGpioPin, PinMode.Output);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredOutputGpioPin} opened for output");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.InfraredOutputGpioPin)} {_configurationService.InfraredOutputGpioPin} opened for output");
                     _gpioController.Write(_configurationService.InfraredOutputGpioPin, PinValue.High);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredOutputGpioPin} set to high");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.InfraredOutputGpioPin)} {_configurationService.InfraredOutputGpioPin} set to high");
 
                     _gpioController.OpenPin(_configurationService.SaunaInputGpioPin, PinMode.Input);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.SaunaInputGpioPin} opened for input");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.SaunaInputGpioPin)} {_configurationService.SaunaInputGpioPin} opened for input");
                     _gpioController.OpenPin(_configurationService.InfraredInputGpioPin, PinMode.Input);
-                    await _logService.LogInformation("GpioService.Initialize", $"PIN {_configurationService.InfraredInputGpioPin} opened for input");
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.InfraredInputGpioPin)} {_configurationService.InfraredInputGpioPin} opened for input");
+
+                    _gpioController.OpenPin(_configurationService.ShowerHeatingOutputGpioPin, PinMode.Output);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.ShowerHeatingOutputGpioPin)} {_configurationService.ShowerHeatingOutputGpioPin} opened for output");
+                    _gpioController.Write(_configurationService.ShowerHeatingOutputGpioPin, PinValue.High);
+                    await _logService.LogInformation("GpioService.Initialize", $"PIN {nameof(_configurationService.ShowerHeatingOutputGpioPin)} {_configurationService.ShowerHeatingOutputGpioPin} set to high");
 
                     _initialized = true;
                 }
@@ -142,6 +147,16 @@ namespace MijnSauna.Middleware.Processor.Services
             return temperature;
         }
 
+        public Task TurnShowerHeatingOn()
+        {
+            return Write(_configurationService.ShowerHeatingOutputGpioPin, PinValue.Low);
+        }
+
+        public Task TurnShowerHeatingOff()
+        {
+            return Write(_configurationService.ShowerHeatingOutputGpioPin, PinValue.High);
+        }
+
         public async Task Shutdown()
         {
             try
@@ -154,6 +169,7 @@ namespace MijnSauna.Middleware.Processor.Services
                     _gpioController.ClosePin(_configurationService.InfraredOutputGpioPin);
                     _gpioController.ClosePin(_configurationService.SaunaInputGpioPin);
                     _gpioController.ClosePin(_configurationService.InfraredInputGpioPin);
+                    _gpioController.ClosePin(_configurationService.ShowerHeatingOutputGpioPin);
 
                     _initialized = false;
                 }
