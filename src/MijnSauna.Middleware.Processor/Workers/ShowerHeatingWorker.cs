@@ -29,7 +29,7 @@ public class ShowerHeatingWorker : BackgroundService
     {
         try
         {
-            await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
 
             var log = $"{nameof(ShowerHeatingWorker)} started!";
             _logger.LogInformation(log);

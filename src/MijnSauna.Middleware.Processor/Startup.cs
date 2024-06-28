@@ -18,6 +18,7 @@ namespace MijnSauna.Middleware.Processor
             services.AddHostedService<ConfigurationWorker>();
             services.AddHostedService<SessionWorker>();
             services.AddHostedService<SampleWorker>();
+            services.AddHostedService<ShowerHeatingWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
