@@ -46,9 +46,10 @@ public class ShowerHeatingWorker : BackgroundService
                 {
                     await Task.Delay(TimeSpan.FromMinutes(15), stoppingToken);
 
+                    var threshold = _configurationService.ShowerHeatingThresholdTemperature;
                     var temperature = await _gpioService.ReadTemperature();
 
-                    if (temperature < _configurationService.ShowerHeatingThresholdTemperature)
+                    if (temperature < threshold)
                     {
                         await _gpioService.TurnShowerHeatingOn();
 
@@ -56,7 +57,7 @@ public class ShowerHeatingWorker : BackgroundService
                         {
                             showerHeatingIsOn = true;
                             _logger.LogInformation("Shower heating turned ON.");
-                            await _logService.LogInformation(nameof(ShowerHeatingWorker), "Shower heating turned ON.");
+                            await _logService.LogInformation(nameof(ShowerHeatingWorker), $"Shower heating turned ON ({temperature} < {threshold}).");
                         }
                     }
                     else
@@ -66,7 +67,7 @@ public class ShowerHeatingWorker : BackgroundService
                         if (showerHeatingIsOn)
                         {
                             _logger.LogInformation("Shower heating turned OFF.");
-                            await _logService.LogInformation(nameof(ShowerHeatingWorker), "Shower heating turned OFF.");
+                            await _logService.LogInformation(nameof(ShowerHeatingWorker), $"Shower heating turned OFF ({temperature} > {threshold}).");
                         }
 
                         showerHeatingIsOn = false;
