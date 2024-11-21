@@ -52,22 +52,24 @@ public class ShowerHeatingWorker : BackgroundService
                     if (temperature < threshold)
                     {
                         await _gpioService.TurnShowerHeatingOn();
+                        var logLine = $"Shower heating turned ON ({temperature}°C < {threshold}°C).";
 
                         if (!showerHeatingIsOn)
                         {
                             showerHeatingIsOn = true;
-                            _logger.LogInformation("Shower heating turned ON.");
-                            await _logService.LogInformation(nameof(ShowerHeatingWorker), $"Shower heating turned ON ({temperature} < {threshold}).");
+                            _logger.LogInformation(logLine);
+                            await _logService.LogInformation(nameof(ShowerHeatingWorker), logLine);
                         }
                     }
                     else
                     {
                         await _gpioService.TurnShowerHeatingOff();
+                        var logLine = $"Shower heating turned OFF ({temperature}°C > {threshold}°C).";
 
                         if (showerHeatingIsOn)
                         {
-                            _logger.LogInformation("Shower heating turned OFF.");
-                            await _logService.LogInformation(nameof(ShowerHeatingWorker), $"Shower heating turned OFF ({temperature} > {threshold}).");
+                            _logger.LogInformation(logLine);
+                            await _logService.LogInformation(nameof(ShowerHeatingWorker), logLine);
                         }
 
                         showerHeatingIsOn = false;
