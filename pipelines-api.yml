@@ -28,10 +28,10 @@ variables:
 steps:
 
 - task: UseDotNet@2
-  displayName: 'Use .NET SDK (8.0)'
+  displayName: 'Use .NET SDK (9.0)'
   inputs:
     packageType: sdk
-    version: 8.0.203
+    version: 9.0.100
     includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
@@ -61,7 +61,7 @@ steps:
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[System.*]*%2c[xunit.*]*'
 
 - script: |
-    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.3.9
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 5.4.1
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/src/MijnSauna.Backend.Tests/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/src/MijnSauna.Backend.Tests/results" "-reporttypes:HTMLInline;HTMLChart"
 - task: PublishTestResults@2
   displayName: Publish test results

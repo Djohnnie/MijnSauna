@@ -1,5 +1,6 @@
 ﻿using MijnSauna.Common.Client.Interfaces;
 using static System.Net.WebRequestMethods;
+using Microsoft.Maui.Storage;
 
 namespace MijnSauna.Frontend.Maui.Configuration;
 
