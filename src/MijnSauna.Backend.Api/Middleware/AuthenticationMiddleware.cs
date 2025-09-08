@@ -31,6 +31,12 @@ namespace MijnSauna.Backend.Api.Middleware
                 return;
             }
 
+            if (context.Request.Path.HasValue && context.Request.Path.Value.Contains("mcp"))
+            {
+                await _next.Invoke(context);
+                return;
+            }
+
             string authHeader = context.Request.Headers["ClientId"];
             if (authHeader != null)
             {
