@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace MijnSauna.Backend.Api.Swagger
         {
             if (operation.Parameters == null)
             {
-                operation.Parameters = new List<OpenApiParameter>();
+                operation.Parameters = new List<IOpenApiParameter>();
             }
 
             operation.Parameters.Add(new OpenApiParameter
